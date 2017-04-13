@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using Tamagochi.Common.GameEventArgs;
 
 namespace Tamagochi.Abstract
 {
@@ -22,6 +21,8 @@ namespace Tamagochi.Abstract
 
         void UpdateHealth(float healthDifference);
 
-        void OnGameHourChanged(object sender, EventArgs e);
+        void OnGameHourChanged(object sender, HourChangedEventArgs e);
+
+        void OnGameYearChanged(object sender, YearChangedEventArgs e);
     }
 }

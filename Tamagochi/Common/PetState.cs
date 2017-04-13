@@ -5,5 +5,12 @@
         public float Mood { get; }
         public float Satiety { get; }
         public float AviaryCleannessRate { get; }
+
+        public PetState(float mood, float satiety, float cleannessRate)
+        {
+            Mood = mood;
+            Satiety = satiety;
+            AviaryCleannessRate = cleannessRate;
+        }
     }
 }

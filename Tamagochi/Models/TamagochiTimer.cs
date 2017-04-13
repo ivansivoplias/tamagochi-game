@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Timers;
 using Tamagochi.Abstract;
+using Tamagochi.Common.GameEventArgs;
 
 namespace Tamagochi.Models
 {
@@ -8,16 +9,63 @@ namespace Tamagochi.Models
     {
         private Timer _timer;
         private TimeSpan _currentTime;
-        private DateTime _date;
+        private int _year;
+        private int _day;
+        private int _month;
+        private int _hour;
         private static readonly Lazy<TamagochiTimer> _instance = new Lazy<TamagochiTimer>(() => new TamagochiTimer(), true);
 
-        public override int Years => _date.Year;
+        public override int Year
+        {
+            get { return _year; }
+            protected set
+            {
+                _year = value;
+                if (YearChanged != null)
+                {
+                    YearChanged(this, new YearChangedEventArgs(_year));
+                }
+            }
+        }
 
-        public override int Months => _date.Month;
+        public override int Month
+        {
+            get { return _month; }
+            protected set
+            {
+                _month = value;
+                if (MonthChanged != null)
+                {
+                    MonthChanged(this, new MonthChangedEventArgs(_month));
+                }
+            }
+        }
 
-        public override int Days => _date.Day;
+        public override int Day
+        {
+            get { return _day; }
+            protected set
+            {
+                _day = value;
+                if (DayChanged != null)
+                {
+                    DayChanged(this, new DayChangedEventArgs(_day));
+                }
+            }
+        }
 
-        public override int Hours => _date.Hour;
+        public override int Hour
+        {
+            get { return _hour; }
+            protected set
+            {
+                _hour = value;
+                if (HourChanged != null)
+                {
+                    HourChanged(this, new HourChangedEventArgs(_hour, _currentTime));
+                }
+            }
+        }
 
         private TamagochiTimer()
         {
@@ -45,7 +93,11 @@ namespace Tamagochi.Models
         public override void InitializeTimer(TimeSpan time)
         {
             _currentTime = time;
-            _date = DateFromTimeSpan(_currentTime);
+            DateTime date = DateFromTimeSpan(_currentTime);
+            _day = date.Day;
+            _hour = date.Hour;
+            _month = date.Month;
+            _year = date.Year;
         }
 
         private static double GetInterval()
@@ -62,8 +114,25 @@ namespace Tamagochi.Models
         private void RealMinuteChanged(object sender, ElapsedEventArgs e)
         {
             _currentTime.Add(TimeSpan.FromHours(1));
-            _date = DateFromTimeSpan(_currentTime);
+            DateTime date = DateFromTimeSpan(_currentTime);
             _timer.Interval = GetInterval();
+
+            Hour++;
+            if (date.Day > Day)
+            {
+                Day = date.Day;
+            }
+
+            if (date.Month > Month)
+            {
+                Month = date.Month;
+            }
+
+            if (date.Year > Year)
+            {
+                Year = date.Year;
+            }
+
             StartTimer();
         }
     }

@@ -1,19 +1,25 @@
 ﻿using System;
-using System.ComponentModel;
+using Tamagochi.Common.GameEventArgs;
 
 namespace Tamagochi.Abstract
 {
     public abstract class AbstractTamagochiTimer
     {
-        public abstract int Years { get; }
+        public abstract int Year { get; protected set; }
 
-        public abstract int Months { get; }
+        public abstract int Month { get; protected set; }
 
-        public abstract int Days { get; }
+        public abstract int Day { get; protected set; }
 
-        public abstract int Hours { get; }
+        public abstract int Hour { get; protected set; }
 
-        public EventHandler<EventArgs> HourChanged;
+        public EventHandler<HourChangedEventArgs> HourChanged;
+
+        public EventHandler<DayChangedEventArgs> DayChanged;
+
+        public EventHandler<YearChangedEventArgs> YearChanged;
+
+        public EventHandler<MonthChangedEventArgs> MonthChanged;
 
         public abstract void InitializeTimer(TimeSpan time);
 

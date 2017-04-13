@@ -1,6 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
 using Tamagochi.Abstract;
+using Tamagochi.Common;
+using Tamagochi.Common.GameEventArgs;
 
 namespace Tamagochi.Models
 {
@@ -55,9 +56,22 @@ namespace Tamagochi.Models
             throw new NotImplementedException();
         }
 
-        public void OnGameHourChanged(object sender, EventArgs e)
+        public void OnGameHourChanged(object sender, HourChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            PetState state = new PetState(Mood, Satiety, Aviary.CleannessRate);
+            PetUpdateParams param = PetUpdateUtil.CreateFromPetState(state);
+            UpdatePetFromParams(param);
+        }
+
+        public void OnGameYearChanged(object sender, YearChangedEventArgs e)
+        {
+            IncreaseAge(1);
+        }
+
+        private void UpdatePetFromParams(PetUpdateParams parameter)
+        {
+            UpdateHealth(parameter.HealthDifference);
+            UpdateMood(parameter.MoodDifference);
         }
     }
 }

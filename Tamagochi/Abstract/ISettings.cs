@@ -4,7 +4,7 @@ namespace Tamagochi.Abstract
 {
     public interface ISettings
     {
-        bool IsFirstRun { get; }
+        bool IsFirstRun { get; set; }
 
         IPet Pet { get; set; }
 
