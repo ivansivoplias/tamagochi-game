@@ -6,12 +6,6 @@ namespace Tamagochi.Abstract
     {
         bool IsFirstRun { get; set; }
 
-        IPet Pet { get; set; }
-
-        TimeSpan GameTime { get; set; }
-
-        string[] PetImages { get; set; }
-
         void SaveSettings();
     }
 }

@@ -54,8 +54,7 @@ namespace Tamagochi.Models
                 throw new ArgumentException("Invalid pet type. Image does not exist for pet type None.");
             else
             {
-                int index = (int)type - 1;
-                path = _settings.PetImages[index];
+                //TODO: write this stuff
             }
             return path;
         }
