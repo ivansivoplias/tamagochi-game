@@ -59,10 +59,6 @@
     <Compile Include="Common\GameEventArgs\HourChangedEventArgs.cs" />
     <Compile Include="Common\GameEventArgs\MonthChangedEventArgs.cs" />
     <Compile Include="Common\GameEventArgs\YearChangedEventArgs.cs" />
-    <Compile Include="Common\GameExceptions\HealthOnCriticalLevelException.cs" />
-    <Compile Include="Common\GameExceptions\MoodOnCriticalLevelException.cs" />
-    <Compile Include="Common\GameExceptions\PetIsDeadException.cs" />
-    <Compile Include="Common\GameExceptions\SatietyOnCriticalLevelException.cs" />
     <Compile Include="Common\TamagochiSettings.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
@@ -120,6 +116,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\GameExceptions\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

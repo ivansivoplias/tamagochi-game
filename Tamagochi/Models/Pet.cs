@@ -8,32 +8,57 @@ namespace Tamagochi.Models
     public class Pet : IPet
     {
         private int _age;
-        private readonly int _lifeDuration;
+        private int _lifeDuration;
         private float _moodLevel;
         private float _satietyLevel;
         private float _healthLevel;
 
-        public int Age => _age;
+        public event EventHandler<EventArgs> HealthCriticalLevelCrossed;
 
-        public int LifeDuration => _lifeDuration;
+        public event EventHandler<EventArgs> MoodCriticalLevelCrossed;
 
-        public float Mood => _moodLevel;
+        public event EventHandler<EventArgs> SatietyCriticalLevelCrossed;
 
-        public float Satiety => _satietyLevel;
+        public event EventHandler<EventArgs> PetDying;
 
-        public float Health => _healthLevel;
+        public int Age
+        {
+            get { return _age; }
+            set { SetAge(value); }
+        }
+
+        public int LifeDuration
+        {
+            get { return _lifeDuration; }
+        }
+
+        public float Mood
+        {
+            get { return _moodLevel; }
+            set { SetMood(value); }
+        }
+
+        public float Satiety
+        {
+            get { return _moodLevel; }
+            set { SetSatiety(value); }
+        }
+
+        public float Health
+        {
+            get { return _moodLevel; }
+            set { SetHealth(value); }
+        }
 
         public string ImagePath { get; set; }
         public PetType PetType { get; set; }
         public IAviary Aviary { get; set; }
 
-        public Pet(int age, int lifeDuration, float moodLevel, float satietyLevel, float healthLevel)
+        public Pet(int lifeDuration)
         {
-            _age = age;
             _lifeDuration = lifeDuration;
-            _moodLevel = moodLevel;
-            _satietyLevel = satietyLevel;
-            _healthLevel = healthLevel;
+            _age = 0;
+            _moodLevel = _satietyLevel = _healthLevel = 100;
         }
 
         public void ChangeSatiety(float satietyDifference)
@@ -72,6 +97,66 @@ namespace Tamagochi.Models
         {
             UpdateHealth(parameter.HealthDifference);
             UpdateMood(parameter.MoodDifference);
+        }
+
+        private void SetAge(int newAge)
+        {
+            if (newAge > _age)
+            {
+                _age = newAge;
+            }
+
+            if (_age == _lifeDuration && PetDying != null)
+            {
+                PetDying(this, new EventArgs());
+            }
+        }
+
+        private void SetSatiety(float newSatiety)
+        {
+            if (CheckIfNumberIsPercent(newSatiety))
+            {
+                _satietyLevel = newSatiety;
+                var limit = GameConstants.CriticalLimit / 100;
+
+                if (_satietyLevel < limit && SatietyCriticalLevelCrossed != null)
+                {
+                    SatietyCriticalLevelCrossed(this, new EventArgs());
+                }
+            }
+        }
+
+        private bool CheckIfNumberIsPercent(float value)
+        {
+            return value >= 0 && value <= 100;
+        }
+
+        private void SetHealth(float newHealth)
+        {
+            if (CheckIfNumberIsPercent(newHealth))
+            {
+                _healthLevel = newHealth;
+                var limit = GameConstants.CriticalLimit / 100;
+
+                if (_healthLevel < limit && HealthCriticalLevelCrossed != null)
+                {
+                    HealthCriticalLevelCrossed(this, new EventArgs());
+                }
+            }
+        }
+
+        private void SetMood(float newMood)
+        {
+            if (CheckIfNumberIsPercent(newMood))
+            {
+                _moodLevel = newMood;
+                var limit = GameConstants.CriticalLimit / 100;
+
+                if (_moodLevel < limit && MoodCriticalLevelCrossed != null)
+                {
+                    MoodCriticalLevelCrossed(this, new EventArgs());
+                }
+            }
         }
     }
 }

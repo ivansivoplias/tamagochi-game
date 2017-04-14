@@ -1,17 +1,26 @@
-﻿using Tamagochi.Common.GameEventArgs;
+﻿using System;
+using Tamagochi.Common.GameEventArgs;
 
 namespace Tamagochi.Abstract
 {
     public interface IPet
     {
-        int Age { get; }
+        int Age { get; set; }
         int LifeDuration { get; }
-        float Mood { get; }
-        float Satiety { get; }
-        float Health { get; }
+        float Mood { get; set; }
+        float Satiety { get; set; }
+        float Health { get; set; }
         string ImagePath { get; set; }
         PetType PetType { get; set; }
         IAviary Aviary { get; set; }
+
+        event EventHandler<EventArgs> HealthCriticalLevelCrossed;
+
+        event EventHandler<EventArgs> MoodCriticalLevelCrossed;
+
+        event EventHandler<EventArgs> SatietyCriticalLevelCrossed;
+
+        event EventHandler<EventArgs> PetDying;
 
         void IncreaseAge(int amount);
 

@@ -21,10 +21,7 @@ namespace Tamagochi.Models
             protected set
             {
                 _year = value;
-                if (YearChanged != null)
-                {
-                    YearChanged(this, new YearChangedEventArgs(_year));
-                }
+                YearChanged?.Invoke(this, new YearChangedEventArgs(_year));
             }
         }
 
@@ -34,10 +31,7 @@ namespace Tamagochi.Models
             protected set
             {
                 _month = value;
-                if (MonthChanged != null)
-                {
-                    MonthChanged(this, new MonthChangedEventArgs(_month));
-                }
+                MonthChanged?.Invoke(this, new MonthChangedEventArgs(_month));
             }
         }
 
@@ -47,10 +41,7 @@ namespace Tamagochi.Models
             protected set
             {
                 _day = value;
-                if (DayChanged != null)
-                {
-                    DayChanged(this, new DayChangedEventArgs(_day));
-                }
+                DayChanged?.Invoke(this, new DayChangedEventArgs(_day));
             }
         }
 
@@ -60,10 +51,7 @@ namespace Tamagochi.Models
             protected set
             {
                 _hour = value;
-                if (HourChanged != null)
-                {
-                    HourChanged(this, new HourChangedEventArgs(_hour, _currentTime));
-                }
+                HourChanged?.Invoke(this, new HourChangedEventArgs(_hour, _currentTime));
             }
         }
 

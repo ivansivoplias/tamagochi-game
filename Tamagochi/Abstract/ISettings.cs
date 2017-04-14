@@ -10,6 +10,8 @@ namespace Tamagochi.Abstract
 
         TimeSpan GameTime { get; set; }
 
+        string[] PetImages { get; set; }
+
         void SaveSettings();
     }
 }

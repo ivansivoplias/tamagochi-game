@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Configuration;
 using Tamagochi.Abstract;
+using System.Linq;
+using System.Xml;
 
 namespace Tamagochi.Common
 {
@@ -11,6 +14,7 @@ namespace Tamagochi.Common
         private string _isFirstRunPropName;
         private string _petPropName;
         private string _gameTimePropName;
+        private string _petImagesPropName;
 
         public bool IsFirstRun
         {
@@ -30,12 +34,23 @@ namespace Tamagochi.Common
             set { SetValue(_gameTimePropName, value); }
         }
 
-        public TamagochiSettings(ApplicationSettingsBase settings, string isFirstRun, string pet, string gameTime)
+        public string[] PetImages
+        {
+            get
+            {
+                return GetValue<string>(_petImagesPropName)
+                  .Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            }
+            set { SetValue(_petImagesPropName, string.Join("\n", value)); }
+        }
+
+        public TamagochiSettings(ApplicationSettingsBase settings, string isFirstRun, string pet, string gameTime, string petImages)
         {
             _settings = settings;
             _petPropName = pet;
             _gameTimePropName = gameTime;
             _isFirstRunPropName = isFirstRun;
+            _petImagesPropName = petImages;
         }
 
         protected T GetValue<T>(string propName)

@@ -18,10 +18,10 @@
 
         private static void ConfigureParamsFromSatiety(PetUpdateParams petParams, PetState petState)
         {
-            if (petState.Satiety * 100 < GameConstants.CriticalLimit)
+            if (petState.Satiety < GameConstants.CriticalLimit)
             {
-                petParams.HealthDifference -= 0.1f;
-                petParams.MoodDifference -= 0.05f;
+                petParams.HealthDifference -= 10;
+                petParams.MoodDifference -= 5;
             }
         }
 
@@ -29,7 +29,7 @@
         {
             if (petState.Mood < GameConstants.CriticalLimit)
             {
-                petParams.HealthDifference -= 0.05f;
+                petParams.HealthDifference -= 5;
             }
         }
 
@@ -37,8 +37,8 @@
         {
             if (petState.AviaryCleannessRate < GameConstants.CriticalLimit)
             {
-                petParams.HealthDifference -= 0.1f;
-                petParams.MoodDifference -= 0.15f;
+                petParams.HealthDifference -= 10;
+                petParams.MoodDifference -= 15;
             }
         }
     }

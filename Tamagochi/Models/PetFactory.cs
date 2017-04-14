@@ -5,100 +5,70 @@ namespace Tamagochi.Models
 {
     public class PetFactory : AbstractPetFactory
     {
-        private int _age;
-        private int _lifeDuration;
-        private float _moodLevel;
-        private float _satietyLevel;
-        private float _healthLevel;
-        private string _imagePath;
-        private PetType _petType;
-        private IAviary _aviary;
         private Pet _pet;
+        private ISettings _settings;
 
-        public override IPet CreatePet(PetType petType)
+        public override void Initialize(ISettings settings)
         {
-            SetupPetDefaultParamsWithPetType(petType);
-            SetupPetLifeDuration(petType);
-            SetupImage(petType);
-            SetupAviary(petType);
-            return Build();
+            _settings = settings;
         }
 
-        private void SetupPetDefaultParamsWithPetType(PetType petType)
+        public override IPet MakePet(PetType petType)
         {
-            _age = 0;
-            _moodLevel = 100;
-            _healthLevel = 100;
-            _satietyLevel = 100;
-            _petType = petType;
+            int lifeDuration = GetPetLifeDuration(petType);
+
+            _pet = new Pet(lifeDuration);
+            _pet.PetType = petType;
+            _pet.ImagePath = GetImageForPetType(petType);
+            _pet.Aviary = GetAviaryForPetType(petType);
+            return _pet;
         }
 
-        private void SetupPetLifeDuration(PetType type)
+        private int GetPetLifeDuration(PetType type)
         {
+            var lifeDuration = 0;
             switch (type)
             {
                 case PetType.None:
                     throw new ArgumentException("Invalid pet type. Life duration cannot be set up.");
 
                 case PetType.Cat:
-                    _lifeDuration = 15;
+                    lifeDuration = 15;
                     break;
 
                 case PetType.Dog:
-                    _lifeDuration = 13;
+                    lifeDuration = 13;
                     break;
 
                 case PetType.Alien:
-                    _lifeDuration = 12;
+                    lifeDuration = 12;
                     break;
             }
+            return lifeDuration;
         }
 
-        private void SetupImage(PetType type)
+        private string GetImageForPetType(PetType type)
         {
-            _imagePath = string.Empty;
-            switch (type)
+            string path = string.Empty;
+            if (type == PetType.None)
+                throw new ArgumentException("Invalid pet type. Image does not exist for pet type None.");
+            else
             {
-                case PetType.None:
-                    throw new ArgumentException("Invalid pet type. Image does not exist for pet type None.");
-
-                case PetType.Cat:
-                    break;
-
-                case PetType.Dog:
-                    break;
-
-                case PetType.Alien:
-                    break;
+                int index = (int)type - 1;
+                path = _settings.PetImages[index];
             }
+            return path;
         }
 
-        private void SetupAviary(PetType type)
+        private IAviary GetAviaryForPetType(PetType type)
         {
-            _aviary = null;
-            switch (type)
+            IAviary aviary = null;
+            if (type == PetType.None)
+                throw new ArgumentException("Invalid pet type. Aviary for pet type None cannot be found.");
+            else
             {
-                case PetType.None:
-                    throw new ArgumentException("Invalid pet type. Aviary for pet type None cannot be found.");
-
-                case PetType.Cat:
-                    break;
-
-                case PetType.Dog:
-                    break;
-
-                case PetType.Alien:
-                    break;
             }
-        }
-
-        private Pet Build()
-        {
-            _pet = new Pet(_age, _lifeDuration, _moodLevel, _satietyLevel, _healthLevel);
-            _pet.PetType = _petType;
-            _pet.ImagePath = _imagePath;
-            _pet.Aviary = _aviary;
-            return _pet;
+            return aviary;
         }
     }
 }
