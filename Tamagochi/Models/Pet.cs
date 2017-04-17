@@ -13,14 +13,6 @@ namespace Tamagochi.Models
         private float _satietyLevel;
         private float _healthLevel;
 
-        public event EventHandler<EventArgs> HealthCriticalLevelCrossed;
-
-        public event EventHandler<EventArgs> MoodCriticalLevelCrossed;
-
-        public event EventHandler<EventArgs> SatietyCriticalLevelCrossed;
-
-        public event EventHandler<EventArgs> PetDying;
-
         public int Age
         {
             get { return _age; }
@@ -105,11 +97,6 @@ namespace Tamagochi.Models
             {
                 _age = newAge;
             }
-
-            if (_age == _lifeDuration && PetDying != null)
-            {
-                PetDying(this, new EventArgs());
-            }
         }
 
         private void SetSatiety(float newSatiety)
@@ -117,12 +104,6 @@ namespace Tamagochi.Models
             if (CheckIfNumberIsPercent(newSatiety))
             {
                 _satietyLevel = newSatiety;
-                var limit = GameConstants.CriticalLimit / 100;
-
-                if (_satietyLevel < limit && SatietyCriticalLevelCrossed != null)
-                {
-                    SatietyCriticalLevelCrossed(this, new EventArgs());
-                }
             }
         }
 
@@ -136,12 +117,6 @@ namespace Tamagochi.Models
             if (CheckIfNumberIsPercent(newHealth))
             {
                 _healthLevel = newHealth;
-                var limit = GameConstants.CriticalLimit / 100;
-
-                if (_healthLevel < limit && HealthCriticalLevelCrossed != null)
-                {
-                    HealthCriticalLevelCrossed(this, new EventArgs());
-                }
             }
         }
 
@@ -150,12 +125,6 @@ namespace Tamagochi.Models
             if (CheckIfNumberIsPercent(newMood))
             {
                 _moodLevel = newMood;
-                var limit = GameConstants.CriticalLimit / 100;
-
-                if (_moodLevel < limit && MoodCriticalLevelCrossed != null)
-                {
-                    MoodCriticalLevelCrossed(this, new EventArgs());
-                }
             }
         }
     }

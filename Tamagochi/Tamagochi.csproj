@@ -60,6 +60,11 @@
     <Compile Include="Common\GameEventArgs\MonthChangedEventArgs.cs" />
     <Compile Include="Common\GameEventArgs\YearChangedEventArgs.cs" />
     <Compile Include="Common\TamagochiSettings.cs" />
+    <Compile Include="Models\Aviary.cs" />
+    <Compile Include="Models\Person.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\PersonViewModel.cs" />
+    <Compile Include="ViewModels\PetViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

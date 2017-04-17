@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Tamagochi.Abstract
+﻿namespace Tamagochi.Abstract
 {
     public interface IPerson
     {
-        IPet Pet { get; set; }
+        IPet Pet { get; }
 
         void FeedPet();
 

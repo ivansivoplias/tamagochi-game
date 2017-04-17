@@ -10,6 +10,11 @@ namespace Tamagochi.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        protected ViewModelBase(bool throwOnInvalidProperties = true)
+        {
+            ThrowOnInvalidPropertyName = throwOnInvalidProperties;
+        }
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             VerifyPropertyName(propertyName);

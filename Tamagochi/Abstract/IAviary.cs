@@ -8,6 +8,6 @@ namespace Tamagochi.Abstract
 
         void ChangeCleannessRate(float cleannessRateDifference);
 
-        event EventHandler<EventArgs> CleannessCriticalLevelCrossed;
+        void SetCleannessRate(float newCleanness);
     }
 }

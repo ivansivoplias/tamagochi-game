@@ -9,5 +9,10 @@
         public const int GreenColorEndLimit = 75;
         public const int YellowColorEndLimit = 30;
         public const int RedColorEndLimit = 0;
+
+        public const int AviaryGarbageReduceRate = 15;
+        public const int PetSatietyIncreaseRate = 75;
+        public const int PetMoodIncreaseRate = 50;
+        public const int PetHealthIncreaseRate = 35;
     }
 }

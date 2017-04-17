@@ -14,14 +14,6 @@ namespace Tamagochi.Abstract
         PetType PetType { get; set; }
         IAviary Aviary { get; set; }
 
-        event EventHandler<EventArgs> HealthCriticalLevelCrossed;
-
-        event EventHandler<EventArgs> MoodCriticalLevelCrossed;
-
-        event EventHandler<EventArgs> SatietyCriticalLevelCrossed;
-
-        event EventHandler<EventArgs> PetDying;
-
         void IncreaseAge(int amount);
 
         void UpdateMood(float moodDifference);
