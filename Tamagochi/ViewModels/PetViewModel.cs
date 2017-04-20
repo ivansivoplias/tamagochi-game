@@ -1,4 +1,4 @@
-﻿using Tamagochi.Abstract;
+﻿using Tamagochi.Infrastructure.Abstract;
 
 namespace Tamagochi.ViewModels
 {

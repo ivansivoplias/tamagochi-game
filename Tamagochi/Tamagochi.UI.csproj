@@ -94,8 +94,33 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\Tamagochi.Common\Tamagochi.Common.csproj">
+      <Project>{22ea500f-cd24-4321-b432-109be215523c}</Project>
+      <Name>Tamagochi.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tamagochi.Infrastructure\Tamagochi.Infrastructure.csproj">
+      <Project>{b2eeb357-d15f-48b0-aee5-e341d0e2e45e}</Project>
+      <Name>Tamagochi.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Styles\Brushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TamagochiMainStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

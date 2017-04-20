@@ -49,7 +49,6 @@
     <Compile Include="PetType.cs" />
     <Compile Include="PetUpdateParams.cs" />
     <Compile Include="PetUpdateUtil.cs" />
-    <Compile Include="TamagochiSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -43,8 +43,11 @@
     <Compile Include="Abstract\AbstractPetFactory.cs" />
     <Compile Include="Abstract\AbstractTamagochiTimer.cs" />
     <Compile Include="Abstract\IAviary.cs" />
+    <Compile Include="Abstract\AbstractGame.cs" />
+    <Compile Include="Abstract\IGameContext.cs" />
     <Compile Include="Abstract\IPerson.cs" />
     <Compile Include="Abstract\IPet.cs" />
+    <Compile Include="Abstract\ISerializer.cs" />
     <Compile Include="Abstract\ISettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Configuration;
-using Tamagochi.Abstract;
-using System.Linq;
-using System.Xml;
+﻿using System.Configuration;
+using Tamagochi.Infrastructure.Abstract;
 
 namespace Tamagochi.Common
 {

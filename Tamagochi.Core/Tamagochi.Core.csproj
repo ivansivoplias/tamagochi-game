@@ -46,6 +46,7 @@
     <Compile Include="Factories\PetFactory.cs" />
     <Compile Include="GameTimer\TamagochiTimer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TamagochiSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tamagochi.Common\Tamagochi.Common.csproj">
