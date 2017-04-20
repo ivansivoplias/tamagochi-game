@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Tamagochi.Infrastructure.Abstract
+﻿namespace Tamagochi.Infrastructure.Abstract
 {
     public interface IAviary
     {

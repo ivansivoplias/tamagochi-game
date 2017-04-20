@@ -1,11 +1,22 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace Tamagochi.Infrastructure.Abstract
 {
     public interface IGameContext : IXmlSerializable
     {
-        T GetProperty<T>(string propertyName);
+        TimeSpan GameTime { get; set; }
 
-        void SetProperty<T>(string propertyName, T property);
+        int Age { get; set; }
+
+        float Mood { get; set; }
+
+        float Satiety { get; set; }
+
+        float Health { get; set; }
+
+        PetType PetType { get; set; }
+
+        float CleanessRate { get; set; }
     }
 }

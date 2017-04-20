@@ -1,5 +1,4 @@
-﻿using System;
-using Tamagochi.Common.GameEventArgs;
+﻿using Tamagochi.Common.GameEventArgs;
 
 namespace Tamagochi.Infrastructure.Abstract
 {

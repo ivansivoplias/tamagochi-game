@@ -7,12 +7,6 @@ namespace Tamagochi.Core.Factories
     public class PetFactory : AbstractPetFactory
     {
         private Pet _pet;
-        private ISettings _settings;
-
-        public override void Initialize(ISettings settings)
-        {
-            _settings = settings;
-        }
 
         public override IPet MakePet(PetType petType)
         {
@@ -22,6 +16,24 @@ namespace Tamagochi.Core.Factories
             _pet.PetType = petType;
             _pet.ImagePath = GetImageForPetType(petType);
             _pet.Aviary = GetAviaryForPetType(petType);
+            return _pet;
+        }
+
+        public override IPet MakePetFromContext(IGameContext context)
+        {
+            var lifeDuration = GetPetLifeDuration(context.PetType);
+
+            _pet = new Pet(lifeDuration);
+            _pet.ImagePath = GetImageForPetType(context.PetType);
+            _pet.Aviary = GetAviaryForPetType(context.PetType);
+            _pet.Aviary.SetCleannessRate(context.CleanessRate);
+
+            _pet.Age = context.Age;
+            _pet.Health = context.Health;
+            _pet.Mood = context.Mood;
+            _pet.PetType = context.PetType;
+            _pet.Satiety = context.Satiety;
+
             return _pet;
         }
 

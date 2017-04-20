@@ -1,4 +1,7 @@
-﻿using Tamagochi.Infrastructure.Abstract;
+﻿using System;
+using System.Xml;
+using System.Xml.Schema;
+using Tamagochi.Infrastructure.Abstract;
 
 namespace Tamagochi.Core.Models
 {
