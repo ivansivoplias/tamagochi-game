@@ -1,7 +1,7 @@
 ﻿using System;
 using Tamagochi.Common.GameEventArgs;
 
-namespace Tamagochi.Abstract
+namespace Tamagochi.Infrastructure.Abstract
 {
     public abstract class AbstractTamagochiTimer
     {

@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tamagochi", "Tamagochi\Tamagochi.csproj", "{B8A4BB11-30D0-452D-9E4D-F58874AC072B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tamagochi.UI", "Tamagochi\Tamagochi.UI.csproj", "{B8A4BB11-30D0-452D-9E4D-F58874AC072B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tamagochi.Tests", "Tamagochi.Tests\Tamagochi.Tests.csproj", "{42CA9860-9230-4F1D-9B70-146DC1C451DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tamagochi.Infrastructure", "Tamagochi.Infrastructure\Tamagochi.Infrastructure.csproj", "{B2EEB357-D15F-48B0-AEE5-E341D0E2E45E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tamagochi.Common", "Tamagochi.Common\Tamagochi.Common.csproj", "{22EA500F-CD24-4321-B432-109BE215523C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tamagochi.DI", "Tamagochi.DI\Tamagochi.DI.csproj", "{9559DB03-300C-41E5-BD97-53F9073B77C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tamagochi.Core", "Tamagochi.Core\Tamagochi.Core.csproj", "{51F52BAF-2574-464E-BBEB-11EED4B0471F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,22 @@ Global
 		{42CA9860-9230-4F1D-9B70-146DC1C451DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42CA9860-9230-4F1D-9B70-146DC1C451DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42CA9860-9230-4F1D-9B70-146DC1C451DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2EEB357-D15F-48B0-AEE5-E341D0E2E45E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2EEB357-D15F-48B0-AEE5-E341D0E2E45E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2EEB357-D15F-48B0-AEE5-E341D0E2E45E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2EEB357-D15F-48B0-AEE5-E341D0E2E45E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22EA500F-CD24-4321-B432-109BE215523C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22EA500F-CD24-4321-B432-109BE215523C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22EA500F-CD24-4321-B432-109BE215523C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22EA500F-CD24-4321-B432-109BE215523C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9559DB03-300C-41E5-BD97-53F9073B77C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9559DB03-300C-41E5-BD97-53F9073B77C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9559DB03-300C-41E5-BD97-53F9073B77C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9559DB03-300C-41E5-BD97-53F9073B77C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51F52BAF-2574-464E-BBEB-11EED4B0471F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51F52BAF-2574-464E-BBEB-11EED4B0471F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51F52BAF-2574-464E-BBEB-11EED4B0471F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51F52BAF-2574-464E-BBEB-11EED4B0471F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

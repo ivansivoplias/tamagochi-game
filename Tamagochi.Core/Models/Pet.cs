@@ -1,9 +1,9 @@
 ﻿using System;
-using Tamagochi.Abstract;
+using Tamagochi.Infrastructure.Abstract;
 using Tamagochi.Common;
 using Tamagochi.Common.GameEventArgs;
 
-namespace Tamagochi.Models
+namespace Tamagochi.Core.Models
 {
     public class Pet : IPet
     {

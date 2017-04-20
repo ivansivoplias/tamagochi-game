@@ -1,7 +1,6 @@
-﻿using System;
-using Tamagochi.Abstract;
+﻿using Tamagochi.Infrastructure.Abstract;
 
-namespace Tamagochi.Models
+namespace Tamagochi.Core.Models
 {
     public class Aviary : IAviary
     {

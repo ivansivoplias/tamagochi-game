@@ -1,7 +1,7 @@
-﻿using Tamagochi.Abstract;
+﻿using Tamagochi.Infrastructure.Abstract;
 using Tamagochi.Common;
 
-namespace Tamagochi.Models
+namespace Tamagochi.Core.Models
 {
     public class Person : IPerson
     {

@@ -1,4 +1,4 @@
-﻿namespace Tamagochi.Abstract
+﻿namespace Tamagochi.Infrastructure.Abstract
 {
     public interface IPerson
     {

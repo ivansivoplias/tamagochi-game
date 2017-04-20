@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Timers;
-using Tamagochi.Abstract;
+using Tamagochi.Infrastructure.Abstract;
 using Tamagochi.Common.GameEventArgs;
 
-namespace Tamagochi.Models
+namespace Tamagochi.Core.GameTimer
 {
     public class TamagochiTimer : AbstractTamagochiTimer
     {

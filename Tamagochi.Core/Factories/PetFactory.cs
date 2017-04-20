@@ -1,7 +1,8 @@
 ﻿using System;
-using Tamagochi.Abstract;
+using Tamagochi.Core.Models;
+using Tamagochi.Infrastructure.Abstract;
 
-namespace Tamagochi.Models
+namespace Tamagochi.Core.Factories
 {
     public class PetFactory : AbstractPetFactory
     {
