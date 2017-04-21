@@ -45,14 +45,14 @@
     <Compile Include="GameEventArgs\HourChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\MonthChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\YearChangedEventArgs.cs" />
+    <Compile Include="GameExceptions\InvalidFilePathException.cs" />
+    <Compile Include="GameExceptions\TamagochiBaseException.cs" />
     <Compile Include="PetState.cs" />
     <Compile Include="PetType.cs" />
     <Compile Include="PetUpdateParams.cs" />
     <Compile Include="PetUpdateUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GameExceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

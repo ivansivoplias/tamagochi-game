@@ -1,12 +1,12 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System;
 
 namespace Tamagochi.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class TimerTest
     {
-        [TestMethod]
+        [Test]
         public void TestMethod1()
         {
         }

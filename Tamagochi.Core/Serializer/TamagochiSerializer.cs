@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Serialization;
+using Tamagochi.Common.GameExceptions;
 using Tamagochi.Infrastructure.Abstract;
 
 namespace Tamagochi.Core.Serializer
@@ -22,13 +23,13 @@ namespace Tamagochi.Core.Serializer
 
         public void Initialize(string fileName)
         {
-            if (IsPathValidRootedLocal(fileName) && Path.GetExtension(fileName).Equals("xml", StringComparison.CurrentCultureIgnoreCase))
+            if (IsPathValidRootedLocal(fileName) && Path.GetExtension(fileName).Equals(".xml", StringComparison.CurrentCultureIgnoreCase))
             {
                 _filename = fileName;
             }
             else
             {
-                throw new Exception();
+                throw new InvalidFilePathException(nameof(TamagochiSerializer), _filename);
             }
         }
 
@@ -41,10 +42,10 @@ namespace Tamagochi.Core.Serializer
             }
         }
 
-        private bool IsPathValidRootedLocal(String pathString)
+        private bool IsPathValidRootedLocal(string pathString)
         {
             Uri pathUri;
-            Boolean isValidUri = Uri.TryCreate(pathString, UriKind.Absolute, out pathUri);
+            bool isValidUri = Uri.TryCreate(pathString, UriKind.Absolute, out pathUri);
 
             return isValidUri && pathUri != null && pathUri.IsLoopback;
         }
