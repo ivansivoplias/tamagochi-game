@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Serialization;
+using Tamagochi.Common;
 using Tamagochi.Common.GameExceptions;
 using Tamagochi.Infrastructure.Abstract;
 
@@ -14,9 +15,21 @@ namespace Tamagochi.Core.Serializer
         {
             var serializer = new XmlSerializer(typeof(T));
             T item = default(T);
-            using (var stream = new FileStream(_filename, FileMode.Open))
+            try
             {
-                item = (T)serializer.Deserialize(stream);
+                using (var stream = new FileStream(_filename, FileMode.Open))
+                {
+                    item = (T)serializer.Deserialize(stream);
+                }
+            }
+            catch (Exception e)
+            {
+                var details = new ExceptionDetails();
+                details.CallerMethodName = nameof(Deserialize);
+                details.ClassName = nameof(TamagochiSerializer);
+                details.OriginalExceptionMessage = e.Message;
+                details.StackTrace = e.StackTrace;
+                throw new DeserializationFailedException(details);
             }
             return item;
         }
@@ -29,16 +42,31 @@ namespace Tamagochi.Core.Serializer
             }
             else
             {
-                throw new InvalidFilePathException(nameof(TamagochiSerializer), _filename);
+                var details = new ExceptionDetails();
+                details.CallerMethodName = nameof(Initialize);
+                details.ClassName = nameof(TamagochiSerializer);
+                throw new InvalidFilePathException(details, _filename);
             }
         }
 
         public void Serialize<T>(T item) where T : IXmlSerializable
         {
             var serializer = new XmlSerializer(typeof(T));
-            using (var stream = new StreamWriter(_filename, false))
+            try
             {
-                serializer.Serialize(stream, item);
+                using (var stream = new StreamWriter(_filename, false))
+                {
+                    serializer.Serialize(stream, item);
+                }
+            }
+            catch (Exception e)
+            {
+                var details = new ExceptionDetails();
+                details.CallerMethodName = nameof(Serialize);
+                details.ClassName = nameof(TamagochiSerializer);
+                details.OriginalExceptionMessage = e.Message;
+                details.StackTrace = e.StackTrace;
+                throw new SerializationFailedException(details);
             }
         }
 

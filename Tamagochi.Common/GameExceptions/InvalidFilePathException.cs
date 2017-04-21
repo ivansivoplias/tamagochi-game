@@ -3,13 +3,16 @@
     public class InvalidFilePathException : TamagochiBaseException
     {
         public string SerializationFilePath { get; }
-        private const string InvalidFileMessage = "Path of the file is invalid.";
 
-        public InvalidFilePathException(string className, string filePath) : this(className, filePath, InvalidFileMessage)
+        public InvalidFilePathException(ExceptionDetails details) : this(details, string.Empty)
         {
         }
 
-        public InvalidFilePathException(string className, string filePath, string message) : base(className, message)
+        public InvalidFilePathException(ExceptionDetails details, string filePath) : this(details, filePath, GameExceptionMessages.InvalidFileMessage)
+        {
+        }
+
+        public InvalidFilePathException(ExceptionDetails details, string filePath, string message) : base(details, message)
         {
             SerializationFilePath = filePath;
         }

@@ -27,6 +27,8 @@ namespace Tamagochi.Tests
             Assert.AreEqual(testData.Age, t.Age);
             Assert.AreEqual(testData.CleanessRate, t.CleanessRate);
             Assert.AreEqual(testData.Health, t.Health);
+
+            File.Delete(filename);
         }
 
         public string GetCurrentDirectory()

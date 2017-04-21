@@ -40,12 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExceptionDetails.cs" />
     <Compile Include="GameConstants.cs" />
     <Compile Include="GameEventArgs\DayChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\HourChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\MonthChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\YearChangedEventArgs.cs" />
+    <Compile Include="GameExceptionMessages.cs" />
+    <Compile Include="GameExceptions\DeserializationFailedException.cs" />
     <Compile Include="GameExceptions\InvalidFilePathException.cs" />
+    <Compile Include="GameExceptions\SerializationFailedException.cs" />
     <Compile Include="GameExceptions\TamagochiBaseException.cs" />
     <Compile Include="PetState.cs" />
     <Compile Include="PetType.cs" />
