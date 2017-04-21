@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using Tamagochi.Common;
 using Tamagochi.Common.GameExceptions;
@@ -36,7 +37,7 @@ namespace Tamagochi.Core.Serializer
 
         public void Initialize(string fileName)
         {
-            if (IsPathValidRootedLocal(fileName) && Path.GetExtension(fileName).Equals(".xml", StringComparison.CurrentCultureIgnoreCase))
+            if (CheckFileName(fileName) && Path.GetExtension(fileName).Equals(".xml", StringComparison.CurrentCultureIgnoreCase))
             {
                 _filename = fileName;
             }
@@ -70,12 +71,22 @@ namespace Tamagochi.Core.Serializer
             }
         }
 
-        private bool IsPathValidRootedLocal(string pathString)
+        private bool CheckFileName(string fileName)
         {
-            Uri pathUri;
-            bool isValidUri = Uri.TryCreate(pathString, UriKind.Absolute, out pathUri);
+            var nameOfFile = Path.GetFileName(fileName);
+            var forbidden = Path.GetInvalidFileNameChars();
+            bool result = true;
 
-            return isValidUri && pathUri != null && pathUri.IsLoopback;
+            for (int i = 0; i < nameOfFile.Length; i++)
+            {
+                if (forbidden.Contains(nameOfFile[i]))
+                {
+                    result = false;
+                    break;
+                }
+            }
+
+            return result;
         }
     }
 }
