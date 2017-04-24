@@ -16,13 +16,18 @@ namespace Tamagochi.Commands
 
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = _canExecute();
+            e.CanExecute = _canExecute == null || _canExecute();
             e.Handled = true;
         }
 
         public void Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            _execute();
+            _execute?.Invoke();
+        }
+
+        public static void RegisterCommandBinding(Type type, Command command)
+        {
+            CommandManager.RegisterClassCommandBinding(type, new CommandBinding(command, command.Executed, command.CanExecute));
         }
     }
 }
