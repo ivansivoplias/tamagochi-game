@@ -5,12 +5,10 @@ namespace Tamagochi.ViewModels
     public class PetViewModel : ViewModelBase
     {
         private IPet _pet;
-        private IAviary _aviary;
 
         public PetViewModel(IPet pet)
         {
             _pet = pet;
-            _aviary = pet.Aviary;
         }
 
         public int Age
@@ -55,10 +53,10 @@ namespace Tamagochi.ViewModels
 
         public float AviaryCleanness
         {
-            get { return _aviary.CleannessRate; }
+            get { return _pet.CleanessRate; }
             set
             {
-                _aviary.SetCleannessRate(value);
+                _pet.ChangeCleaness(value);
                 OnPropertyChanged(nameof(AviaryCleanness));
             }
         }

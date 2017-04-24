@@ -15,7 +15,6 @@ namespace Tamagochi.Core.Factories
             _pet = new Pet(lifeDuration);
             _pet.PetType = petType;
             _pet.ImagePath = GetImageForPetType(petType);
-            _pet.Aviary = GetAviaryForPetType(petType);
             return _pet;
         }
 
@@ -25,8 +24,7 @@ namespace Tamagochi.Core.Factories
 
             _pet = new Pet(lifeDuration);
             _pet.ImagePath = GetImageForPetType(context.PetType);
-            _pet.Aviary = GetAviaryForPetType(context.PetType);
-            _pet.Aviary.SetCleannessRate(context.CleanessRate);
+            _pet.CleanessRate = context.CleanessRate;
 
             _pet.Age = context.Age;
             _pet.Health = context.Health;
@@ -70,17 +68,6 @@ namespace Tamagochi.Core.Factories
                 //TODO: write this stuff
             }
             return path;
-        }
-
-        private IAviary GetAviaryForPetType(PetType type)
-        {
-            IAviary aviary = null;
-            if (type == PetType.None)
-                throw new ArgumentException("Invalid pet type. Aviary for pet type None cannot be found.");
-            else
-            {
-            }
-            return aviary;
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Tamagochi.Core.Models
         private float _moodLevel;
         private float _satietyLevel;
         private float _healthLevel;
+        private float _cleanessLevel;
 
         public int Age
         {
@@ -42,15 +43,21 @@ namespace Tamagochi.Core.Models
             set { SetHealth(value); }
         }
 
+        public float CleanessRate
+        {
+            get { return _cleanessLevel; }
+
+            set { SetCleaness(value); }
+        }
+
         public string ImagePath { get; set; }
         public PetType PetType { get; set; }
-        public IAviary Aviary { get; set; }
 
         public Pet(int lifeDuration)
         {
             _lifeDuration = lifeDuration;
             _age = 0;
-            _moodLevel = _satietyLevel = _healthLevel = 100;
+            _moodLevel = _satietyLevel = _healthLevel = _cleanessLevel = 100;
         }
 
         public void ChangeSatiety(float satietyDifference)
@@ -73,9 +80,14 @@ namespace Tamagochi.Core.Models
             throw new NotImplementedException();
         }
 
+        public void ChangeCleaness(float cleanessDifference)
+        {
+            _cleanessLevel += cleanessDifference;
+        }
+
         public void OnGameHourChanged(object sender, HourChangedEventArgs e)
         {
-            PetState state = new PetState(Mood, Satiety, Aviary.CleannessRate);
+            PetState state = new PetState(Mood, Satiety, CleanessRate);
             PetUpdateParams param = PetUpdateUtil.CreateFromPetState(state);
             UpdatePetFromParams(param);
         }
@@ -125,6 +137,14 @@ namespace Tamagochi.Core.Models
             if (CheckIfNumberIsPercent(newMood))
             {
                 _moodLevel = newMood;
+            }
+        }
+
+        private void SetCleaness(float newCleaness)
+        {
+            if (CheckIfNumberIsPercent(newCleaness))
+            {
+                _cleanessLevel = newCleaness;
             }
         }
     }

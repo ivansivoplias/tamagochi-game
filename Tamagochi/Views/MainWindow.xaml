@@ -15,17 +15,23 @@
     </Window.Resources>
     <Grid Background="{StaticResource DefaultBackgroundBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="28*"></RowDefinition>
+            <RowDefinition Height="204*"></RowDefinition>
+            <RowDefinition Height="117*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="1" Grid.Column="1"  Style="{StaticResource RoundedButton}">
-            My awesome text
-        </Button>
+        <Menu HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="3">
+            <MenuItem Header="Game">
+                <MenuItem Header="Start" Command="{Binding StartGameCommand}" />
+                <MenuItem Header="Pause" Command="{Binding PauseGameCommand}" />
+                <MenuItem Header="Stop" Command="{Binding GameStopCommand}" />
+                <Separator />
+                <MenuItem Header="Exit" Command="{Binding CloseCommand}" />
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>

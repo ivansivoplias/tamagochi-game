@@ -8,15 +8,15 @@ namespace Tamagochi.Infrastructure.Abstract
         TimeSpan GameTime { get; set; }
 
         int Age { get; set; }
-
         float Mood { get; set; }
 
         float Satiety { get; set; }
-
         float Health { get; set; }
 
         PetType PetType { get; set; }
 
         float CleanessRate { get; set; }
+
+        void Save();
     }
 }

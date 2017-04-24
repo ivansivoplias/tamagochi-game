@@ -11,13 +11,15 @@ namespace Tamagochi.Infrastructure.Abstract
         float Health { get; set; }
         string ImagePath { get; set; }
         PetType PetType { get; set; }
-        IAviary Aviary { get; set; }
+        float CleanessRate { get; set; }
 
         void IncreaseAge(int amount);
 
         void UpdateMood(float moodDifference);
 
         void ChangeSatiety(float satietyDifference);
+
+        void ChangeCleaness(float cleanessDifference);
 
         void UpdateHealth(float healthDifference);
 

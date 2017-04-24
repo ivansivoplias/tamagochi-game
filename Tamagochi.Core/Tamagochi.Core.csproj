@@ -40,9 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Aviary.cs" />
+    <Compile Include="Models\Game.cs" />
     <Compile Include="Models\GameContext.cs" />
-    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Pet.cs" />
     <Compile Include="Factories\PetFactory.cs" />
     <Compile Include="GameTimer\TamagochiTimer.cs" />

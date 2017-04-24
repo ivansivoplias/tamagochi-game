@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Windows.Input;
+using Tamagochi.Commands;
 
 namespace Tamagochi.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private readonly RoutedUICommand _closeCommand;
+        private readonly Command _closeCommand;
         private Action _closeWindow;
 
-        public PersonViewModel Person { get; set; }
+        public PetViewModel Pet { get; set; }
 
-        public RoutedUICommand CloseCommand => _closeCommand;
+        public Command CloseCommand => _closeCommand;
 
         public MainWindowViewModel(Action closeWindow)
         {
             _closeWindow = closeWindow;
-            _closeCommand = new RoutedUICommand("Close", "Close", GetType());
-            Person = new PersonViewModel(null);
+            _closeCommand = new Command("Close", "Close", GetType(), null, null);
         }
 
         public void CloseCommand_Execute(object sender, ExecutedRoutedEventArgs e)

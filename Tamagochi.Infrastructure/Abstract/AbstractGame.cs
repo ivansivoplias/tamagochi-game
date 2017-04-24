@@ -2,18 +2,16 @@
 {
     public abstract class AbstractGame
     {
-        protected ISerializer _serializer;
         protected IGameContext _context;
 
-        public AbstractGame(ISerializer serializer, IGameContext context)
+        public AbstractGame(IGameContext context)
         {
-            _serializer = serializer;
             _context = context;
         }
 
-        public AbstractTamagochiTimer Timer { get; }
+        public AbstractTamagochiTimer Timer { get; protected set; }
 
-        public IPerson Person { get; }
+        public IPet Pet { get; protected set; }
 
         public abstract void StartGame();
 

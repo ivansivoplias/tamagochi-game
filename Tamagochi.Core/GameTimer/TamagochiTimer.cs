@@ -55,6 +55,8 @@ namespace Tamagochi.Core.GameTimer
             }
         }
 
+        public override TimeSpan CurrentTime => _currentTime;
+
         private TamagochiTimer()
         {
             _timer = new Timer();
@@ -71,11 +73,6 @@ namespace Tamagochi.Core.GameTimer
         public static AbstractTamagochiTimer GetInstance()
         {
             return _instance.Value;
-        }
-
-        public override void SaveTimeOnGameClosing(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         public override void InitializeTimer(TimeSpan time)
@@ -122,6 +119,11 @@ namespace Tamagochi.Core.GameTimer
             }
 
             StartTimer();
+        }
+
+        public override void StopTimer()
+        {
+            _timer.Stop();
         }
     }
 }

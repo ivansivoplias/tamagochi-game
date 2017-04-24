@@ -13,6 +13,8 @@ namespace Tamagochi.Infrastructure.Abstract
 
         public abstract int Hour { get; protected set; }
 
+        public abstract TimeSpan CurrentTime { get; }
+
         public EventHandler<HourChangedEventArgs> HourChanged;
 
         public EventHandler<DayChangedEventArgs> DayChanged;
@@ -25,6 +27,6 @@ namespace Tamagochi.Infrastructure.Abstract
 
         public abstract void StartTimer();
 
-        public abstract void SaveTimeOnGameClosing(object sender, EventArgs e);
+        public abstract void StopTimer();
     }
 }

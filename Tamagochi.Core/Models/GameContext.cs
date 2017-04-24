@@ -14,9 +14,12 @@ namespace Tamagochi.Core.Models
         private float _health;
         private PetType _petType;
         private float _cleanessRate;
+        private ISerializer _serializer;
 
-        public GameContext()
+        public GameContext(ISerializer serializer, string fileName)
         {
+            _serializer.Initialize(fileName);
+            _serializer = serializer;
         }
 
         public TimeSpan GameTime
@@ -84,6 +87,11 @@ namespace Tamagochi.Core.Models
             {
                 reader.ReadEndElement();
             }
+        }
+
+        public void Save()
+        {
+            _serializer.Serialize(this);
         }
 
         public void WriteXml(XmlWriter writer)
