@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.5.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,7 +43,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutofacInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tamagochi.Common\Tamagochi.Common.csproj">
+      <Project>{22ea500f-cd24-4321-b432-109be215523c}</Project>
+      <Name>Tamagochi.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tamagochi.Core\Tamagochi.Core.csproj">
+      <Project>{51f52baf-2574-464e-bbeb-11eed4b0471f}</Project>
+      <Name>Tamagochi.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tamagochi.Infrastructure\Tamagochi.Infrastructure.csproj">
+      <Project>{b2eeb357-d15f-48b0-aee5-e341d0e2e45e}</Project>
+      <Name>Tamagochi.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

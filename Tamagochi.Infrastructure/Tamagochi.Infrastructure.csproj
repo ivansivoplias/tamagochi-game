@@ -40,13 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\AbstractGameFactory.cs" />
     <Compile Include="Abstract\AbstractPetFactory.cs" />
     <Compile Include="Abstract\AbstractTamagochiTimer.cs" />
     <Compile Include="Abstract\AbstractGame.cs" />
     <Compile Include="Abstract\IGameContext.cs" />
+    <Compile Include="Abstract\IGameContextProvider.cs" />
     <Compile Include="Abstract\IPet.cs" />
     <Compile Include="Abstract\ISerializer.cs" />
     <Compile Include="Abstract\ISettings.cs" />
+    <Compile Include="Abstract\ISettingsProvider.cs" />
+    <Compile Include="Abstract\ITimerProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

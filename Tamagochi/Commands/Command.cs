@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Tamagochi.Commands
@@ -25,9 +26,10 @@ namespace Tamagochi.Commands
             _execute?.Invoke();
         }
 
-        public static void RegisterCommandBinding(Type type, Command command)
+        public static void RegisterCommandBinding(Window window, Command command)
         {
-            CommandManager.RegisterClassCommandBinding(type, new CommandBinding(command, command.Executed, command.CanExecute));
+            window.CommandBindings.Add(new CommandBinding(command, command.Executed, command.CanExecute));
+            //CommandManager.RegisterClassCommandBinding(type, new CommandBinding(command, command.Executed, command.CanExecute));
         }
     }
 }

@@ -6,6 +6,8 @@ namespace Tamagochi.Infrastructure.Abstract
     {
         bool IsFirstRun { get; set; }
 
+        string GameContextFilename { get; set; }
+
         void SaveSettings();
     }
 }

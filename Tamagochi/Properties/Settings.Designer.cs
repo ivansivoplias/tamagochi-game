@@ -34,5 +34,17 @@ namespace Tamagochi.Properties {
                 this["IsFirstRun"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("gamecontext.xml")]
+        public string GameContextFilename {
+            get {
+                return ((string)(this["GameContextFilename"]));
+            }
+            set {
+                this["GameContextFilename"] = value;
+            }
+        }
     }
 }

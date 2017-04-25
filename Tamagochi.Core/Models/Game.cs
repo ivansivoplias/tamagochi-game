@@ -4,10 +4,10 @@ namespace Tamagochi.Core.Models
 {
     public class Game : AbstractGame
     {
-        public Game(IGameContext context, AbstractTamagochiTimer timer, AbstractPetFactory factory) : base(context)
+        public Game(IGameContext context, AbstractTamagochiTimer timer, IPet pet) : base(context)
         {
-            Pet = factory.MakePetFromContext(_context);
             Timer = timer;
+            Pet = pet;
         }
 
         public override void PauseGame()
@@ -30,11 +30,15 @@ namespace Tamagochi.Core.Models
         public override void StartGame()
         {
             Timer.StartTimer();
+            Timer.HourChanged += Pet.OnGameHourChanged;
+            Timer.YearChanged += Pet.OnGameYearChanged;
         }
 
         public override void StopGame()
         {
             Timer.StopTimer();
+            Timer.HourChanged -= Pet.OnGameHourChanged;
+            Timer.YearChanged -= Pet.OnGameYearChanged;
             SaveGame();
         }
     }

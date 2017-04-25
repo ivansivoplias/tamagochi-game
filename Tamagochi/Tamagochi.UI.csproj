@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.5.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -56,6 +59,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\PetViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -85,6 +89,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -98,6 +103,10 @@
     <ProjectReference Include="..\Tamagochi.Common\Tamagochi.Common.csproj">
       <Project>{22ea500f-cd24-4321-b432-109be215523c}</Project>
       <Name>Tamagochi.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tamagochi.DI\Tamagochi.DI.csproj">
+      <Project>{9559db03-300c-41e5-bd97-53f9073b77c7}</Project>
+      <Name>Tamagochi.DI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tamagochi.Infrastructure\Tamagochi.Infrastructure.csproj">
       <Project>{b2eeb357-d15f-48b0-aee5-e341d0e2e45e}</Project>

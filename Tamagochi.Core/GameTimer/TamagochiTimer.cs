@@ -2,6 +2,7 @@
 using System.Timers;
 using Tamagochi.Infrastructure.Abstract;
 using Tamagochi.Common.GameEventArgs;
+using Tamagochi.Common;
 
 namespace Tamagochi.Core.GameTimer
 {
@@ -13,7 +14,16 @@ namespace Tamagochi.Core.GameTimer
         private int _day;
         private int _month;
         private int _hour;
+        private TimerState _timerState;
         private static readonly Lazy<TamagochiTimer> _instance = new Lazy<TamagochiTimer>(() => new TamagochiTimer(), true);
+
+        public override event EventHandler<HourChangedEventArgs> HourChanged;
+
+        public override event EventHandler<DayChangedEventArgs> DayChanged;
+
+        public override event EventHandler<YearChangedEventArgs> YearChanged;
+
+        public override event EventHandler<MonthChangedEventArgs> MonthChanged;
 
         public override int Year
         {
@@ -57,8 +67,18 @@ namespace Tamagochi.Core.GameTimer
 
         public override TimeSpan CurrentTime => _currentTime;
 
+        public override TimerState State
+        {
+            get { return _timerState; }
+            protected set
+            {
+                _timerState = value;
+            }
+        }
+
         private TamagochiTimer()
         {
+            State = TimerState.Inactive;
             _timer = new Timer();
             _timer.AutoReset = false;
             _timer.Elapsed += RealMinuteChanged;
@@ -68,6 +88,7 @@ namespace Tamagochi.Core.GameTimer
         public override void StartTimer()
         {
             _timer.Start();
+            State = TimerState.Active;
         }
 
         public static AbstractTamagochiTimer GetInstance()
@@ -124,6 +145,7 @@ namespace Tamagochi.Core.GameTimer
         public override void StopTimer()
         {
             _timer.Stop();
+            _timerState = TimerState.Stopped;
         }
     }
 }

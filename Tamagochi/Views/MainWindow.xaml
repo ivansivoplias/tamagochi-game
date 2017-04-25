@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tamagochi.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="380" Width="624">
+        Title="MainWindow" Height="677" Width="1053">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -15,23 +15,27 @@
     </Window.Resources>
     <Grid Background="{StaticResource DefaultBackgroundBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="28*"></RowDefinition>
-            <RowDefinition Height="204*"></RowDefinition>
             <RowDefinition Height="117*"></RowDefinition>
+            <RowDefinition Height="313*"></RowDefinition>
+            <RowDefinition Height="216*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="256*"></ColumnDefinition>
+            <ColumnDefinition Width="562*"></ColumnDefinition>
+            <ColumnDefinition Width="227*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Menu HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="3">
+        <Menu HorizontalAlignment="Stretch" Grid.ColumnSpan="3" Margin="0,0,0,90">
             <MenuItem Header="Game">
-                <MenuItem Header="Start" Command="{Binding StartGameCommand}" />
-                <MenuItem Header="Pause" Command="{Binding PauseGameCommand}" />
-                <MenuItem Header="Stop" Command="{Binding GameStopCommand}" />
+                <MenuItem Command="{Binding StartGameCommand}" />
+                <MenuItem Command="{Binding PauseGameCommand}" />
+                <MenuItem Command="{Binding StopGameCommand}" />
+                <MenuItem Command="{Binding SaveGameCommand}" />
                 <Separator />
                 <MenuItem Header="Exit" Command="{Binding CloseCommand}" />
             </MenuItem>
         </Menu>
+        <WrapPanel Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Time}" />
+        </WrapPanel>
     </Grid>
 </Window>

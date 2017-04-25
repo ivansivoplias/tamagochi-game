@@ -16,7 +16,7 @@ namespace Tamagochi.ViewModels
         {
             _closeWindow = closeWindow;
             _closeCommand = new Command("Close", "Close", GetType(), null, null);
-            Command.RegisterCommandBinding(GetType(), _closeCommand);
+            //Command.RegisterCommandBinding(GetType(), _closeCommand);
         }
     }
 }

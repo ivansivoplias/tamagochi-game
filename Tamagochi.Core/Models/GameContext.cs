@@ -15,11 +15,18 @@ namespace Tamagochi.Core.Models
         private PetType _petType;
         private float _cleanessRate;
         private ISerializer _serializer;
+        private bool _isDefault;
 
-        public GameContext(ISerializer serializer, string fileName)
+        public GameContext(ISerializer serializer)
         {
-            _serializer.Initialize(fileName);
             _serializer = serializer;
+        }
+
+        public static GameContext GetDefault(ISerializer serializer)
+        {
+            var context = new GameContext(serializer);
+            context._isDefault = true;
+            return context;
         }
 
         public TimeSpan GameTime
@@ -91,7 +98,14 @@ namespace Tamagochi.Core.Models
 
         public void Save()
         {
-            _serializer.Serialize(this);
+            if (_serializer != null)
+            {
+                _serializer.Serialize(this);
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         public void WriteXml(XmlWriter writer)
@@ -105,5 +119,7 @@ namespace Tamagochi.Core.Models
 
             writer.WriteAttributeString("PetType", _petType.ToString());
         }
+
+        public bool IsDefault => _isDefault;
     }
 }

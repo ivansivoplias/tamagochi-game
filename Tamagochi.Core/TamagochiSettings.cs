@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using Tamagochi.Infrastructure.Abstract;
 
 namespace Tamagochi.Common
@@ -8,6 +9,7 @@ namespace Tamagochi.Common
         private readonly ApplicationSettingsBase _settings;
 
         private string _isFirstRunPropName;
+        private string _contextFileNamePropName;
 
         public bool IsFirstRun
         {
@@ -15,10 +17,17 @@ namespace Tamagochi.Common
             set { SetValue(_isFirstRunPropName, value); }
         }
 
-        public TamagochiSettings(ApplicationSettingsBase settings, string isFirstRun)
+        public string GameContextFilename
+        {
+            get { return GetValue<string>(_contextFileNamePropName); }
+            set { SetValue(_contextFileNamePropName, value); }
+        }
+
+        public TamagochiSettings(ApplicationSettingsBase settings)
         {
             _settings = settings;
-            _isFirstRunPropName = isFirstRun;
+            _isFirstRunPropName = nameof(IsFirstRun);
+            _contextFileNamePropName = nameof(GameContextFilename);
         }
 
         protected T GetValue<T>(string propName)

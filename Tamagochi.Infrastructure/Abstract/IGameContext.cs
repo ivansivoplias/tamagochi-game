@@ -17,6 +17,8 @@ namespace Tamagochi.Infrastructure.Abstract
 
         float CleanessRate { get; set; }
 
+        bool IsDefault { get; }
+
         void Save();
     }
 }

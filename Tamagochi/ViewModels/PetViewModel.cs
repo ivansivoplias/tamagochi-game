@@ -56,11 +56,19 @@ namespace Tamagochi.ViewModels
             get { return _pet.CleanessRate; }
             set
             {
-                _pet.ChangeCleaness(value);
+                _pet.CleanessRate = value;
                 OnPropertyChanged(nameof(AviaryCleanness));
             }
         }
 
-        public string Image { get; set; }
+        public string Image
+        {
+            get { return _pet.ImagePath; }
+            set
+            {
+                _pet.ImagePath = value;
+                OnPropertyChanged(nameof(Image));
+            }
+        }
     }
 }
