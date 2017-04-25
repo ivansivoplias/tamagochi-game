@@ -62,27 +62,42 @@ namespace Tamagochi.Core.Models
 
         public void ChangeSatiety(float satietyDifference)
         {
-            throw new NotImplementedException();
+            if (CheckIfDifferenceIsValid(satietyDifference, _satietyLevel))
+            {
+                _satietyLevel += satietyDifference;
+            }
         }
 
         public void IncreaseAge(int amount)
         {
-            throw new NotImplementedException();
+            if (amount > 0 && amount < _lifeDuration)
+            {
+                _age += amount;
+            }
         }
 
         public void UpdateHealth(float healthDifference)
         {
-            throw new NotImplementedException();
+            if (CheckIfDifferenceIsValid(healthDifference, _healthLevel))
+            {
+                _healthLevel += healthDifference;
+            }
         }
 
         public void UpdateMood(float moodDifference)
         {
-            throw new NotImplementedException();
+            if (CheckIfDifferenceIsValid(moodDifference, _moodLevel))
+            {
+                _moodLevel += moodDifference;
+            }
         }
 
         public void ChangeCleaness(float cleanessDifference)
         {
-            _cleanessLevel += cleanessDifference;
+            if (CheckIfDifferenceIsValid(cleanessDifference, _cleanessLevel))
+            {
+                _cleanessLevel += cleanessDifference;
+            }
         }
 
         public void OnGameHourChanged(object sender, HourChangedEventArgs e)
@@ -95,6 +110,13 @@ namespace Tamagochi.Core.Models
         public void OnGameYearChanged(object sender, YearChangedEventArgs e)
         {
             IncreaseAge(1);
+        }
+
+        public bool CheckIfDifferenceIsValid(float difference, float currentValue)
+        {
+            return CheckIfNumberIsPercent(Math.Abs(difference))
+                && Math.Abs(difference) <= currentValue
+                && currentValue + difference <= 100;
         }
 
         private void UpdatePetFromParams(PetUpdateParams parameter)

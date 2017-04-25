@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Tamagochi.Commands;
+using Tamagochi.Common.GameEventArgs;
 using Tamagochi.Infrastructure.Abstract;
 
 namespace Tamagochi.ViewModels
@@ -8,6 +9,7 @@ namespace Tamagochi.ViewModels
     public class GameViewModel : ViewModelBase
     {
         private AbstractGame _game;
+        private TimeSpan _gameTime;
         private Command _startGameCommand;
         private Command _stopGameCommand;
         private Command _pauseGameCommand;
@@ -20,12 +22,18 @@ namespace Tamagochi.ViewModels
 
         public TimeSpan Time
         {
-            get { return _game.Timer.CurrentTime; }
+            get { return _gameTime; }
+            private set
+            {
+                _gameTime = value;
+                OnPropertyChanged(nameof(Time));
+            }
         }
 
         public GameViewModel(AbstractGame game)
         {
             _game = game;
+            _game.Timer.HourChanged += UpdateTimeOnHourChanged;
 
             var currentType = GetType();
 
@@ -41,6 +49,11 @@ namespace Tamagochi.ViewModels
             Command.RegisterCommandBinding(window, _saveGameCommand);
             Command.RegisterCommandBinding(window, _pauseGameCommand);
             Command.RegisterCommandBinding(window, _stopGameCommand);
+        }
+
+        private void UpdateTimeOnHourChanged(object sender, HourChangedEventArgs e)
+        {
+            Time = e.CurrentGameTime;
         }
 
         private void ShowMessage()

@@ -119,7 +119,7 @@ namespace Tamagochi.Core.GameTimer
 
         private void RealMinuteChanged(object sender, ElapsedEventArgs e)
         {
-            _currentTime.Add(TimeSpan.FromHours(1));
+            _currentTime = _currentTime.Add(TimeSpan.FromHours(1));
             DateTime date = DateFromTimeSpan(_currentTime);
             _timer.Interval = GetInterval();
 

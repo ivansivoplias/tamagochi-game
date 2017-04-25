@@ -35,7 +35,7 @@
             </MenuItem>
         </Menu>
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
-            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Time}" />
+            <Label VerticalAlignment="Center" HorizontalAlignment="Center"  Content="{Binding Time}" />
         </WrapPanel>
     </Grid>
 </Window>
