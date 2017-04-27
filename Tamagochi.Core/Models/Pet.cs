@@ -14,6 +14,16 @@ namespace Tamagochi.Core.Models
         private float _healthLevel;
         private float _cleanessLevel;
 
+        public event EventHandler<ValueChangedEventArgs> SatietyChanged;
+
+        public event EventHandler<ValueChangedEventArgs> CleannessChanged;
+
+        public event EventHandler<ValueChangedEventArgs> HealthChanged;
+
+        public event EventHandler<ValueChangedEventArgs> MoodChanged;
+
+        public event EventHandler<PetDiedEventArgs> PetDied;
+
         public int Age
         {
             get { return _age; }
@@ -65,14 +75,20 @@ namespace Tamagochi.Core.Models
             if (CheckIfDifferenceIsValid(satietyDifference, _satietyLevel))
             {
                 _satietyLevel += satietyDifference;
+                SatietyChanged?.Invoke(this, new ValueChangedEventArgs(Satiety));
             }
         }
 
         public void IncreaseAge(int amount)
         {
-            if (amount > 0 && amount < _lifeDuration)
+            if (amount > 0 && amount < _lifeDuration && _age + amount <= _lifeDuration)
             {
                 _age += amount;
+            }
+
+            if (Age == _lifeDuration)
+            {
+                PetDied?.Invoke(this, PetDiedEventArgs.Default);
             }
         }
 
@@ -81,6 +97,12 @@ namespace Tamagochi.Core.Models
             if (CheckIfDifferenceIsValid(healthDifference, _healthLevel))
             {
                 _healthLevel += healthDifference;
+                HealthChanged?.Invoke(this, new ValueChangedEventArgs(Health));
+            }
+
+            if (Health == GameConstants.HelthDeathLimit)
+            {
+                PetDied?.Invoke(this, PetDiedEventArgs.Default);
             }
         }
 
@@ -89,6 +111,7 @@ namespace Tamagochi.Core.Models
             if (CheckIfDifferenceIsValid(moodDifference, _moodLevel))
             {
                 _moodLevel += moodDifference;
+                MoodChanged?.Invoke(this, new ValueChangedEventArgs(Mood));
             }
         }
 
@@ -97,6 +120,7 @@ namespace Tamagochi.Core.Models
             if (CheckIfDifferenceIsValid(cleanessDifference, _cleanessLevel))
             {
                 _cleanessLevel += cleanessDifference;
+                CleannessChanged?.Invoke(this, new ValueChangedEventArgs(CleanessRate));
             }
         }
 
@@ -131,6 +155,11 @@ namespace Tamagochi.Core.Models
             {
                 _age = newAge;
             }
+
+            if (Age == _lifeDuration)
+            {
+                PetDied?.Invoke(this, PetDiedEventArgs.Default);
+            }
         }
 
         private void SetSatiety(float newSatiety)
@@ -138,6 +167,7 @@ namespace Tamagochi.Core.Models
             if (CheckIfNumberIsPercent(newSatiety))
             {
                 _satietyLevel = newSatiety;
+                SatietyChanged?.Invoke(this, new ValueChangedEventArgs(Satiety));
             }
         }
 
@@ -151,6 +181,12 @@ namespace Tamagochi.Core.Models
             if (CheckIfNumberIsPercent(newHealth))
             {
                 _healthLevel = newHealth;
+                HealthChanged?.Invoke(this, new ValueChangedEventArgs(Health));
+            }
+
+            if (Health == GameConstants.HelthDeathLimit)
+            {
+                PetDied?.Invoke(this, PetDiedEventArgs.Default);
             }
         }
 
@@ -159,6 +195,7 @@ namespace Tamagochi.Core.Models
             if (CheckIfNumberIsPercent(newMood))
             {
                 _moodLevel = newMood;
+                MoodChanged?.Invoke(this, new ValueChangedEventArgs(Mood));
             }
         }
 
@@ -167,6 +204,7 @@ namespace Tamagochi.Core.Models
             if (CheckIfNumberIsPercent(newCleaness))
             {
                 _cleanessLevel = newCleaness;
+                CleannessChanged?.Invoke(this, new ValueChangedEventArgs(CleanessRate));
             }
         }
     }

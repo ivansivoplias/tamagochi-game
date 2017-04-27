@@ -135,6 +135,34 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Bulbosaur\bulbosaur-0.png" />
+    <Resource Include="Images\Bulbosaur\bulbosaur-1.png" />
+    <Resource Include="Images\Bulbosaur\bulbosaur-2.png" />
+    <Resource Include="Images\Bulbosaur\bulbosaur-3.png" />
+    <Resource Include="Images\Bulbosaur\bulbosaur-4.png" />
+    <Resource Include="Images\Charmander\charmander-0.png" />
+    <Resource Include="Images\Charmander\charmander-1.png" />
+    <Resource Include="Images\Charmander\charmander-2.png" />
+    <Resource Include="Images\Charmander\charmander-3.png" />
+    <Resource Include="Images\Charmander\charmander-4.png" />
+    <Resource Include="Images\Charmander\charmander-5.png" />
+    <Resource Include="Images\Squirtle\squirtle-0.png" />
+    <Resource Include="Images\Squirtle\squirtle-1.png" />
+    <Resource Include="Images\Squirtle\squirtle-2.png" />
+    <Resource Include="Images\Squirtle\squirtle-3.png" />
+    <Resource Include="Images\Squirtle\squirtle-4.png" />
+    <Resource Include="Images\Squirtle\squirtle-5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\clean.png" />
+    <Resource Include="Images\Icons\euthanize.png" />
+    <Resource Include="Images\Icons\feed.png" />
+    <Resource Include="Images\Icons\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -15,7 +15,9 @@ namespace Tamagochi.Core.Models
             try
             {
                 serializer.Initialize(settings.GameContextFilename);
-                context = serializer.Deserialize<GameContext>();
+                var tempcontext = serializer.Deserialize<GameContext>();
+                tempcontext.SetSerializer(serializer);
+                context = tempcontext;
             }
             catch
             {

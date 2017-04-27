@@ -17,7 +17,16 @@ namespace Tamagochi.Core.Models
         private ISerializer _serializer;
         private bool _isDefault;
 
+        public GameContext()
+        {
+        }
+
         public GameContext(ISerializer serializer)
+        {
+            _serializer = serializer;
+        }
+
+        public void SetSerializer(ISerializer serializer)
         {
             _serializer = serializer;
         }

@@ -23,9 +23,9 @@ namespace Tamagochi
             var gameContext = Container.Resolve<IGameContext>();
             var game = Container.Resolve<AbstractGameFactory>().MakeGame(gameContext);
 
-            var viewModel = new GameViewModel(game);
+            var viewModel = new GameViewModel(game, (s, arg) => MessageBox.Show("Pet is dead"));
             this.MainWindow.DataContext = viewModel;
-            viewModel.RegisterCommands(this.MainWindow);
+            viewModel.RegisterCommandsForWindow(this.MainWindow);
             this.MainWindow.Show();
         }
 

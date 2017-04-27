@@ -1,4 +1,5 @@
-﻿using Tamagochi.Common.GameEventArgs;
+﻿using System;
+using Tamagochi.Common.GameEventArgs;
 
 namespace Tamagochi.Infrastructure.Abstract
 {
@@ -12,6 +13,16 @@ namespace Tamagochi.Infrastructure.Abstract
         string ImagePath { get; set; }
         PetType PetType { get; set; }
         float CleanessRate { get; set; }
+
+        event EventHandler<ValueChangedEventArgs> SatietyChanged;
+
+        event EventHandler<ValueChangedEventArgs> CleannessChanged;
+
+        event EventHandler<ValueChangedEventArgs> HealthChanged;
+
+        event EventHandler<ValueChangedEventArgs> MoodChanged;
+
+        event EventHandler<PetDiedEventArgs> PetDied;
 
         void IncreaseAge(int amount);
 

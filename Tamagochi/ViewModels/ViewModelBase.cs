@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows;
 
 namespace Tamagochi.ViewModels
 {
@@ -25,6 +26,10 @@ namespace Tamagochi.ViewModels
                 var e = new PropertyChangedEventArgs(propertyName);
                 handler(this, e);
             }
+        }
+
+        public virtual void RegisterCommandsForWindow(Window window)
+        {
         }
 
         [Conditional("DEBUG")]

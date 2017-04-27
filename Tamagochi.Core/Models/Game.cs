@@ -1,5 +1,4 @@
-﻿using System;
-using Tamagochi.Common;
+﻿using Tamagochi.Common;
 using Tamagochi.Infrastructure.Abstract;
 
 namespace Tamagochi.Core.Models

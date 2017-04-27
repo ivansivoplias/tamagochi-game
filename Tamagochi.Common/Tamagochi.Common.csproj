@@ -45,6 +45,8 @@
     <Compile Include="GameEventArgs\DayChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\HourChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\MonthChangedEventArgs.cs" />
+    <Compile Include="GameEventArgs\ValueChangedEventArgs.cs" />
+    <Compile Include="GameEventArgs\PetDiedEventArgs.cs" />
     <Compile Include="GameEventArgs\YearChangedEventArgs.cs" />
     <Compile Include="GameExceptionMessages.cs" />
     <Compile Include="GameExceptions\DeserializationFailedException.cs" />

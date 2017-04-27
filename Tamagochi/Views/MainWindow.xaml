@@ -24,18 +24,21 @@
             <ColumnDefinition Width="562*"></ColumnDefinition>
             <ColumnDefinition Width="227*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Menu HorizontalAlignment="Stretch" Grid.ColumnSpan="3" Margin="0,0,0,90">
-            <MenuItem Header="Game">
-                <MenuItem Command="{Binding StartGameCommand}" />
-                <MenuItem Command="{Binding PauseGameCommand}" />
-                <MenuItem Command="{Binding StopGameCommand}" />
-                <MenuItem Command="{Binding SaveGameCommand}" />
-                <Separator />
-                <MenuItem Header="Exit" Command="{Binding CloseCommand}" />
-            </MenuItem>
-        </Menu>
-        <WrapPanel Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+        <WrapPanel Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Menu HorizontalAlignment="Stretch" Grid.ColumnSpan="3" Margin="0,0,0,90">
+                <MenuItem Header="Game">
+                    <MenuItem Command="{Binding StartGameCommand}" />
+                    <MenuItem Command="{Binding PauseGameCommand}" />
+                    <MenuItem Command="{Binding StopGameCommand}" />
+                    <MenuItem Command="{Binding SaveGameCommand}" />
+                    <Separator />
+                    <MenuItem Header="Exit" Command="{Binding CloseCommand}" />
+                </MenuItem>
+            </Menu>
             <Label VerticalAlignment="Center" HorizontalAlignment="Center"  Content="{Binding Time}" />
         </WrapPanel>
+        <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Image Source="/Images/Charmander/charmander-4.png"></Image>
+        </Grid>
     </Grid>
 </Window>

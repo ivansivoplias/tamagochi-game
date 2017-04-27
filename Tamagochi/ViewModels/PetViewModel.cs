@@ -9,6 +9,10 @@ namespace Tamagochi.ViewModels
         public PetViewModel(IPet pet)
         {
             _pet = pet;
+            _pet.CleannessChanged += (s, e) => OnPropertyChanged(nameof(AviaryCleanness));
+            _pet.MoodChanged += (s, e) => OnPropertyChanged(nameof(Mood));
+            _pet.SatietyChanged += (s, e) => OnPropertyChanged(nameof(Satiety));
+            _pet.HealthChanged += (s, e) => OnPropertyChanged(nameof(Health));
         }
 
         public int Age
