@@ -1,4 +1,6 @@
-﻿using Tamagochi.Infrastructure.Abstract;
+﻿using System;
+using Tamagochi.Common;
+using Tamagochi.Infrastructure.Abstract;
 
 namespace Tamagochi.Core.Models
 {
@@ -8,6 +10,51 @@ namespace Tamagochi.Core.Models
         {
             Timer = timer;
             Pet = pet;
+        }
+
+        public override void CleanPetAviary()
+        {
+            //aviary cleaness
+            var petCleaness = Pet.CleanessRate;
+            Pet.CleanessRate = IncreaseByConstant(petCleaness, GameConstants.AviaryGarbageReduceRate);
+        }
+
+        public override void EuthanaizePet()
+        {
+            //kills pet
+            Pet.Health = 0;
+            Pet.Mood = 0;
+            Pet.Satiety = 0;
+            Pet.CleanessRate = 0;
+        }
+
+        public override void FeedPet()
+        {
+            //health + satiety
+            var petHealth = Pet.Health;
+            var satiety = Pet.Satiety;
+            Pet.Health = IncreaseByConstant(petHealth, GameConstants.PetHealthIncreaseRate);
+            Pet.Satiety = IncreaseByConstant(satiety, GameConstants.PetSatietyIncreaseRate);
+        }
+
+        public override void PlayWithPet()
+        {
+            //mood
+            var petMood = Pet.Mood;
+            Pet.Mood = IncreaseByConstant(petMood, GameConstants.PetMoodIncreaseRate);
+        }
+
+        private float IncreaseByConstant(float startValue, float constant)
+        {
+            if (startValue < 100)
+            {
+                startValue += constant;
+                if (startValue > 100)
+                {
+                    startValue = 100;
+                }
+            }
+            return startValue;
         }
 
         public override void PauseGame()

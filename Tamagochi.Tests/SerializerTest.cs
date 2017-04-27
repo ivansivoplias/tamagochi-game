@@ -17,7 +17,7 @@ namespace Tamagochi.Tests
             var serializer = new TamagochiSerializer();
             var filename = GetCurrentDirectory() + "\\success.xml";
             serializer.Initialize(filename);
-            var testData = new GameContext(null, null) { Age = 25, CleanessRate = 48, Health = 50 };
+            var testData = new GameContext(null) { Age = 25, CleanessRate = 48, Health = 50 };
 
             //Act
             serializer.Serialize(testData);

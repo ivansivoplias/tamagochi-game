@@ -13,6 +13,14 @@
 
         public IPet Pet { get; protected set; }
 
+        public abstract void FeedPet();
+
+        public abstract void PlayWithPet();
+
+        public abstract void CleanPetAviary();
+
+        public abstract void EuthanaizePet();
+
         public abstract void StartGame();
 
         public abstract void StopGame();
