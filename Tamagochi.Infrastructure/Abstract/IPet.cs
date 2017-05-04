@@ -1,4 +1,5 @@
 ﻿using System;
+using Tamagochi.Common;
 using Tamagochi.Common.GameEventArgs;
 
 namespace Tamagochi.Infrastructure.Abstract
@@ -10,8 +11,8 @@ namespace Tamagochi.Infrastructure.Abstract
         float Mood { get; set; }
         float Satiety { get; set; }
         float Health { get; set; }
-        string ImagePath { get; set; }
         PetType PetType { get; set; }
+        PetEvolutionLevel EvolutionLevel { get; set; }
         float CleanessRate { get; set; }
 
         event EventHandler<ValueChangedEventArgs> SatietyChanged;
@@ -21,6 +22,8 @@ namespace Tamagochi.Infrastructure.Abstract
         event EventHandler<ValueChangedEventArgs> HealthChanged;
 
         event EventHandler<ValueChangedEventArgs> MoodChanged;
+
+        event EventHandler<PetEvolutionLevelChangedEventArgs> EvolutionLevelChanged;
 
         event EventHandler<PetDiedEventArgs> PetDied;
 

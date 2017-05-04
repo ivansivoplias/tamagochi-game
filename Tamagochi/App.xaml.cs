@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using System.Windows;
 using Tamagochi.DI;
+using Tamagochi.Helpers;
 using Tamagochi.Infrastructure.Abstract;
 using Tamagochi.Properties;
 using Tamagochi.ViewModels;

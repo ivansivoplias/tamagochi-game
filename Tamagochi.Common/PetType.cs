@@ -1,10 +1,10 @@
-﻿namespace Tamagochi
+﻿namespace Tamagochi.Common
 {
     public enum PetType
     {
         None = 0,
-        Cat,
-        Dog,
-        Alien
+        Bulbosaur,
+        Charmander,
+        Squirtle
     }
 }

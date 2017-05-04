@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using Tamagochi.Common;
 
 namespace Tamagochi.Infrastructure.Abstract
 {
@@ -14,6 +15,7 @@ namespace Tamagochi.Infrastructure.Abstract
         float Health { get; set; }
 
         PetType PetType { get; set; }
+        PetEvolutionLevel EvolutionLevel { get; set; }
 
         float CleanessRate { get; set; }
 

@@ -13,6 +13,7 @@ namespace Tamagochi.Core.Models
         private float _satietyLevel;
         private float _healthLevel;
         private float _cleanessLevel;
+        private PetEvolutionLevel _evolutionLevel;
 
         public event EventHandler<ValueChangedEventArgs> SatietyChanged;
 
@@ -23,6 +24,8 @@ namespace Tamagochi.Core.Models
         public event EventHandler<ValueChangedEventArgs> MoodChanged;
 
         public event EventHandler<PetDiedEventArgs> PetDied;
+
+        public event EventHandler<PetEvolutionLevelChangedEventArgs> EvolutionLevelChanged;
 
         public int Age
         {
@@ -60,14 +63,24 @@ namespace Tamagochi.Core.Models
             set { SetCleaness(value); }
         }
 
-        public string ImagePath { get; set; }
         public PetType PetType { get; set; }
+
+        public PetEvolutionLevel EvolutionLevel
+        {
+            get { return _evolutionLevel; }
+
+            set
+            {
+                SetEvolutionLevel(value);
+            }
+        }
 
         public Pet(int lifeDuration)
         {
             _lifeDuration = lifeDuration;
             _age = 0;
             _moodLevel = _satietyLevel = _healthLevel = _cleanessLevel = 100;
+            _evolutionLevel = PetEvolutionLevel.Birth;
         }
 
         public void ChangeSatiety(float satietyDifference)
@@ -147,6 +160,15 @@ namespace Tamagochi.Core.Models
         {
             UpdateHealth(parameter.HealthDifference);
             UpdateMood(parameter.MoodDifference);
+        }
+
+        private void SetEvolutionLevel(PetEvolutionLevel newLevel)
+        {
+            if (EvolutionLevel < newLevel)
+            {
+                _evolutionLevel = newLevel;
+                EvolutionLevelChanged?.Invoke(this, new PetEvolutionLevelChangedEventArgs(EvolutionLevel));
+            }
         }
 
         private void SetAge(int newAge)

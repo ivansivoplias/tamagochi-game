@@ -65,14 +65,6 @@ namespace Tamagochi.ViewModels
             }
         }
 
-        public string Image
-        {
-            get { return _pet.ImagePath; }
-            set
-            {
-                _pet.ImagePath = value;
-                OnPropertyChanged(nameof(Image));
-            }
-        }
+        public string Image { get; set; }
     }
 }

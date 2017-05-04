@@ -26,6 +26,8 @@
                 </MenuItem>
             </Menu>
         </StackPanel>
+
+        <!-- Window content -->
         <Border BorderThickness="10">
             <Grid>
                 <Grid.RowDefinitions>
@@ -115,7 +117,7 @@
                     </StackPanel>
 
                     <Grid Grid.Column="1">
-                        <Image Source="/Images/Bulbosaur/bulbosaur-0.png"
+                        <Image Source="/Images/Bulbosaur/bulbosaur-1.png"
                            Height="{Binding RelativeSource=
                                     {RelativeSource Mode=Self},
                                     Path=Parent.ActualHeight}"

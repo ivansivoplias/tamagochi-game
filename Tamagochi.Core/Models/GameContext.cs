@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using System.Xml.Schema;
+using Tamagochi.Common;
 using Tamagochi.Infrastructure.Abstract;
 
 namespace Tamagochi.Core.Models
@@ -13,6 +14,7 @@ namespace Tamagochi.Core.Models
         private float _satiety;
         private float _health;
         private PetType _petType;
+        private PetEvolutionLevel _evolutionLevel;
         private float _cleanessRate;
         private ISerializer _serializer;
         private bool _isDefault;
@@ -56,6 +58,12 @@ namespace Tamagochi.Core.Models
             set { _mood = value; }
         }
 
+        public PetEvolutionLevel EvolutionLevel
+        {
+            get { return _evolutionLevel; }
+            set { _evolutionLevel = value; }
+        }
+
         public float Satiety
         {
             get { return _satiety; }
@@ -96,6 +104,7 @@ namespace Tamagochi.Core.Models
             _cleanessRate = float.Parse(reader.GetAttribute("CleanessRate"));
 
             Enum.TryParse(reader.GetAttribute("PetType"), out _petType);
+            Enum.TryParse(reader.GetAttribute("EvolutionLevel"), out _evolutionLevel);
 
             bool isEmptyElement = reader.IsEmptyElement;
             reader.ReadStartElement();
@@ -127,6 +136,7 @@ namespace Tamagochi.Core.Models
             writer.WriteAttributeString("CleanessRate", _cleanessRate.ToString());
 
             writer.WriteAttributeString("PetType", _petType.ToString());
+            writer.WriteAttributeString("EvolutionLevel", _evolutionLevel.ToString());
         }
 
         public bool IsDefault => _isDefault;

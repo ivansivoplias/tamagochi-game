@@ -1,4 +1,6 @@
-﻿namespace Tamagochi.Infrastructure.Abstract
+﻿using Tamagochi.Common;
+
+namespace Tamagochi.Infrastructure.Abstract
 {
     public abstract class AbstractPetFactory
     {

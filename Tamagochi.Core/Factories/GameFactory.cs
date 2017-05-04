@@ -1,4 +1,5 @@
 ﻿using System;
+using Tamagochi.Common;
 using Tamagochi.Core.Models;
 using Tamagochi.Infrastructure.Abstract;
 
@@ -24,7 +25,7 @@ namespace Tamagochi.Core.Factories
             }
             else
             {
-                pet = _factory.MakePet(PetType.Cat);
+                pet = _factory.MakePet(PetType.Bulbosaur);
             }
             return new Game(context, _timer, pet);
         }
