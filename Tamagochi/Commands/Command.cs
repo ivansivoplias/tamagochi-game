@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace Tamagochi.Commands
+namespace Tamagochi.UI.Commands
 {
     public class Command : RoutedUICommand
     {

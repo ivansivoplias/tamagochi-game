@@ -3,10 +3,71 @@
                     xmlns:local="clr-namespace:Tamagochi.Styles">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Colors.xaml" />
+        <ResourceDictionary Source="Fonts.xaml" />
         <ResourceDictionary Source="Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Button -->
-    <Style x:Key="RoundedButton" TargetType="{x:Type Button}">
+    <Style x:Key="ActionButton" TargetType="{x:Type Button}">
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ActionTextBrush}" />
+        <Setter Property="FontFamily" Value="{StaticResource JosefinSansRegular}" />
+        <Setter Property="FontSize" Value="22" />
+
+        <Setter Property="RenderTransformOrigin" Value="0.5 0.5" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <RotateTransform />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="MinHeight" Value="50" />
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="7"
+                        Background="{TemplateBinding Background}"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" RecognizesAccessKey="True" />
+                        <Border.Effect>
+                            <DropShadowEffect Color="#919191"
+                                              Direction="150"
+                                              BlurRadius="1.5"
+                                              Opacity="0.56"
+                                              ShadowDepth="4" />
+                        </Border.Effect>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard TargetProperty="RenderTransform.Angle">
+                        <DoubleAnimation
+                                From="-5" To="5" Duration="0:0:0.05"
+                                AutoReverse="True"
+                                RepeatBehavior="5x"
+                                FillBehavior="Stop" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource HoverButtonBackgroundBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource HoverActionTextBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource ButtonPressedBackgroundBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource ButtonPressedForegroundBrush}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

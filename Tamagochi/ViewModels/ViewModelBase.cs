@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 
-namespace Tamagochi.ViewModels
+namespace Tamagochi.UI.ViewModels
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

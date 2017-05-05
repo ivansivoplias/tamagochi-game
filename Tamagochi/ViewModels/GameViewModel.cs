@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows;
-using Tamagochi.Commands;
+using Tamagochi.UI.Commands;
 using Tamagochi.Common.GameEventArgs;
 using Tamagochi.Infrastructure.Abstract;
 
-namespace Tamagochi.ViewModels
+namespace Tamagochi.UI.ViewModels
 {
     public class GameViewModel : ViewModelBase
     {

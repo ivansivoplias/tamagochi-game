@@ -1,13 +1,12 @@
 ﻿using Autofac;
 using System.Windows;
 using Tamagochi.DI;
-using Tamagochi.Helpers;
 using Tamagochi.Infrastructure.Abstract;
 using Tamagochi.Properties;
-using Tamagochi.ViewModels;
+using Tamagochi.UI.ViewModels;
 using Tamagochi.Views;
 
-namespace Tamagochi
+namespace Tamagochi.UI
 {
     /// <summary>
     /// Interaction logic for App.xaml

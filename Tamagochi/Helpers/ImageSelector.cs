@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Media.Imaging;
 using Tamagochi.Common;
 
-namespace Tamagochi.Helpers
+namespace Tamagochi.UI.Helpers
 {
     public class ImageSelector
     {

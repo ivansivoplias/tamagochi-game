@@ -1,6 +1,6 @@
 ﻿using Tamagochi.Infrastructure.Abstract;
 
-namespace Tamagochi.ViewModels
+namespace Tamagochi.UI.ViewModels
 {
     public class PetViewModel : ViewModelBase
     {

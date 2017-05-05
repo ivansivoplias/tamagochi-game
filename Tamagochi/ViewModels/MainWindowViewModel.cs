@@ -1,7 +1,7 @@
 ﻿using System;
-using Tamagochi.Commands;
+using Tamagochi.UI.Commands;
 
-namespace Tamagochi.ViewModels
+namespace Tamagochi.UI.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {

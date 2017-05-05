@@ -5,6 +5,29 @@
         <ResourceDictionary Source="Colors.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <!--Default app brushes-->
-    <SolidColorBrush x:Key="DefaultBackgroundBrush" Color="{StaticResource DefaultBackground}" />
-    <SolidColorBrush x:Key="DefaultActiveBackgroundBrush" Color="{StaticResource DefaultActiveColor}" />
+    <SolidColorBrush x:Key="LightBackgroundBrush" Color="{StaticResource BackgroundLight}" />
+    <SolidColorBrush x:Key="DarkBackgroundBrush" Color="{StaticResource BackgroundDark}" />
+
+    <!-- Button brushes -->
+    <LinearGradientBrush x:Key="ButtonBackgroundBrush" StartPoint="0.3,0.0" EndPoint="0.7,1">
+        <GradientStop Color="{StaticResource ButtonBackgroundStart}" Offset="0" />
+        <GradientStop Color="{StaticResource ButtonBackgroundEnd}" Offset="0.85" />
+        <GradientStop Color="{StaticResource ButtonBackgroundStart}" Offset="1.5" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="HoverButtonBackgroundBrush" StartPoint="0.3,0.0" EndPoint="0.7,1">
+        <GradientStop Color="{StaticResource HoverButtonBackgroundStart}" Offset="0" />
+        <GradientStop Color="{StaticResource HoverButtonBackgroundEnd}" Offset="0.85" />
+        <GradientStop Color="{StaticResource HoverButtonBackgroundStart}" Offset="1.5" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ButtonPressedBackgroundBrush" StartPoint="0.56,0.0" EndPoint="0.85,1">
+        <GradientStop Color="{StaticResource ButtonBackgroundEnd}" Offset="0" />
+        <GradientStop Color="{StaticResource ButtonPressedBackgroundColor}" Offset="1" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="ButtonPressedForegroundBrush" Color="{StaticResource ButtonPressedForegroundColor}" />
+
+    <SolidColorBrush x:Key="ActionTextBrush" Color="{StaticResource ActionTextColor}" />
+    <SolidColorBrush x:Key="HoverActionTextBrush" Color="{StaticResource HoverActionTextColor}" />
 </ResourceDictionary>

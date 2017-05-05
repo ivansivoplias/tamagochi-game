@@ -40,6 +40,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -59,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Controls\IndicatorBar.cs" />
     <Compile Include="Helpers\IconsSelector.cs" />
     <Compile Include="Helpers\ImageSelector.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
@@ -91,6 +94,16 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\JosefinSans-Bold.ttf" />
+    <Resource Include="Fonts\JosefinSans-BoldItalic.ttf" />
+    <Resource Include="Fonts\JosefinSans-Italic.ttf" />
+    <Resource Include="Fonts\JosefinSans-Light.ttf" />
+    <Resource Include="Fonts\JosefinSans-LightItalic.ttf" />
+    <Resource Include="Fonts\JosefinSans-Regular.ttf" />
+    <Resource Include="Fonts\JosefinSans-SemiBold.ttf" />
+    <Resource Include="Fonts\JosefinSans-SemiBoldItalic.ttf" />
+    <Resource Include="Fonts\JosefinSans-Thin.ttf" />
+    <Resource Include="Fonts\JosefinSans-ThinItalic.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -128,7 +141,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\TamagochiMainStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -162,7 +183,6 @@
     <Resource Include="Images\Icons\feed.png" />
     <Resource Include="Images\Icons\play.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
