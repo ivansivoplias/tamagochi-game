@@ -14,7 +14,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid Background="{StaticResource LightBackgroundBrush}">
         <!-- Menu -->
         <StackPanel>
             <Menu>
@@ -45,11 +45,19 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Orientation="Vertical" Margin="5">
-                        <TextBlock Text="Health:" Margin="3 0" Padding="3" FontSize="14" FontStyle="Italic" FontWeight="SemiBold" />
-                        <ProgressBar Margin="10 5" Minimum="0" Maximum="100" Value="75" Height="20" />
-                        <TextBlock Text="Satiety:" Margin="3 0"  Padding="3" FontSize="14" FontStyle="Italic" FontWeight="SemiBold" />
-                        <ProgressBar Margin="10 5" Minimum="0" Maximum="100" Value="30" Height="20" />
-                        <custom:IndicatorBar Margin="10 5" Minimum="0" Maximum="100" Value="75" Height="20" />
+                        <custom:IndicatorBar
+                            IndicatorName="Health:"
+                            Margin="5"
+                            Minimum="0"
+                            Maximum="100"
+                            Value="75"
+                            IsIndeterminate="True" />
+                        <custom:IndicatorBar
+                            IndicatorName="Satiety:"
+                            Margin="5"
+                            Minimum="0"
+                            Maximum="100"
+                            Value="75" />
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" Margin="15">
@@ -58,10 +66,18 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Margin="5" Grid.Column="2">
-                        <TextBlock Text="Mood:" Margin="3 0" Padding="3" FontSize="14" FontStyle="Italic" FontWeight="SemiBold" />
-                        <ProgressBar Margin="10 5" Minimum="0" Maximum="100" Value="75" Height="20" />
-                        <TextBlock Text="Aviary cleanness:" Margin="3 0"  Padding="3" FontSize="14" FontStyle="Italic" FontWeight="SemiBold" />
-                        <ProgressBar Margin="10 5" Minimum="0" Maximum="100" Value="30" Height="20" />
+                        <custom:IndicatorBar
+                            IndicatorName="Mood:"
+                            Margin="5"
+                            Minimum="0"
+                            Maximum="100"
+                            Value="75" />
+                        <custom:IndicatorBar
+                            IndicatorName="Aviary cleanness:"
+                            Margin="5"
+                            Minimum="0"
+                            Maximum="100"
+                            Value="75" />
                     </StackPanel>
                 </Grid>
 
@@ -74,42 +90,47 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                        <Button Style="{StaticResource ActionButton}" Margin="10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="5*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Feed"
+                        <custom:RippleEffectDecorator HighlightBackground="#efa9fafe">
+                            <Button Style="{StaticResource ActionButton}" Margin="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Feed"
                                            Padding="5"
                                            Grid.Column="0"
                                            TextAlignment="Left"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
-                                <Image MaxWidth="50"
+                                    <Image MaxWidth="50"
                                        Source="/Images/Icons/feed.png"
                                        Grid.Column="1" />
-                            </Grid>
-                        </Button>
-                        <Button Style="{StaticResource ActionButton}" Margin="10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="5*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Play"
+                                </Grid>
+                            </Button>
+                        </custom:RippleEffectDecorator>
+
+                        <custom:RippleEffectDecorator HighlightBackground="#efa9fafe">
+                            <Button Style="{StaticResource ActionButton}" Margin="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Play"
                                            Padding="5"
                                            Grid.Column="0"
                                            TextAlignment="Left"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
-                                <Image MaxWidth="50"
+                                    <Image MaxWidth="50"
                                        Source="/Images/Icons/play.png"
                                        Grid.Column="1" />
-                            </Grid>
-                        </Button>
+                                </Grid>
+                            </Button>
+                        </custom:RippleEffectDecorator>
                     </StackPanel>
 
                     <Grid Grid.Column="1">
@@ -123,42 +144,46 @@
                     </Grid>
 
                     <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                        <Button Style="{StaticResource ActionButton}" Margin="10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="5*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Clean aviary"
+                        <custom:RippleEffectDecorator HighlightBackground="#efa9fafe">
+                            <Button Style="{StaticResource ActionButton}" Margin="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Clean aviary"
                                            Padding="5"
                                            Grid.Column="0"
                                            TextAlignment="Left"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
-                                <Image MaxWidth="50"
+                                    <Image MaxWidth="50"
                                        Source="/Images/Icons/clean.png"
                                        Grid.Column="1" />
-                            </Grid>
-                        </Button>
-                        <Button Style="{StaticResource ActionButton}" Margin="10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="5*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Euthanize"
+                                </Grid>
+                            </Button>
+                        </custom:RippleEffectDecorator>
+                        <custom:RippleEffectDecorator HighlightBackground="#efa9fafe">
+                            <Button Style="{StaticResource ActionButton}" Margin="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Euthanize"
                                            Padding="5"
                                            Grid.Column="0"
                                            TextAlignment="Left"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
-                                <Image MaxWidth="50"
+                                    <Image MaxWidth="50"
                                        Source="/Images/Icons/euthanize.png"
                                        Grid.Column="1" />
-                            </Grid>
-                        </Button>
+                                </Grid>
+                            </Button>
+                        </custom:RippleEffectDecorator>
                     </StackPanel>
                 </Grid>
             </Grid>

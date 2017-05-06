@@ -1,0 +1,56 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:l="clr-namespace:Tamagochi.UI.Controls">
+    <Style TargetType="{x:Type l:RippleEffectDecorator}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type l:RippleEffectDecorator}">
+                    <Grid x:Name="RippleEffectRoot"
+                          ClipToBounds="True"
+                          Background="{TemplateBinding Background}"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch">
+                        <Grid x:Name="PART_grid"
+                              ClipToBounds="True"
+                              Background="{TemplateBinding Background}"
+                              Width="{Binding ElementName=PART_contentpresenter, Path=ActualWidth}"
+                              Height="{Binding ElementName=PART_contentpresenter, Path=ActualHeight}">
+
+                            <Ellipse x:Name="PART_ellipse"
+                            Fill="{Binding Path=HighlightBackground, RelativeSource={RelativeSource TemplatedParent}}"
+                            Width="0" Height="{Binding RelativeSource={RelativeSource Self}, Path=Width}"
+                            HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Ellipse.OpacityMask>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="#181818" Offset="0" />
+                                        <GradientStop Color="#93262626" Offset="0.15" />
+                                        <GradientStop Color="#635B5B5B" Offset="0.25" />
+                                        <GradientStop Color="#46848484" Offset="0.35" />
+                                        <GradientStop Color="#3E979797" Offset="0.45" />
+                                        <GradientStop Color="#3BABABAB" Offset="0.55" />
+                                        <GradientStop Color="#1CBDBDBD" Offset="0.65" />
+                                        <GradientStop Color="#0FCECECE" Offset="0.75" />
+                                        <GradientStop Color="#09DCDCDC" Offset="0.85" />
+                                        <GradientStop Color="#05EFEFEF" Offset="0.95" />
+                                        <GradientStop Color="#00ffffff" Offset="1" />
+                                    </RadialGradientBrush>
+                                </Ellipse.OpacityMask>
+                            </Ellipse>
+                            <ContentPresenter x:Name="PART_contentpresenter" />
+                        </Grid>
+                        <Grid.Resources>
+                            <Storyboard x:Key="PART_animation" Storyboard.TargetName="PART_ellipse">
+                                <DoubleAnimation Storyboard.TargetProperty="Width" From="0" />
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin" />
+                                <DoubleAnimation BeginTime="0:0:1" Duration="0:0:0.25" Storyboard.TargetProperty="Opacity"
+                    From="1" To="0" />
+                                <DoubleAnimation Storyboard.TargetProperty="Width" To="0" BeginTime="0:0:1.25" Duration="0:0:0" />
+                                <DoubleAnimation BeginTime="0:0:1.25" Duration="0:0:0" Storyboard.TargetProperty="Opacity" To="1" />
+                            </Storyboard>
+                        </Grid.Resources>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

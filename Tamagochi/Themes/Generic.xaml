@@ -7,76 +7,7 @@
         <ResourceDictionary Source="../Styles/Fonts.xaml" />
         <ResourceDictionary Source="../Styles/Colors.xaml" />
         <ResourceDictionary Source="../Styles/Brushes.xaml" />
+        <ResourceDictionary Source="/Themes/IndicatorBar.xaml" />
+        <ResourceDictionary Source="/Themes/RippleEffectDecorator.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
-    <Style TargetType="{x:Type local:IndicatorBar}">
-        <Setter Property="Background" Value="#eeeeee" />
-        <Setter Property="Foreground" Value="#89be89" />
-        <Setter Property="Visibility" Value="Visible" />
-        <Setter Property="FontFamily" Value="{StaticResource JosefinSansBold}" />
-        <Setter Property="FontSize" Value="16" />
-        <Setter Property="IsEnabled" Value="True" />
-        <Setter Property="IsHitTestVisible" Value="True" />
-        <Setter Property="MinHeight" Value="28" />
-        <Setter Property="MinWidth" Value="100" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:IndicatorBar}">
-                    <Grid Background="{TemplateBinding Background}">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Determinate" />
-                                <VisualState x:Name="Indeterminate">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Duration="00:00:00"
-                                                 Storyboard.TargetName="PART_Indicator"
-                                                 Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                                                <DiscreteObjectKeyFrame.Value>
-                                                    <SolidColorBrush>Transparent</SolidColorBrush>
-                                                </DiscreteObjectKeyFrame.Value>
-                                            </DiscreteObjectKeyFrame>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="PART_Track"
-                                  CornerRadius="2"
-                                  BorderThickness="1">
-                            <Border.BorderBrush>
-                                <RadialGradientBrush>
-                                    <GradientStop Color="BlanchedAlmond" Offset="0.35" />
-                                    <GradientStop Color="ForestGreen" Offset="1" />
-                                </RadialGradientBrush>
-                            </Border.BorderBrush>
-                        </Border>
-                        <Label Content="{Binding
-                               RelativeSource={RelativeSource TemplatedParent},
-                               Path=Value}"
-                               ContentStringFormat="{}{0} %"
-                               HorizontalAlignment="Center"
-                               Foreground="Black"
-                               Panel.ZIndex="2" />
-
-                        <Border x:Name="PART_Indicator"
-                                  CornerRadius="2"
-                                  BorderThickness="1"
-                                  HorizontalAlignment="Left"
-                                  Background="{TemplateBinding Foreground}">
-
-                            <Grid ClipToBounds="True"
-                                  x:Name="Animation">
-                                <Rectangle x:Name="PART_GlowRect"
-                                             Width="{TemplateBinding Width}"
-                                             HorizontalAlignment="Left"
-                                             Fill="#aa98ef"
-                                             Margin="-100,0,0,0" />
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 </ResourceDictionary>
