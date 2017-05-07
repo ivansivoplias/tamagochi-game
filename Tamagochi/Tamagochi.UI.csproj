@@ -63,9 +63,11 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Controls\IndicatorBar.cs" />
     <Compile Include="Controls\RippleEffectDecorator.cs" />
+    <Compile Include="Helpers\ExpressionHelper.cs" />
     <Compile Include="Helpers\IconsSelector.cs" />
     <Compile Include="Helpers\ImageSelector.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\IndicatorViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\PetViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

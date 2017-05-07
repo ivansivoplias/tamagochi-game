@@ -1,7 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using System.Windows;
+using Tamagochi.UI.Helpers;
 
 namespace Tamagochi.UI.ViewModels
 {
@@ -46,6 +49,27 @@ namespace Tamagochi.UI.ViewModels
                     throw new Exception(msg);
                 else
                     Debug.Fail(msg);
+            }
+        }
+
+        protected async Task RunCommandAsync(Expression<Func<bool>> updatingFlag, Func<Task> action)
+        {
+            // Check if the flag property is true (meaning the function is already running)
+            if (updatingFlag.GetPropertyValue())
+                return;
+
+            // Set the property flag to true to indicate we are running
+            updatingFlag.SetPropertyValue(true);
+
+            try
+            {
+                // Run the passed in action
+                await action();
+            }
+            finally
+            {
+                // Set the property flag back to false now it's finished
+                updatingFlag.SetPropertyValue(false);
             }
         }
     }

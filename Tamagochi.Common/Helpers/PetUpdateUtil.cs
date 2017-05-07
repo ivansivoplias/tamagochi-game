@@ -14,6 +14,7 @@
             ConfigureParamsFromSatiety(petParams, state);
             ConfigureParamsFromMood(petParams, state);
             ConfigureParamsFromAviaryCleanness(petParams, state);
+            ConfigureParamsFromHealth(petParams);
         }
 
         private static void ConfigureParamsFromSatiety(PetUpdateParams petParams, PetState petState)
@@ -45,7 +46,7 @@
             petParams.AviaryCleannessDifference -= GameConstants.AviaryGarbageGrowRate;
         }
 
-        private static void ConfigureParamsFromHealth(PetUpdateParams petParams, PetState petState)
+        private static void ConfigureParamsFromHealth(PetUpdateParams petParams)
         {
             petParams.HealthDifference -= GameConstants.PetHealthDecreaseRate;
         }

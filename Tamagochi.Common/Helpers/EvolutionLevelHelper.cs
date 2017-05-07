@@ -59,7 +59,7 @@ namespace Tamagochi.Common
 
         private struct BirthTime : IEvolutionTimePresenter
         {
-            public PetEvolutionLevel Level => PetEvolutionLevel.Child;
+            public PetEvolutionLevel Level => PetEvolutionLevel.Birth;
 
             public float PeriodInGameYears => 1.5f;
 

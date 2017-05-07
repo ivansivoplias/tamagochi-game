@@ -6,7 +6,7 @@ namespace Tamagochi.Infrastructure.Abstract
 {
     public interface IPet
     {
-        int Age { get; set; }
+        float Age { get; set; }
         int LifeDuration { get; }
         float Mood { get; set; }
         float Satiety { get; set; }
@@ -29,7 +29,7 @@ namespace Tamagochi.Infrastructure.Abstract
 
         event EventHandler<PetDiedEventArgs> PetDied;
 
-        void IncreaseAge(int amount);
+        void IncreaseAge(float amount);
 
         void UpdateMood(float moodDifference);
 

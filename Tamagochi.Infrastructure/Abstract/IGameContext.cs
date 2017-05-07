@@ -8,7 +8,7 @@ namespace Tamagochi.Infrastructure.Abstract
     {
         TimeSpan GameTime { get; set; }
 
-        int Age { get; set; }
+        float Age { get; set; }
         float Mood { get; set; }
 
         float Satiety { get; set; }

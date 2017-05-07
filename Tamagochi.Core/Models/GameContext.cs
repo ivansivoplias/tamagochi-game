@@ -9,7 +9,7 @@ namespace Tamagochi.Core.Models
     public class GameContext : IGameContext
     {
         private TimeSpan _gameTime;
-        private int _age;
+        private float _age;
         private float _mood;
         private float _satiety;
         private float _health;
@@ -46,7 +46,7 @@ namespace Tamagochi.Core.Models
             set { _gameTime = value; }
         }
 
-        public int Age
+        public float Age
         {
             get { return _age; }
             set { _age = value; }
@@ -97,7 +97,7 @@ namespace Tamagochi.Core.Models
         {
             reader.MoveToContent();
             _gameTime = TimeSpan.Parse(reader.GetAttribute("GameTime"));
-            _age = int.Parse(reader.GetAttribute("Age"));
+            _age = float.Parse(reader.GetAttribute("Age"));
             _mood = float.Parse(reader.GetAttribute("Mood"));
             _satiety = float.Parse(reader.GetAttribute("Satiety"));
             _health = float.Parse(reader.GetAttribute("Health"));

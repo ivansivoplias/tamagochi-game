@@ -4,10 +4,10 @@ namespace Tamagochi.Common.GameEventArgs
 {
     public class AgeChangedEventArgs : EventArgs
     {
-        public int PreviousAge { get; }
-        public int NewAge { get; }
+        public float PreviousAge { get; }
+        public float NewAge { get; }
 
-        public AgeChangedEventArgs(int previousAge, int newAge)
+        public AgeChangedEventArgs(float previousAge, float newAge)
         {
             PreviousAge = previousAge;
             NewAge = newAge;

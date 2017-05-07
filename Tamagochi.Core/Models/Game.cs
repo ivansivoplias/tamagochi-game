@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Tamagochi.Common;
 using Tamagochi.Common.GameEventArgs;
 using Tamagochi.Infrastructure.Abstract;
@@ -35,12 +36,13 @@ namespace Tamagochi.Core.Models
         private void OnRealMinuteChanged(object sender, MinuteChangedEventArgs e)
         {
             var previosGameTime = GameTime;
-            var previousDate = new DateTime(previosGameTime.Ticks);
+            var previousDate = GameTime.GetGameDate();
             var minutes = Pet.EvolutionLevel.GetMinuteForEvolutionLevel();
 
-            _gameTime = _gameTime.Add(TimeSpan.FromMinutes(minutes));
+            GameTime = GameTime.Add(TimeSpan.FromMinutes(minutes));
 
-            var currentDate = new DateTime(GameTime.Ticks);
+            var currentDate = GameTime.GetGameDate();
+
             if (currentDate.Year > previousDate.Year)
             {
                 Pet.IncreaseAge(1);
@@ -59,8 +61,10 @@ namespace Tamagochi.Core.Models
         private void SwitchPetEvolutionLevelIfNeeded()
         {
             var maxYearForCurrentEvolution = Pet.EvolutionLevel.GetYearPeriodForEvolutionLevel();
-            var date = new DateTime(GameTime.Ticks);
-            if (date.Year >= maxYearForCurrentEvolution)
+            var date = GameTime.GetGameDate();
+            float year = (float)date.Year + ((float)date.Month / 12);
+
+            if (year >= maxYearForCurrentEvolution)
             {
                 Pet.EvolutionLevel = Pet.EvolutionLevel.Next();
             }
@@ -70,9 +74,7 @@ namespace Tamagochi.Core.Models
 
         public override void CleanPetAviary()
         {
-            //aviary cleaness
-            var petCleaness = Pet.CleanessRate;
-            Pet.CleanessRate = IncreaseByConstant(petCleaness, GameConstants.AviaryGarbageReduceRate);
+            Pet.ChangeCleaness(GameConstants.AviaryGarbageReduceRate);
         }
 
         public override void EuthanaizePet()
@@ -86,31 +88,13 @@ namespace Tamagochi.Core.Models
 
         public override void FeedPet()
         {
-            //health + satiety
-            var petHealth = Pet.Health;
-            var satiety = Pet.Satiety;
-            Pet.Health = IncreaseByConstant(petHealth, GameConstants.PetHealthIncreaseRate);
-            Pet.Satiety = IncreaseByConstant(satiety, GameConstants.PetSatietyIncreaseRate);
+            Pet.UpdateHealth(GameConstants.PetHealthIncreaseRate);
+            Pet.ChangeSatiety(GameConstants.PetSatietyIncreaseRate);
         }
 
         public override void PlayWithPet()
         {
-            //mood
-            var petMood = Pet.Mood;
-            Pet.Mood = IncreaseByConstant(petMood, GameConstants.PetMoodIncreaseRate);
-        }
-
-        private float IncreaseByConstant(float startValue, float constant)
-        {
-            if (startValue < 100)
-            {
-                startValue += constant;
-                if (startValue > 100)
-                {
-                    startValue = 100;
-                }
-            }
-            return startValue;
+            Pet.UpdateMood(GameConstants.PetMoodIncreaseRate);
         }
 
         #endregion Game pet affect methods
@@ -139,14 +123,12 @@ namespace Tamagochi.Core.Models
             _timer.StartTimer();
             _realTime = _timer.RealTime;
             _timer.RealMinuteChanged += OnRealMinuteChanged;
-            //TODO: add pet time event handlers
         }
 
         public override void StopGame()
         {
             _timer.StopTimer();
             _timer.RealMinuteChanged -= OnRealMinuteChanged;
-            //TODO: remove pet time event handlers
             SaveGame();
         }
 

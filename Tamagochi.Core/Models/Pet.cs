@@ -2,12 +2,13 @@
 using Tamagochi.Infrastructure.Abstract;
 using Tamagochi.Common;
 using Tamagochi.Common.GameEventArgs;
+using System.Threading;
 
 namespace Tamagochi.Core.Models
 {
     public class Pet : IPet
     {
-        private int _age;
+        private float _age;
         private int _lifeDuration;
         private float _moodLevel;
         private float _satietyLevel;
@@ -29,7 +30,7 @@ namespace Tamagochi.Core.Models
 
         public event EventHandler<AgeChangedEventArgs> AgeChanged;
 
-        public int Age
+        public float Age
         {
             get { return _age; }
             set { SetAge(value); }
@@ -48,13 +49,13 @@ namespace Tamagochi.Core.Models
 
         public float Satiety
         {
-            get { return _moodLevel; }
+            get { return _satietyLevel; }
             set { SetSatiety(value); }
         }
 
         public float Health
         {
-            get { return _moodLevel; }
+            get { return _healthLevel; }
             set { SetHealth(value); }
         }
 
@@ -87,18 +88,17 @@ namespace Tamagochi.Core.Models
 
         public void ChangeSatiety(float satietyDifference)
         {
-            if (CheckIfDifferenceIsValid(satietyDifference, _satietyLevel))
+            if (CheckIfDifferenceIsValid(satietyDifference))
             {
-                _satietyLevel += satietyDifference;
-                SatietyChanged?.Invoke(this, new ValueChangedEventArgs(Satiety));
+                Satiety = NormalizeValue(Satiety + satietyDifference);
             }
         }
 
-        public void IncreaseAge(int amount)
+        public void IncreaseAge(float amount)
         {
-            if (amount > 0 && amount < _lifeDuration && _age + amount <= _lifeDuration)
+            if (amount > 0 && amount < _lifeDuration && Age + amount <= _lifeDuration)
             {
-                _age += amount;
+                Age += amount;
             }
 
             if (Age == _lifeDuration)
@@ -109,10 +109,9 @@ namespace Tamagochi.Core.Models
 
         public void UpdateHealth(float healthDifference)
         {
-            if (CheckIfDifferenceIsValid(healthDifference, _healthLevel))
+            if (CheckIfDifferenceIsValid(healthDifference))
             {
-                _healthLevel += healthDifference;
-                HealthChanged?.Invoke(this, new ValueChangedEventArgs(Health));
+                Health = NormalizeValue(Health + healthDifference);
             }
 
             if (Health == GameConstants.HelthDeathLimit)
@@ -123,27 +122,36 @@ namespace Tamagochi.Core.Models
 
         public void UpdateMood(float moodDifference)
         {
-            if (CheckIfDifferenceIsValid(moodDifference, _moodLevel))
+            if (CheckIfDifferenceIsValid(moodDifference))
             {
-                _moodLevel += moodDifference;
-                MoodChanged?.Invoke(this, new ValueChangedEventArgs(Mood));
+                Mood = NormalizeValue(Mood + moodDifference);
             }
         }
 
         public void ChangeCleaness(float cleanessDifference)
         {
-            if (CheckIfDifferenceIsValid(cleanessDifference, _cleanessLevel))
+            if (CheckIfDifferenceIsValid(cleanessDifference))
             {
-                _cleanessLevel += cleanessDifference;
-                CleannessChanged?.Invoke(this, new ValueChangedEventArgs(CleanessRate));
+                CleanessRate = NormalizeValue(CleanessRate + cleanessDifference);
             }
         }
 
-        public bool CheckIfDifferenceIsValid(float difference, float currentValue)
+        private float NormalizeValue(float value)
         {
-            return CheckIfNumberIsPercent(Math.Abs(difference))
-                && Math.Abs(difference) <= currentValue
-                && currentValue + difference <= 100;
+            if (value > 100)
+            {
+                value = 100;
+            }
+            if (value < 0)
+            {
+                value = 0;
+            }
+            return value;
+        }
+
+        public bool CheckIfDifferenceIsValid(float difference)
+        {
+            return CheckIfNumberIsPercent(Math.Abs(difference));
         }
 
         public void UpdatePetFromParams(PetUpdateParams parameter)
@@ -161,11 +169,11 @@ namespace Tamagochi.Core.Models
             if (EvolutionLevel < newLevel)
             {
                 _evolutionLevel = newLevel;
-                EvolutionLevelChanged?.Invoke(this, new PetEvolutionLevelChangedEventArgs(EvolutionLevel));
+                EvolutionLevelChanged?.Invoke(this, new PetEvolutionLevelChangedEventArgs(newLevel));
             }
         }
 
-        private void SetAge(int newAge)
+        private void SetAge(float newAge)
         {
             if (newAge > _age)
             {
@@ -185,7 +193,7 @@ namespace Tamagochi.Core.Models
             if (CheckIfNumberIsPercent(newSatiety))
             {
                 _satietyLevel = newSatiety;
-                SatietyChanged?.Invoke(this, new ValueChangedEventArgs(Satiety));
+                SatietyChanged?.Invoke(this, new ValueChangedEventArgs(newSatiety));
             }
         }
 
@@ -199,7 +207,7 @@ namespace Tamagochi.Core.Models
             if (CheckIfNumberIsPercent(newHealth))
             {
                 _healthLevel = newHealth;
-                HealthChanged?.Invoke(this, new ValueChangedEventArgs(Health));
+                HealthChanged?.Invoke(this, new ValueChangedEventArgs(newHealth));
             }
 
             if (Health == GameConstants.HelthDeathLimit)
@@ -213,7 +221,7 @@ namespace Tamagochi.Core.Models
             if (CheckIfNumberIsPercent(newMood))
             {
                 _moodLevel = newMood;
-                MoodChanged?.Invoke(this, new ValueChangedEventArgs(Mood));
+                MoodChanged?.Invoke(this, new ValueChangedEventArgs(newMood));
             }
         }
 
@@ -222,7 +230,7 @@ namespace Tamagochi.Core.Models
             if (CheckIfNumberIsPercent(newCleaness))
             {
                 _cleanessLevel = newCleaness;
-                CleannessChanged?.Invoke(this, new ValueChangedEventArgs(CleanessRate));
+                CleannessChanged?.Invoke(this, new ValueChangedEventArgs(newCleaness));
             }
         }
 
