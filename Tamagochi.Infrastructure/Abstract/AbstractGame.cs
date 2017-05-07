@@ -1,15 +1,22 @@
-﻿namespace Tamagochi.Infrastructure.Abstract
+﻿using System;
+using Tamagochi.Common.GameEventArgs;
+
+namespace Tamagochi.Infrastructure.Abstract
 {
     public abstract class AbstractGame
     {
         protected IGameContext _context;
+        protected AbstractTamagochiTimer _timer;
 
-        public AbstractGame(IGameContext context)
+        public AbstractGame(IGameContext context, AbstractTamagochiTimer timer)
         {
             _context = context;
+            _timer = timer;
         }
 
-        public AbstractTamagochiTimer Timer { get; protected set; }
+        public abstract TimeSpan GameTime { get; protected set; }
+
+        public abstract event EventHandler<GameTimeChangedEventArgs> GameTimeChanged;
 
         public IPet Pet { get; protected set; }
 

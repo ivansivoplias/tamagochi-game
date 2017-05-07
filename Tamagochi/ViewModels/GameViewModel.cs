@@ -50,7 +50,7 @@ namespace Tamagochi.UI.ViewModels
             _game = game;
             _petViewModel = new PetViewModel(_game.Pet);
             _game.Pet.PetDied += petDiedHandler;
-            _game.Timer.HourChanged += UpdateTimeOnHourChanged;
+            _game.GameTimeChanged += OnGameTimeChanged;
 
             var currentType = GetType();
 
@@ -76,7 +76,7 @@ namespace Tamagochi.UI.ViewModels
             Command.RegisterCommandBinding(window, _euthanizePetCommand);
         }
 
-        private void UpdateTimeOnHourChanged(object sender, HourChangedEventArgs e)
+        private void OnGameTimeChanged(object sender, GameTimeChangedEventArgs e)
         {
             Time = e.CurrentGameTime;
         }

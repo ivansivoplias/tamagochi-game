@@ -23,6 +23,7 @@
                 petParams.HealthDifference -= 10;
                 petParams.MoodDifference -= 5;
             }
+            petParams.SatietyDifference -= GameConstants.PetSatietyDecreaseRate;
         }
 
         private static void ConfigureParamsFromMood(PetUpdateParams petParams, PetState petState)
@@ -31,6 +32,7 @@
             {
                 petParams.HealthDifference -= 5;
             }
+            petParams.MoodDifference -= GameConstants.PetMoodDecreaseRate;
         }
 
         private static void ConfigureParamsFromAviaryCleanness(PetUpdateParams petParams, PetState petState)
@@ -40,6 +42,12 @@
                 petParams.HealthDifference -= 10;
                 petParams.MoodDifference -= 15;
             }
+            petParams.AviaryCleannessDifference -= GameConstants.AviaryGarbageGrowRate;
+        }
+
+        private static void ConfigureParamsFromHealth(PetUpdateParams petParams, PetState petState)
+        {
+            petParams.HealthDifference -= GameConstants.PetHealthDecreaseRate;
         }
     }
 }

@@ -43,16 +43,8 @@ namespace Tamagochi.Core.Factories
                 case PetType.None:
                     throw new ArgumentException("Invalid pet type. Life duration cannot be set up.");
 
-                case PetType.Bulbosaur:
+                default:
                     lifeDuration = 15;
-                    break;
-
-                case PetType.Charmander:
-                    lifeDuration = 13;
-                    break;
-
-                case PetType.Squirtle:
-                    lifeDuration = 12;
                     break;
             }
             return lifeDuration;

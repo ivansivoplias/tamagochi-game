@@ -30,8 +30,10 @@ namespace Tamagochi.UI.Helpers
             }
         }
 
-        public static BitmapImage SelectImage(PetType petType, int currentState)
+        public static BitmapImage SelectImage(PetType petType, PetEvolutionLevel evolutionLevel)
         {
+            int currentState = (int)evolutionLevel;
+
             if (petType == PetType.None) throw new Exception();
             if (currentState < 0 || currentState >= 5) throw new Exception();
             return _images[petType][currentState];

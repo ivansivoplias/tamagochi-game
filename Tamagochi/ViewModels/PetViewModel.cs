@@ -1,4 +1,6 @@
-﻿using Tamagochi.Infrastructure.Abstract;
+﻿using System.Windows.Media;
+using Tamagochi.Infrastructure.Abstract;
+using Tamagochi.UI.Helpers;
 
 namespace Tamagochi.UI.ViewModels
 {
@@ -9,6 +11,7 @@ namespace Tamagochi.UI.ViewModels
         public PetViewModel(IPet pet)
         {
             _pet = pet;
+            _pet.AgeChanged += (s, e) => OnPropertyChanged(nameof(Age));
             _pet.CleannessChanged += (s, e) => OnPropertyChanged(nameof(AviaryCleanness));
             _pet.MoodChanged += (s, e) => OnPropertyChanged(nameof(Mood));
             _pet.SatietyChanged += (s, e) => OnPropertyChanged(nameof(Satiety));
@@ -65,6 +68,9 @@ namespace Tamagochi.UI.ViewModels
             }
         }
 
-        public string Image { get; set; }
+        public ImageSource Image
+        {
+            get { return ImageSelector.SelectImage(_pet.PetType, _pet.EvolutionLevel); }
+        }
     }
 }

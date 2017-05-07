@@ -23,6 +23,8 @@ namespace Tamagochi.Infrastructure.Abstract
 
         event EventHandler<ValueChangedEventArgs> MoodChanged;
 
+        event EventHandler<AgeChangedEventArgs> AgeChanged;
+
         event EventHandler<PetEvolutionLevelChangedEventArgs> EvolutionLevelChanged;
 
         event EventHandler<PetDiedEventArgs> PetDied;
@@ -37,8 +39,6 @@ namespace Tamagochi.Infrastructure.Abstract
 
         void UpdateHealth(float healthDifference);
 
-        void OnGameHourChanged(object sender, HourChangedEventArgs e);
-
-        void OnGameYearChanged(object sender, YearChangedEventArgs e);
+        void UpdatePetFromParams(PetUpdateParams parameter);
     }
 }

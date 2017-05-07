@@ -8,25 +8,15 @@ namespace Tamagochi.Infrastructure.Abstract
     {
         public abstract TimerState State { get; protected set; }
 
-        public abstract int Year { get; protected set; }
+        public abstract int RealHour { get; protected set; }
 
-        public abstract int Month { get; protected set; }
+        public abstract int RealMinute { get; protected set; }
 
-        public abstract int Day { get; protected set; }
+        public abstract TimeSpan RealTime { get; }
 
-        public abstract int Hour { get; protected set; }
+        public abstract event EventHandler<HourChangedEventArgs> RealHourChanged;
 
-        public abstract TimeSpan CurrentTime { get; }
-
-        public abstract event EventHandler<HourChangedEventArgs> HourChanged;
-
-        public abstract event EventHandler<DayChangedEventArgs> DayChanged;
-
-        public abstract event EventHandler<YearChangedEventArgs> YearChanged;
-
-        public abstract event EventHandler<MonthChangedEventArgs> MonthChanged;
-
-        public abstract void InitializeTimer(TimeSpan time);
+        public abstract event EventHandler<MinuteChangedEventArgs> RealMinuteChanged;
 
         public abstract void StartTimer();
 

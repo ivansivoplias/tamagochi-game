@@ -43,8 +43,11 @@
     <Compile Include="ActionType.cs" />
     <Compile Include="ExceptionDetails.cs" />
     <Compile Include="GameConstants.cs" />
+    <Compile Include="GameEventArgs\AgeChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\DayChangedEventArgs.cs" />
+    <Compile Include="GameEventArgs\GameTimeChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\HourChangedEventArgs.cs" />
+    <Compile Include="GameEventArgs\MinuteChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\MonthChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\PetEvolutionLevelChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\ValueChangedEventArgs.cs" />
@@ -61,6 +64,7 @@
     <Compile Include="PetUpdateParams.cs" />
     <Compile Include="PetUpdateUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EvolutionLevelHelper.cs" />
     <Compile Include="TimerState.cs" />
   </ItemGroup>
   <ItemGroup />

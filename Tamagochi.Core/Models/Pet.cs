@@ -27,6 +27,8 @@ namespace Tamagochi.Core.Models
 
         public event EventHandler<PetEvolutionLevelChangedEventArgs> EvolutionLevelChanged;
 
+        public event EventHandler<AgeChangedEventArgs> AgeChanged;
+
         public int Age
         {
             get { return _age; }
@@ -137,18 +139,6 @@ namespace Tamagochi.Core.Models
             }
         }
 
-        public void OnGameHourChanged(object sender, HourChangedEventArgs e)
-        {
-            PetState state = new PetState(Mood, Satiety, CleanessRate);
-            PetUpdateParams param = PetUpdateUtil.CreateFromPetState(state);
-            UpdatePetFromParams(param);
-        }
-
-        public void OnGameYearChanged(object sender, YearChangedEventArgs e)
-        {
-            IncreaseAge(1);
-        }
-
         public bool CheckIfDifferenceIsValid(float difference, float currentValue)
         {
             return CheckIfNumberIsPercent(Math.Abs(difference))
@@ -156,11 +146,15 @@ namespace Tamagochi.Core.Models
                 && currentValue + difference <= 100;
         }
 
-        private void UpdatePetFromParams(PetUpdateParams parameter)
+        public void UpdatePetFromParams(PetUpdateParams parameter)
         {
             UpdateHealth(parameter.HealthDifference);
             UpdateMood(parameter.MoodDifference);
+            ChangeCleaness(parameter.AviaryCleannessDifference);
+            ChangeSatiety(parameter.SatietyDifference);
         }
+
+        #region Property set methods
 
         private void SetEvolutionLevel(PetEvolutionLevel newLevel)
         {
@@ -175,7 +169,9 @@ namespace Tamagochi.Core.Models
         {
             if (newAge > _age)
             {
+                var previousAge = _age;
                 _age = newAge;
+                AgeChanged?.Invoke(this, new AgeChangedEventArgs(previousAge, newAge));
             }
 
             if (Age == _lifeDuration)
@@ -229,5 +225,7 @@ namespace Tamagochi.Core.Models
                 CleannessChanged?.Invoke(this, new ValueChangedEventArgs(CleanessRate));
             }
         }
+
+        #endregion Property set methods
     }
 }

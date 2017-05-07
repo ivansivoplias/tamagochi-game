@@ -1,5 +1,4 @@
-﻿using System;
-using Tamagochi.Common;
+﻿using Tamagochi.Common;
 using Tamagochi.Core.Models;
 using Tamagochi.Infrastructure.Abstract;
 

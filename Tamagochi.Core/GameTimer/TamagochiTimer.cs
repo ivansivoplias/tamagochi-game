@@ -9,63 +9,41 @@ namespace Tamagochi.Core.GameTimer
     public class TamagochiTimer : AbstractTamagochiTimer
     {
         private Timer _timer;
-        private TimeSpan _currentTime;
-        private int _year;
-        private int _day;
-        private int _month;
         private int _hour;
+        private int _minute;
+        private TimeSpan _realTime;
         private TimerState _timerState;
         private static readonly Lazy<TamagochiTimer> _instance = new Lazy<TamagochiTimer>(() => new TamagochiTimer(), true);
 
-        public override event EventHandler<HourChangedEventArgs> HourChanged;
+        public override event EventHandler<HourChangedEventArgs> RealHourChanged;
 
-        public override event EventHandler<DayChangedEventArgs> DayChanged;
+        public override event EventHandler<MinuteChangedEventArgs> RealMinuteChanged;
 
-        public override event EventHandler<YearChangedEventArgs> YearChanged;
-
-        public override event EventHandler<MonthChangedEventArgs> MonthChanged;
-
-        public override int Year
-        {
-            get { return _year; }
-            protected set
-            {
-                _year = value;
-                YearChanged?.Invoke(this, new YearChangedEventArgs(_year));
-            }
-        }
-
-        public override int Month
-        {
-            get { return _month; }
-            protected set
-            {
-                _month = value;
-                MonthChanged?.Invoke(this, new MonthChangedEventArgs(_month));
-            }
-        }
-
-        public override int Day
-        {
-            get { return _day; }
-            protected set
-            {
-                _day = value;
-                DayChanged?.Invoke(this, new DayChangedEventArgs(_day));
-            }
-        }
-
-        public override int Hour
+        public override int RealHour
         {
             get { return _hour; }
             protected set
             {
                 _hour = value;
-                HourChanged?.Invoke(this, new HourChangedEventArgs(_hour, _currentTime));
+                RealHourChanged?.Invoke(this, new HourChangedEventArgs(_hour, _realTime));
             }
         }
 
-        public override TimeSpan CurrentTime => _currentTime;
+        public override int RealMinute
+        {
+            get
+            {
+                return _minute;
+            }
+
+            protected set
+            {
+                _minute = value;
+                RealMinuteChanged?.Invoke(this, new MinuteChangedEventArgs(_realTime));
+            }
+        }
+
+        public override TimeSpan RealTime => _realTime;
 
         public override TimerState State
         {
@@ -81,7 +59,7 @@ namespace Tamagochi.Core.GameTimer
             State = TimerState.Inactive;
             _timer = new Timer();
             _timer.AutoReset = false;
-            _timer.Elapsed += RealMinuteChanged;
+            _timer.Elapsed += RealMinuteChangedHandler;
             _timer.Interval = GetInterval();
         }
 
@@ -96,16 +74,6 @@ namespace Tamagochi.Core.GameTimer
             return _instance.Value;
         }
 
-        public override void InitializeTimer(TimeSpan time)
-        {
-            _currentTime = time;
-            DateTime date = DateFromTimeSpan(_currentTime);
-            _day = date.Day;
-            _hour = date.Hour;
-            _month = date.Month;
-            _year = date.Year;
-        }
-
         private static double GetInterval()
         {
             DateTime now = DateTime.Now;
@@ -117,27 +85,17 @@ namespace Tamagochi.Core.GameTimer
             return new DateTime(time.Ticks);
         }
 
-        private void RealMinuteChanged(object sender, ElapsedEventArgs e)
+        private void RealMinuteChangedHandler(object sender, ElapsedEventArgs e)
         {
-            _currentTime = _currentTime.Add(TimeSpan.FromHours(1));
-            DateTime date = DateFromTimeSpan(_currentTime);
+            _realTime.Add(TimeSpan.FromMinutes(1));
+
+            RealMinute = _realTime.Minutes;
+            if (_realTime.Hours > RealHour)
+            {
+                RealHour = _realTime.Hours;
+            }
+
             _timer.Interval = GetInterval();
-
-            Hour++;
-            if (date.Day > Day)
-            {
-                Day = date.Day;
-            }
-
-            if (date.Month > Month)
-            {
-                Month = date.Month;
-            }
-
-            if (date.Year > Year)
-            {
-                Year = date.Year;
-            }
 
             StartTimer();
         }
