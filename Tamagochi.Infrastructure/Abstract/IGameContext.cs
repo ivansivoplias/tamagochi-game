@@ -7,6 +7,7 @@ namespace Tamagochi.Infrastructure.Abstract
     public interface IGameContext : IXmlSerializable
     {
         TimeSpan GameTime { get; set; }
+        TimeSpan InnerPetTime { get; set; }
 
         float Age { get; set; }
         float Mood { get; set; }

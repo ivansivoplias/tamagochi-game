@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using Tamagochi.Common;
 using Tamagochi.Common.GameEventArgs;
 using Tamagochi.Infrastructure.Abstract;
@@ -9,6 +8,7 @@ namespace Tamagochi.Core.Models
     public class Game : AbstractGame
     {
         private TimeSpan _gameTime;
+        private TimeSpan _innerTime;
         private TimeSpan _realTime;
 
         public override event EventHandler<GameTimeChangedEventArgs> GameTimeChanged;
@@ -31,17 +31,27 @@ namespace Tamagochi.Core.Models
         {
             Pet = pet;
             _gameTime = context.GameTime;
+            _innerTime = context.InnerPetTime;
         }
 
         private void OnRealMinuteChanged(object sender, MinuteChangedEventArgs e)
         {
-            var previosGameTime = GameTime;
-            var previousDate = GameTime.GetGameDate();
-            var minutes = Pet.EvolutionLevel.GetMinuteForEvolutionLevel();
+            PetState state = new PetState(Pet.Mood, Pet.Satiety, Pet.CleanessRate, Pet.Health);
+            PetUpdateParams param = PetUpdateUtil.CreateHourParamsFromPetState(state);
+            Pet.UpdatePetFromParams(param);
+        }
 
-            GameTime = GameTime.Add(TimeSpan.FromMinutes(minutes));
+        private void OnRealSecondChanged(object sender, SecondChangedEventArgs e)
+        {
+            var previosGameTime = _innerTime;
+            var previousDate = _innerTime.GetGameDate();
+            var seconds = Pet.EvolutionLevel.GetSecondForEvolutionLevel();
 
-            var currentDate = GameTime.GetGameDate();
+            GameTime = GameTime.Add(TimeSpan.FromMinutes(1));
+
+            _innerTime = _innerTime.Add(TimeSpan.FromMinutes(seconds));
+
+            var currentDate = _innerTime.GetGameDate();
 
             if (currentDate.Year > previousDate.Year)
             {
@@ -53,16 +63,15 @@ namespace Tamagochi.Core.Models
 
         private void UpdatePetParams()
         {
-            PetState state = new PetState(Pet.Mood, Pet.Satiety, Pet.CleanessRate, Pet.Health);
-            PetUpdateParams param = PetUpdateUtil.CreateFromPetState(state);
+            PetUpdateParams param = PetUpdateUtil.CreateSecondParams();
             Pet.UpdatePetFromParams(param);
         }
 
         private void SwitchPetEvolutionLevelIfNeeded()
         {
             var maxYearForCurrentEvolution = Pet.EvolutionLevel.GetYearPeriodForEvolutionLevel();
-            var date = GameTime.GetGameDate();
-            float year = (float)date.Year + ((float)date.Month / 12);
+            var date = _innerTime.GetGameDate();
+            float year = date.GetFloatYear();
 
             if (year >= maxYearForCurrentEvolution)
             {
@@ -109,6 +118,7 @@ namespace Tamagochi.Core.Models
         public override void SaveGame()
         {
             _context.GameTime = GameTime;
+            _context.InnerPetTime = _innerTime;
             _context.Age = Pet.Age;
             _context.CleanessRate = Pet.CleanessRate;
             _context.Health = Pet.Health;
@@ -123,12 +133,14 @@ namespace Tamagochi.Core.Models
             _timer.StartTimer();
             _realTime = _timer.RealTime;
             _timer.RealMinuteChanged += OnRealMinuteChanged;
+            _timer.RealSecondChanged += OnRealSecondChanged;
         }
 
         public override void StopGame()
         {
             _timer.StopTimer();
             _timer.RealMinuteChanged -= OnRealMinuteChanged;
+            _timer.RealSecondChanged -= OnRealSecondChanged;
             SaveGame();
         }
 

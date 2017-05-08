@@ -51,6 +51,7 @@
     <Compile Include="GameEventArgs\MinuteChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\MonthChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\PetEvolutionLevelChangedEventArgs.cs" />
+    <Compile Include="GameEventArgs\SecondChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\ValueChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\PetDiedEventArgs.cs" />
     <Compile Include="GameEventArgs\YearChangedEventArgs.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="GameExceptions\InvalidFilePathException.cs" />
     <Compile Include="GameExceptions\SerializationFailedException.cs" />
     <Compile Include="GameExceptions\TamagochiBaseException.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Helpers\GameTimeHelper.cs" />
     <Compile Include="PetEvolutionLevel.cs" />
     <Compile Include="Helpers\PetState.cs" />

@@ -21,13 +21,21 @@
         <GradientStop Color="{StaticResource HoverButtonBackgroundStart}" Offset="1.5" />
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="ButtonPressedBackgroundBrush" StartPoint="0.56,0.0" EndPoint="0.85,1">
-        <GradientStop Color="{StaticResource ButtonBackgroundEnd}" Offset="0" />
-        <GradientStop Color="{StaticResource ButtonPressedBackgroundColor}" Offset="1" />
-    </LinearGradientBrush>
-
-    <SolidColorBrush x:Key="ButtonPressedForegroundBrush" Color="{StaticResource ButtonPressedForegroundColor}" />
-
     <SolidColorBrush x:Key="ActionTextBrush" Color="{StaticResource ActionTextColor}" />
     <SolidColorBrush x:Key="HoverActionTextBrush" Color="{StaticResource HoverActionTextColor}" />
+
+    <RadialGradientBrush x:Key="ActionButtonClickColor">
+        <GradientStop Color="#5320aa" Offset="0" />
+        <GradientStop Color="#9c7bd1" Offset="0.35" />
+        <GradientStop Color="#cab6ea" Offset="0.4" />
+        <GradientStop Color="#0acab6ea" Offset="0.65" />
+    </RadialGradientBrush>
+
+    <SolidColorBrush x:Key="GameTimeTextBrush" Color="{StaticResource GameTimeTextColor}" />
+    <SolidColorBrush x:Key="GameTimeBrush" Color="{StaticResource GameTimeColor}" />
+    <SolidColorBrush x:Key="PetAgeTextBrush" Color="{StaticResource PetAgeTextColor}" />
+    <SolidColorBrush x:Key="PetAgeBrush" Color="{StaticResource PetAgeColor}" />
+    <SolidColorBrush x:Key="GameDayBrush" Color="{StaticResource GameDayColor}" />
+    <SolidColorBrush x:Key="GameHourBrush" Color="{StaticResource GameHourColor}" />
+    <SolidColorBrush x:Key="GameMinuteBrush" Color="{StaticResource GameMinuteColor}" />
 </ResourceDictionary>

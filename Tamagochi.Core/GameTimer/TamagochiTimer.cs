@@ -11,6 +11,7 @@ namespace Tamagochi.Core.GameTimer
         private Timer _timer;
         private int _hour;
         private int _minute;
+        private int _second;
         private TimeSpan _realTime;
         private TimerState _timerState;
         private static readonly Lazy<TamagochiTimer> _instance = new Lazy<TamagochiTimer>(() => new TamagochiTimer(), true);
@@ -19,11 +20,15 @@ namespace Tamagochi.Core.GameTimer
 
         public override event EventHandler<MinuteChangedEventArgs> RealMinuteChanged;
 
+        public override event EventHandler<SecondChangedEventArgs> RealSecondChanged;
+
         public override int RealHour
         {
             get { return _hour; }
             protected set
             {
+                if (_hour == value)
+                    return;
                 _hour = value;
                 RealHourChanged?.Invoke(this, new HourChangedEventArgs(_hour, _realTime));
             }
@@ -38,6 +43,8 @@ namespace Tamagochi.Core.GameTimer
 
             protected set
             {
+                if (_minute == value)
+                    return;
                 _minute = value;
                 RealMinuteChanged?.Invoke(this, new MinuteChangedEventArgs(_realTime));
             }
@@ -54,12 +61,24 @@ namespace Tamagochi.Core.GameTimer
             }
         }
 
+        public override int RealSecond
+        {
+            get { return _second; }
+            protected set
+            {
+                if (_second == value)
+                    return;
+                _second = value;
+                RealSecondChanged?.Invoke(this, new SecondChangedEventArgs(_realTime));
+            }
+        }
+
         private TamagochiTimer()
         {
             State = TimerState.Inactive;
             _timer = new Timer();
             _timer.AutoReset = false;
-            _timer.Elapsed += RealMinuteChangedHandler;
+            _timer.Elapsed += RealSecondChangedHandler;
             _timer.Interval = GetInterval();
         }
 
@@ -76,24 +95,19 @@ namespace Tamagochi.Core.GameTimer
 
         private static double GetInterval()
         {
-            DateTime now = DateTime.Now;
-            return ((now.Second > 30 ? 120 : 60) - now.Second) * 1000 - now.Millisecond;
+            //DateTime now = DateTime.Now;
+            // return ((now.Second > 30 ? 120 : 60) - now.Second) * 1000 - now.Millisecond;
+            return 1000;
         }
 
-        private static DateTime DateFromTimeSpan(TimeSpan time)
+        private void RealSecondChangedHandler(object sender, ElapsedEventArgs e)
         {
-            return new DateTime(time.Ticks);
-        }
+            var newTime = TimeSpan.FromSeconds(1);
+            _realTime = _realTime.Add(newTime);
 
-        private void RealMinuteChangedHandler(object sender, ElapsedEventArgs e)
-        {
-            _realTime.Add(TimeSpan.FromMinutes(1));
-
+            RealSecond = _realTime.Seconds;
             RealMinute = _realTime.Minutes;
-            if (_realTime.Hours > RealHour)
-            {
-                RealHour = _realTime.Hours;
-            }
+            RealHour = _realTime.Hours;
 
             _timer.Interval = GetInterval();
 

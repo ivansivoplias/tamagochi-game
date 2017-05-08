@@ -55,6 +55,7 @@ namespace Tamagochi.UI.Controls
             this.AddHandler(MouseDownEvent, new RoutedEventHandler((sender, e) =>
             {
                 var targetHeight = Math.Max(ActualWidth, ActualHeight);
+
                 var mousePosition = (e as MouseButtonEventArgs).GetPosition(this);
 
                 var startMargin = new Thickness(mousePosition.X, mousePosition.Y, 0, 0);

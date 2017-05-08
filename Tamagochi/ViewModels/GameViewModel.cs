@@ -4,15 +4,12 @@ using Tamagochi.UI.Commands;
 using Tamagochi.Common.GameEventArgs;
 using Tamagochi.Infrastructure.Abstract;
 using System.Windows.Input;
-using Tamagochi.Common;
-using System.Threading.Tasks;
 
 namespace Tamagochi.UI.ViewModels
 {
     public class GameViewModel : ViewModelBase
     {
         private AbstractGame _game;
-        private string _gameTimeString;
         private TimeSpan _gameTime;
         private Command _startGameCommand;
         private Command _stopGameCommand;
@@ -23,6 +20,10 @@ namespace Tamagochi.UI.ViewModels
         private Command _euthanizePetCommand;
         private Command _cleanAviaryCommand;
         private PetViewModel _petViewModel;
+
+        private int _gameDay;
+        private int _gameHour;
+        private int _gameMinutes;
 
         public ICommand StartGameCommand => _startGameCommand;
         public ICommand StopGameCommand => _stopGameCommand;
@@ -39,15 +40,39 @@ namespace Tamagochi.UI.ViewModels
             protected set { _petViewModel = value; }
         }
 
-        public string Time
+        public int GameDay
         {
-            get { return _gameTimeString; }
-            private set
+            get { return _gameDay; }
+            set
             {
-                _gameTimeString = value;
-                OnPropertyChanged(nameof(Time));
+                _gameDay = value;
+                OnPropertyChanged(nameof(GameDay));
             }
         }
+
+        public int GameHour
+        {
+            get { return _gameHour; }
+            set
+            {
+                _gameHour = value;
+                OnPropertyChanged(nameof(GameHour));
+            }
+        }
+
+        public int GameMinutes
+        {
+            get { return _gameMinutes; }
+            set
+            {
+                _gameMinutes = value;
+                OnPropertyChanged(nameof(GameMinutes));
+            }
+        }
+
+        public string GameTimeText => "Game time:";
+
+        public string PetAgeText => "Pet age:";
 
         public GameViewModel(AbstractGame game, EventHandler<PetDiedEventArgs> petDiedHandler)
         {
@@ -56,7 +81,6 @@ namespace Tamagochi.UI.ViewModels
             _game.Pet.PetDied += petDiedHandler;
             _game.GameTimeChanged += OnGameTimeChanged;
             _gameTime = game.GameTime;
-            _gameTimeString = GetGameTimeString();
 
             var currentType = GetType();
 
@@ -82,16 +106,12 @@ namespace Tamagochi.UI.ViewModels
             Command.RegisterCommandBinding(window, _euthanizePetCommand);
         }
 
-        private string GetGameTimeString()
-        {
-            var date = _gameTime.GetGameDate();
-            return string.Format("{0} years {1} months {2} days passed", date.Year, date.Month, date.Day);
-        }
-
         private void OnGameTimeChanged(object sender, GameTimeChangedEventArgs e)
         {
             _gameTime = e.CurrentGameTime;
-            Time = GetGameTimeString();
+            GameDay = _gameTime.Days;
+            GameHour = _gameTime.Hours;
+            GameMinutes = _gameTime.Minutes;
         }
     }
 }

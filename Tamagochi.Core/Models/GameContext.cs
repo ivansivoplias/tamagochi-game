@@ -9,6 +9,7 @@ namespace Tamagochi.Core.Models
     public class GameContext : IGameContext
     {
         private TimeSpan _gameTime;
+        private TimeSpan _innerPetTime;
         private float _age;
         private float _mood;
         private float _satiety;
@@ -88,6 +89,14 @@ namespace Tamagochi.Core.Models
             set { _cleanessRate = value; }
         }
 
+        public TimeSpan InnerPetTime
+        {
+            get => _innerPetTime;
+            set { _innerPetTime = value; }
+        }
+
+        public bool IsDefault => _isDefault;
+
         public XmlSchema GetSchema()
         {
             return null;
@@ -97,6 +106,7 @@ namespace Tamagochi.Core.Models
         {
             reader.MoveToContent();
             _gameTime = TimeSpan.Parse(reader.GetAttribute("GameTime"));
+            _innerPetTime = TimeSpan.Parse(reader.GetAttribute("InnerPetTime"));
             _age = float.Parse(reader.GetAttribute("Age"));
             _mood = float.Parse(reader.GetAttribute("Mood"));
             _satiety = float.Parse(reader.GetAttribute("Satiety"));
@@ -129,6 +139,7 @@ namespace Tamagochi.Core.Models
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("GameTime", _gameTime.ToString());
+            writer.WriteAttributeString("InnerPetTime", _innerPetTime.ToString());
             writer.WriteAttributeString("Age", _age.ToString());
             writer.WriteAttributeString("Mood", _mood.ToString());
             writer.WriteAttributeString("Satiety", _satiety.ToString());
@@ -138,7 +149,5 @@ namespace Tamagochi.Core.Models
             writer.WriteAttributeString("PetType", _petType.ToString());
             writer.WriteAttributeString("EvolutionLevel", _evolutionLevel.ToString());
         }
-
-        public bool IsDefault => _isDefault;
     }
 }

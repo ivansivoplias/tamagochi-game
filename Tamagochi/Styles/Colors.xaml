@@ -14,4 +14,12 @@
     <Color x:Key="HoverActionTextColor">#b2efb2</Color>
     <Color x:Key="ButtonPressedBackgroundColor">#026eaf</Color>
     <Color x:Key="ButtonPressedForegroundColor">#bbefefef</Color>
+    <Color x:Key="GameTimeTextColor">#D7520A57</Color>
+    <Color x:Key="GameTimeColor">#E30C236C</Color>
+    <Color x:Key="GameDayColor">#E36C0C58</Color>
+    <Color x:Key="GameHourColor">#E3486C14</Color>
+    <Color x:Key="GameMinuteColor">#E31ABDA3</Color>
+
+    <Color x:Key="PetAgeTextColor">#DF0E6F16</Color>
+    <Color x:Key="PetAgeColor">#EEF08D12</Color>
 </ResourceDictionary>

@@ -12,4 +12,15 @@
         <Setter Property="FontFamily" Value="{StaticResource JosefinSansThin}" />
         <Setter Property="FontSize" Value="14" />
     </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
+        <Setter Property="FontFamily" Value="{StaticResource JosefinSansRegular}" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}" />
 </ResourceDictionary>

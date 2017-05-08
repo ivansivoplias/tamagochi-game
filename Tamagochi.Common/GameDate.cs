@@ -58,5 +58,35 @@ namespace Tamagochi.Common
         {
             return CompareTo((GameDate)obj);
         }
+
+        public float GetFloatYear()
+        {
+            float year = 0;
+            if (Year > 0)
+            {
+                year = Year + ((float)Month / 12);
+            }
+            return year;
+        }
+
+        public static bool operator >(GameDate one, GameDate two)
+        {
+            return one.CompareTo(two) == 1;
+        }
+
+        public static bool operator <(GameDate one, GameDate two)
+        {
+            return one.CompareTo(two) == -1;
+        }
+
+        public static bool operator ==(GameDate one, GameDate two)
+        {
+            return one.CompareTo(two) == 0;
+        }
+
+        public static bool operator !=(GameDate one, GameDate two)
+        {
+            return one.CompareTo(two) != 0;
+        }
     }
 }

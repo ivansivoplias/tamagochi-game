@@ -89,6 +89,11 @@ namespace Tamagochi.Common
             return _converters.First(converter => converter.Level == currentLevel).SecondInMinutes * 60;
         }
 
+        public static int GetSecondForEvolutionLevel(this PetEvolutionLevel currentLevel)
+        {
+            return _converters.First(converter => converter.Level == currentLevel).SecondInMinutes;
+        }
+
         public static float GetYearPeriodForEvolutionLevel(this PetEvolutionLevel currentLevel)
         {
             return _converters.First(converter => converter.Level == currentLevel).PeriodInGameYears;

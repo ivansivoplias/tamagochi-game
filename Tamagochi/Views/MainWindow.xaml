@@ -72,11 +72,37 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" TextAlignment="Center" Text="Game time:" FontSize="15" />
-                            <TextBlock VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" TextAlignment="Center" Text="Pet age:" FontSize="15" />
+                            <TextBlock VerticalAlignment="Center"
+                                       Grid.Column="0" Grid.Row="0"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       FontSize="20">
+                                <Run Foreground="{StaticResource GameTimeTextBrush}" Text="{Binding GameTimeText, Mode=OneWay}" />
+                            </TextBlock>
+                            <TextBlock VerticalAlignment="Center"
+                                       Grid.Column="0" Grid.Row="1"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       FontSize="20">
+                                <Run Foreground="{StaticResource PetAgeTextBrush}" Text="{Binding PetAgeText, Mode=OneWay}" />
+                            </TextBlock>
 
-                            <TextBlock VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" TextAlignment="Center" Text="{Binding Time}" FontSize="13" />
-                            <TextBlock VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"  TextAlignment="Center" Text="{Binding Pet.Age}" FontSize="13" />
+                            <TextBlock VerticalAlignment="Center"
+                                       Grid.Column="1" Grid.Row="0"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Foreground="{StaticResource GameTimeBrush}"
+                                       FontSize="20">
+                                <Run Foreground="{StaticResource GameDayBrush}" Text="{Binding GameDay}" /> days
+                                <Run Foreground="{StaticResource GameHourBrush}" Text="{Binding GameHour}" /> hours
+                                <Run Foreground="{StaticResource GameMinuteBrush}" Text="{Binding GameMinutes}" /> minutes
+                            </TextBlock>
+                            <TextBlock VerticalAlignment="Center"
+                                       Grid.Column="1" Grid.Row="1"
+                                       TextWrapping="Wrap"
+                                       TextAlignment="Center" FontSize="20">
+                                <Run Foreground="{StaticResource PetAgeBrush}" Text="{Binding Pet.Age}" />
+                            </TextBlock>
                         </Grid>
                     </StackPanel>
 
@@ -107,7 +133,7 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                        <custom:RippleEffectDecorator HighlightBackground="#efa9fafe">
+                        <custom:RippleEffectDecorator HighlightBackground="{StaticResource ActionButtonClickColor}">
                             <Button Style="{StaticResource ActionButton}" Margin="10"
                                     Command="{Binding FeedPetCommand}">
                                 <Grid>
@@ -118,6 +144,8 @@
                                     <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Command.Text}"
                                            Padding="5"
                                            Grid.Column="0"
+                                           FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontSize}"
+                                           FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontFamily}"
                                            TextAlignment="Left"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
@@ -129,7 +157,7 @@
                             </Button>
                         </custom:RippleEffectDecorator>
 
-                        <custom:RippleEffectDecorator HighlightBackground="#efa9fafe">
+                        <custom:RippleEffectDecorator HighlightBackground="{StaticResource ActionButtonClickColor}">
                             <Button Style="{StaticResource ActionButton}" Margin="10"
                                     Command="{Binding PlayWithPetCommand}">
                                 <Grid>
@@ -141,6 +169,8 @@
                                            Padding="5"
                                            Grid.Column="0"
                                            TextAlignment="Left"
+                                           FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontSize}"
+                                           FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontFamily}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
@@ -163,7 +193,7 @@
                     </Grid>
 
                     <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                        <custom:RippleEffectDecorator HighlightBackground="#efa9fafe">
+                        <custom:RippleEffectDecorator HighlightBackground="{StaticResource ActionButtonClickColor}">
                             <Button Style="{StaticResource ActionButton}" Margin="10"
                                     Command="{Binding CleanAviaryCommand}">
                                 <Grid>
@@ -175,6 +205,8 @@
                                            Padding="5"
                                            Grid.Column="0"
                                            TextAlignment="Left"
+                                           FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontSize}"
+                                           FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontFamily}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
@@ -184,7 +216,7 @@
                                 </Grid>
                             </Button>
                         </custom:RippleEffectDecorator>
-                        <custom:RippleEffectDecorator HighlightBackground="#efa9fafe">
+                        <custom:RippleEffectDecorator HighlightBackground="{StaticResource ActionButtonClickColor}">
                             <Button Style="{StaticResource ActionButton}" Margin="10"
                                     Command="{Binding EuthanizePetCommand}">
                                 <Grid>
@@ -196,6 +228,8 @@
                                            Padding="5"
                                            Grid.Column="0"
                                            TextAlignment="Left"
+                                           FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontSize}"
+                                           FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontFamily}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />

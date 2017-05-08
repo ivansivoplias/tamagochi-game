@@ -9,7 +9,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Button -->
-    <Style x:Key="ActionButton" TargetType="{x:Type Button}">
+    <Style x:Key="ActionButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
         <Setter Property="Margin" Value="10" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
