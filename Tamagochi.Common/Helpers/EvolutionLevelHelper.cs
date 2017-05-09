@@ -13,7 +13,7 @@ namespace Tamagochi.Common
         private interface IEvolutionTimePresenter
         {
             int SecondInMinutes { get; }
-            float PeriodInGameYears { get; }
+            float EvolutionLevelMaxAge { get; }
             PetEvolutionLevel Level { get; }
         }
 
@@ -25,7 +25,7 @@ namespace Tamagochi.Common
         {
             public PetEvolutionLevel Level => PetEvolutionLevel.Adult;
 
-            public float PeriodInGameYears => 6;
+            public float EvolutionLevelMaxAge => 15;
 
             public int SecondInMinutes => 432;
         }
@@ -34,7 +34,7 @@ namespace Tamagochi.Common
         {
             public PetEvolutionLevel Level => PetEvolutionLevel.OlderTeen;
 
-            public float PeriodInGameYears => 3;
+            public float EvolutionLevelMaxAge => 9;
 
             public int SecondInMinutes => 324;
         }
@@ -43,7 +43,7 @@ namespace Tamagochi.Common
         {
             public PetEvolutionLevel Level => PetEvolutionLevel.Teen;
 
-            public float PeriodInGameYears => 3;
+            public float EvolutionLevelMaxAge => 6;
 
             public int SecondInMinutes => 648;
         }
@@ -52,7 +52,7 @@ namespace Tamagochi.Common
         {
             public PetEvolutionLevel Level => PetEvolutionLevel.Child;
 
-            public float PeriodInGameYears => 1.5f;
+            public float EvolutionLevelMaxAge => 3.0f;
 
             public int SecondInMinutes => 324;
         }
@@ -61,7 +61,7 @@ namespace Tamagochi.Common
         {
             public PetEvolutionLevel Level => PetEvolutionLevel.Birth;
 
-            public float PeriodInGameYears => 1.5f;
+            public float EvolutionLevelMaxAge => 1.5f;
 
             public int SecondInMinutes => 648;
         }
@@ -94,9 +94,9 @@ namespace Tamagochi.Common
             return _converters.First(converter => converter.Level == currentLevel).SecondInMinutes;
         }
 
-        public static float GetYearPeriodForEvolutionLevel(this PetEvolutionLevel currentLevel)
+        public static float GetMaxAgeForEvolutionLevel(this PetEvolutionLevel currentLevel)
         {
-            return _converters.First(converter => converter.Level == currentLevel).PeriodInGameYears;
+            return _converters.First(converter => converter.Level == currentLevel).EvolutionLevelMaxAge;
         }
 
         public static PetEvolutionLevel Next(this PetEvolutionLevel currentLevel)

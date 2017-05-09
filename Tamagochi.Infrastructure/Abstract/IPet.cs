@@ -14,6 +14,7 @@ namespace Tamagochi.Infrastructure.Abstract
         PetType PetType { get; set; }
         PetEvolutionLevel EvolutionLevel { get; set; }
         float CleanessRate { get; set; }
+        bool IsDead { get; }
 
         event EventHandler<ValueChangedEventArgs> SatietyChanged;
 

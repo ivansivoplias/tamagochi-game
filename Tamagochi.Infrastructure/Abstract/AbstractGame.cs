@@ -1,4 +1,5 @@
 ﻿using System;
+using Tamagochi.Common;
 using Tamagochi.Common.GameEventArgs;
 
 namespace Tamagochi.Infrastructure.Abstract
@@ -19,6 +20,8 @@ namespace Tamagochi.Infrastructure.Abstract
         public abstract event EventHandler<GameTimeChangedEventArgs> GameTimeChanged;
 
         public IPet Pet { get; protected set; }
+
+        public GameState State { get; protected set; }
 
         public abstract void FeedPet();
 

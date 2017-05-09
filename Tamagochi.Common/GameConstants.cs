@@ -15,9 +15,11 @@
         public const int PetMoodIncreaseRate = 50;
         public const int PetHealthIncreaseRate = 35;
 
-        public const float AviaryGarbageGrowRate = 0.038f;
-        public const float PetSatietyDecreaseRate = 0.043f;
-        public const float PetMoodDecreaseRate = 0.029f;
-        public const float PetHealthDecreaseRate = 0.058f;
+        public const float AviaryGarbageGrowRate = 0.82f;
+        public const float PetSatietyDecreaseRate = 0.75f;
+        public const float PetMoodDecreaseRate = 0.58f;
+        public const float PetHealthDecreaseRate = 0.65f;
+
+        public const int DefaultTimeRate = 20;
     }
 }

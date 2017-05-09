@@ -2,8 +2,10 @@
 {
     public enum GameState
     {
+        Default,
         Active,
         Stopped,
         Paused,
+        Finished
     }
 }

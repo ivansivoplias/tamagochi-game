@@ -78,6 +78,8 @@ namespace Tamagochi.UI.ViewModels
             _satietyIndicator = new IndicatorViewModel("Satiety:", GetIndicatorColorFromValue(_pet.Satiety), (int)_pet.Satiety);
             _cleannessIndicator = new IndicatorViewModel("Aviary cleanness:", GetIndicatorColorFromValue(_pet.CleanessRate), (int)_pet.CleanessRate);
 
+            _pet.EvolutionLevelChanged += (s, e) => OnPropertyChanged(nameof(Image));
+
             _pet.CleannessChanged += (s, e) =>
             {
                 _cleannessIndicator.ForegroundColor = GetIndicatorColorFromValue(e.CurrentValue);

@@ -20,6 +20,8 @@ namespace Tamagochi.Infrastructure.Abstract
 
         float CleanessRate { get; set; }
 
+        GameState GameState { get; set; }
+
         bool IsDefault { get; }
 
         void Save();

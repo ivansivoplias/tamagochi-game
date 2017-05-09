@@ -19,6 +19,7 @@ namespace Tamagochi.Core.Models
         private float _cleanessRate;
         private ISerializer _serializer;
         private bool _isDefault;
+        private GameState _lastGameState;
 
         public GameContext()
         {
@@ -91,8 +92,14 @@ namespace Tamagochi.Core.Models
 
         public TimeSpan InnerPetTime
         {
-            get => _innerPetTime;
+            get { return _innerPetTime; }
             set { _innerPetTime = value; }
+        }
+
+        public GameState GameState
+        {
+            get { return _lastGameState; }
+            set { _lastGameState = value; }
         }
 
         public bool IsDefault => _isDefault;
@@ -113,6 +120,7 @@ namespace Tamagochi.Core.Models
             _health = float.Parse(reader.GetAttribute("Health"));
             _cleanessRate = float.Parse(reader.GetAttribute("CleanessRate"));
 
+            Enum.TryParse(reader.GetAttribute("GameState"), out _lastGameState);
             Enum.TryParse(reader.GetAttribute("PetType"), out _petType);
             Enum.TryParse(reader.GetAttribute("EvolutionLevel"), out _evolutionLevel);
 
@@ -146,6 +154,7 @@ namespace Tamagochi.Core.Models
             writer.WriteAttributeString("Health", _health.ToString());
             writer.WriteAttributeString("CleanessRate", _cleanessRate.ToString());
 
+            writer.WriteAttributeString("GameState", _lastGameState.ToString());
             writer.WriteAttributeString("PetType", _petType.ToString());
             writer.WriteAttributeString("EvolutionLevel", _evolutionLevel.ToString());
         }

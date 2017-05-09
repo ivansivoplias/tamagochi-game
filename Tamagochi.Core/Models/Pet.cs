@@ -66,6 +66,8 @@ namespace Tamagochi.Core.Models
             set { SetCleaness(value); }
         }
 
+        public bool IsDead => _healthLevel == 0 || _age == _lifeDuration;
+
         public PetType PetType { get; set; }
 
         public PetEvolutionLevel EvolutionLevel

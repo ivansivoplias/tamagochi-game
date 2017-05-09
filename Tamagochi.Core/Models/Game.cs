@@ -10,6 +10,8 @@ namespace Tamagochi.Core.Models
         private TimeSpan _gameTime;
         private TimeSpan _innerTime;
         private TimeSpan _realTime;
+        private bool IsActive => State == GameState.Active;
+        private bool _isContextCreated;
 
         public override event EventHandler<GameTimeChangedEventArgs> GameTimeChanged;
 
@@ -30,6 +32,15 @@ namespace Tamagochi.Core.Models
         public Game(IGameContext context, AbstractTamagochiTimer timer, IPet pet) : base(context, timer)
         {
             Pet = pet;
+            if (!context.IsDefault)
+            {
+                _isContextCreated = true;
+            }
+            Pet.PetDied += (s, e) =>
+            {
+                FinishGame();
+            };
+            State = _context.GameState;
             _gameTime = context.GameTime;
             _innerTime = context.InnerPetTime;
         }
@@ -45,7 +56,7 @@ namespace Tamagochi.Core.Models
         {
             var previosGameTime = _innerTime;
             var previousDate = _innerTime.GetGameDate();
-            var seconds = Pet.EvolutionLevel.GetSecondForEvolutionLevel();
+            var seconds = Pet.EvolutionLevel.GetSecondForEvolutionLevel() * GameConstants.DefaultTimeRate;
 
             GameTime = GameTime.Add(TimeSpan.FromMinutes(1));
 
@@ -69,7 +80,7 @@ namespace Tamagochi.Core.Models
 
         private void SwitchPetEvolutionLevelIfNeeded()
         {
-            var maxYearForCurrentEvolution = Pet.EvolutionLevel.GetYearPeriodForEvolutionLevel();
+            var maxYearForCurrentEvolution = Pet.EvolutionLevel.GetMaxAgeForEvolutionLevel();
             var date = _innerTime.GetGameDate();
             float year = date.GetFloatYear();
 
@@ -83,27 +94,39 @@ namespace Tamagochi.Core.Models
 
         public override void CleanPetAviary()
         {
-            Pet.ChangeCleaness(GameConstants.AviaryGarbageReduceRate);
+            if (IsActive)
+            {
+                Pet.ChangeCleaness(GameConstants.AviaryGarbageReduceRate);
+            }
         }
 
         public override void EuthanaizePet()
         {
-            //kills pet
-            Pet.Health = 0;
-            Pet.Mood = 0;
-            Pet.Satiety = 0;
-            Pet.CleanessRate = 0;
+            if (IsActive)
+            {
+                //kills pet
+                Pet.Health = 0;
+                Pet.Mood = 0;
+                Pet.Satiety = 0;
+                Pet.CleanessRate = 0;
+            }
         }
 
         public override void FeedPet()
         {
-            Pet.UpdateHealth(GameConstants.PetHealthIncreaseRate);
-            Pet.ChangeSatiety(GameConstants.PetSatietyIncreaseRate);
+            if (IsActive)
+            {
+                Pet.UpdateHealth(GameConstants.PetHealthIncreaseRate);
+                Pet.ChangeSatiety(GameConstants.PetSatietyIncreaseRate);
+            }
         }
 
         public override void PlayWithPet()
         {
-            Pet.UpdateMood(GameConstants.PetMoodIncreaseRate);
+            if (IsActive)
+            {
+                Pet.UpdateMood(GameConstants.PetMoodIncreaseRate);
+            }
         }
 
         #endregion Game pet affect methods
@@ -112,7 +135,11 @@ namespace Tamagochi.Core.Models
 
         public override void PauseGame()
         {
-            _timer.StopTimer();
+            if (IsActive)
+            {
+                State = GameState.Paused;
+                _timer.StopTimer();
+            }
         }
 
         public override void SaveGame()
@@ -125,22 +152,45 @@ namespace Tamagochi.Core.Models
             _context.Mood = Pet.Mood;
             _context.PetType = Pet.PetType;
             _context.Satiety = Pet.Satiety;
+            _context.GameState = State;
+            _context.EvolutionLevel = Pet.EvolutionLevel;
             _context.Save();
         }
 
         public override void StartGame()
         {
-            _timer.StartTimer();
+            if (_timer.State != TimerState.Active && State != GameState.Finished) _timer.StartTimer();
             _realTime = _timer.RealTime;
-            _timer.RealMinuteChanged += OnRealMinuteChanged;
-            _timer.RealSecondChanged += OnRealSecondChanged;
+            if (State == GameState.Default || _isContextCreated)
+            {
+                _timer.RealMinuteChanged += OnRealMinuteChanged;
+                _timer.RealSecondChanged += OnRealSecondChanged;
+                _isContextCreated = false;
+            }
+            State = GameState.Active;
         }
 
         public override void StopGame()
         {
+            if (IsActive || State == GameState.Paused)
+            {
+                State = GameState.Stopped;
+                StopTimerAndUnsubscribe();
+                SaveGame();
+            }
+        }
+
+        private void StopTimerAndUnsubscribe()
+        {
             _timer.StopTimer();
             _timer.RealMinuteChanged -= OnRealMinuteChanged;
             _timer.RealSecondChanged -= OnRealSecondChanged;
+        }
+
+        private void FinishGame()
+        {
+            State = GameState.Finished;
+            StopTimerAndUnsubscribe();
             SaveGame();
         }
 
