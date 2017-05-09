@@ -104,6 +104,21 @@ namespace Tamagochi.Core.Models
 
         public bool IsDefault => _isDefault;
 
+        public void Reset()
+        {
+            _isDefault = true;
+            GameState = GameState.Default;
+            GameTime = new TimeSpan();
+            InnerPetTime = new TimeSpan();
+            PetType = PetType.None;
+            EvolutionLevel = PetEvolutionLevel.Birth;
+            Age = 0;
+            Mood = 0;
+            Satiety = 0;
+            Health = 0;
+            CleanessRate = 0;
+        }
+
         public XmlSchema GetSchema()
         {
             return null;

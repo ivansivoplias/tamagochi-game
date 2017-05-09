@@ -22,6 +22,8 @@ namespace Tamagochi.Infrastructure.Abstract
 
         GameState GameState { get; set; }
 
+        void Reset();
+
         bool IsDefault { get; }
 
         void Save();

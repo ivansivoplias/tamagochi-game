@@ -18,13 +18,13 @@ namespace Tamagochi.Core.Factories
         public override AbstractGame MakeGame(IGameContext context)
         {
             IPet pet;
-            if (!context.IsDefault)
+            if (!context.IsDefault && context.GameState != GameState.Finished)
             {
                 pet = _factory.MakePetFromContext(context);
             }
             else
             {
-                pet = _factory.MakePet(PetType.Bulbosaur);
+                pet = _factory.MakePet(context.PetType);
             }
             return new Game(context, _timer, pet);
         }

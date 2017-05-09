@@ -33,7 +33,8 @@ namespace Tamagochi.UI
             }
             else
             {
-                this.MainWindow = new SettingsWindow();
+                this.MainWindow = new StartupWindow();
+                this.MainWindow.DataContext = new StartupWindowViewModel();
             }
 
             this.MainWindow.Show();
