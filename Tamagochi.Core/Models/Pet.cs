@@ -102,11 +102,6 @@ namespace Tamagochi.Core.Models
             {
                 Age += amount;
             }
-
-            if (Age == _lifeDuration)
-            {
-                PetDied?.Invoke(this, PetDiedEventArgs.Default);
-            }
         }
 
         public void UpdateHealth(float healthDifference)
@@ -114,11 +109,6 @@ namespace Tamagochi.Core.Models
             if (CheckIfDifferenceIsValid(healthDifference))
             {
                 Health = NormalizeValue(Health + healthDifference);
-            }
-
-            if (Health == GameConstants.HelthDeathLimit)
-            {
-                PetDied?.Invoke(this, PetDiedEventArgs.Default);
             }
         }
 

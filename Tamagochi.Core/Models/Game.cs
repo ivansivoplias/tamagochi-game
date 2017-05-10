@@ -159,15 +159,18 @@ namespace Tamagochi.Core.Models
 
         public override void StartGame()
         {
-            if (_timer.State != TimerState.Active && State != GameState.Finished) _timer.StartTimer();
-            _realTime = _timer.RealTime;
-            if (State == GameState.Default || _isContextCreated)
+            if (State != GameState.Finished && State != GameState.Active)
             {
-                _timer.RealMinuteChanged += OnRealMinuteChanged;
-                _timer.RealSecondChanged += OnRealSecondChanged;
-                _isContextCreated = false;
+                if (_timer.State != TimerState.Active) _timer.StartTimer();
+                _realTime = _timer.RealTime;
+                if (State == GameState.Default || _isContextCreated)
+                {
+                    _timer.RealMinuteChanged += OnRealMinuteChanged;
+                    _timer.RealSecondChanged += OnRealSecondChanged;
+                    _isContextCreated = false;
+                }
+                State = GameState.Active;
             }
-            State = GameState.Active;
         }
 
         public override void StopGame()

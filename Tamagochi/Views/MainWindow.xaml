@@ -22,7 +22,6 @@
                     <MenuItem Command="{Binding StartGameCommand}" />
                     <MenuItem Command="{Binding PauseGameCommand}" />
                     <MenuItem Command="{Binding StopGameCommand}" />
-                    <MenuItem Command="{Binding StopGameCommand}" />
                     <MenuItem Header="Exit" />
                 </MenuItem>
             </Menu>
