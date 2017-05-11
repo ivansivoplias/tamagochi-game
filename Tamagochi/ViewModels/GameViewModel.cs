@@ -4,6 +4,7 @@ using Tamagochi.UI.Commands;
 using Tamagochi.Common.GameEventArgs;
 using Tamagochi.Infrastructure.Abstract;
 using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace Tamagochi.UI.ViewModels
 {
@@ -84,14 +85,14 @@ namespace Tamagochi.UI.ViewModels
 
             var currentType = GetType();
 
-            _startGameCommand = new Command("Start", "StartGame", currentType, null, _game.StartGame);
-            _stopGameCommand = new Command("Stop", "StopGame", currentType, null, _game.StopGame);
-            _pauseGameCommand = new Command("Pause", "PauseGame", currentType, null, _game.PauseGame);
-            _saveGameCommand = new Command("Save", "SaveGame", currentType, null, _game.SaveGame);
-            _feedPetCommand = new Command("Feed pet", "FeedPet", currentType, null, _game.FeedPet);
-            _playWithPetCommand = new Command("Play with pet", "PlayWithPet", currentType, null, _game.PlayWithPet);
-            _cleanAviaryCommand = new Command("Clean aviary", "CleanAviary", currentType, null, _game.CleanPetAviary);
-            _euthanizePetCommand = new Command("Euthanize pet", "EuthanizePet", currentType, null, _game.EuthanaizePet);
+            _startGameCommand = Command.CreateAsyncCommand("Start", "StartGame", currentType, StartGameAsync);
+            _stopGameCommand = Command.CreateAsyncCommand("Stop", "StopGame", currentType, StopGameAsync);
+            _pauseGameCommand = Command.CreateAsyncCommand("Pause", "PauseGame", currentType, PauseGameAsync);
+            _saveGameCommand = Command.CreateAsyncCommand("Save", "SaveGame", currentType, SaveGameAsync);
+            _feedPetCommand = Command.CreateAsyncCommand("Feed pet", "FeedPet", currentType, FeedPetAsync);
+            _playWithPetCommand = Command.CreateAsyncCommand("Play with pet", "PlayWithPet", currentType, PlayWithPetAsync);
+            _cleanAviaryCommand = Command.CreateAsyncCommand("Clean aviary", "CleanAviary", currentType, CleanAviaryAsync);
+            _euthanizePetCommand = Command.CreateAsyncCommand("Euthanize pet", "EuthanizePet", currentType, EuthanizePetAsync);
         }
 
         public override void RegisterCommandsForWindow(Window window)
@@ -104,6 +105,54 @@ namespace Tamagochi.UI.ViewModels
             Command.RegisterCommandBinding(window, _feedPetCommand);
             Command.RegisterCommandBinding(window, _playWithPetCommand);
             Command.RegisterCommandBinding(window, _euthanizePetCommand);
+        }
+
+        private async Task StartGameAsync()
+        {
+            _game.StartGame();
+            await Task.Delay(1);
+        }
+
+        private async Task StopGameAsync()
+        {
+            _game.StopGame();
+            await Task.Delay(1);
+        }
+
+        private async Task PauseGameAsync()
+        {
+            _game.PauseGame();
+            await Task.Delay(1);
+        }
+
+        private async Task SaveGameAsync()
+        {
+            _game.SaveGame();
+            await Task.Delay(1);
+        }
+
+        private async Task FeedPetAsync()
+        {
+            _game.FeedPet();
+            await Task.Delay(1);
+        }
+
+        private async Task PlayWithPetAsync()
+        {
+            _game.PlayWithPet();
+            await Task.Delay(1);
+        }
+
+        private async Task CleanAviaryAsync()
+        {
+            _game.CleanPetAviary();
+            await Task.Delay(1);
+        }
+
+        private async Task EuthanizePetAsync()
+        {
+            _game.EuthanaizePet();
+            await Task.Delay(1);
         }
 
         private void OnGameTimeChanged(object sender, GameTimeChangedEventArgs e)

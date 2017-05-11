@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -8,28 +9,49 @@ namespace Tamagochi.UI.Commands
     {
         private Func<bool> _canExecute;
         private Action _execute;
+        private bool _isExecuting;
+        private bool _isAsyncCommand;
 
-        public Command(string text, string name, Type ownerType, Func<bool> canExecute, Action execute) : base(text, name, ownerType)
+        private Command(string text, string name, Type ownerType, Func<bool> canExecute, Action execute) : base(text, name, ownerType)
         {
             _canExecute = canExecute;
             _execute = execute;
+            _isExecuting = false;
+        }
+
+        public static Command CreateAsyncCommand(string text, string name, Type ownerType, Func<Task> execute, Func<bool> canExecute = null)
+        {
+            var command = new Command(text, name, ownerType, canExecute, async () => await execute());
+            command._isAsyncCommand = true;
+            return command;
+        }
+
+        public static Command CreateCommand(string text, string name, Type ownerType, Action execute, Func<bool> canExecute = null)
+        {
+            return new Command(text, name, ownerType, canExecute, execute);
         }
 
         public void CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = _canExecute == null || _canExecute();
+            if (!_isAsyncCommand)
+                e.CanExecute = _canExecute == null || _canExecute();
+            else
+            {
+                e.CanExecute = !_isExecuting && (_canExecute == null || _canExecute());
+            }
             e.Handled = true;
         }
 
         public void Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            _isExecuting = true;
             _execute?.Invoke();
+            _isExecuting = false;
         }
 
         public static void RegisterCommandBinding(Window window, Command command)
         {
             window.CommandBindings.Add(new CommandBinding(command, command.Executed, command.CanExecute));
-            //CommandManager.RegisterClassCommandBinding(type, new CommandBinding(command, command.Executed, command.CanExecute));
         }
     }
 }
