@@ -47,7 +47,7 @@
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Indeterminate">
-                                    <Storyboard>
+                                    <Storyboard x:Name="indeterminateStoryboard">
                                         <ColorAnimation
                                                 Storyboard.TargetName="Animation"
                                                 Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
@@ -55,6 +55,14 @@
                                                 To="#fff7f7f7"
                                                 Duration="0:0:0"
                                                 AutoReverse="False" />
+                                        <ThicknessAnimation
+                                            Storyboard.TargetName="AnimationBody"
+                                            Storyboard.TargetProperty="Margin"
+                                            AccelerationRatio="0.1"
+                                            DecelerationRatio="0.5"
+                                            Duration="0:0:1.5"
+                                            From="-200,0,0,0"
+                                            RepeatBehavior="Forever" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>

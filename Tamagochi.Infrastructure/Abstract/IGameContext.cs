@@ -4,7 +4,7 @@ using Tamagochi.Common;
 
 namespace Tamagochi.Infrastructure.Abstract
 {
-    public interface IGameContext : IXmlSerializable
+    public interface IGameContext
     {
         TimeSpan GameTime { get; set; }
         TimeSpan InnerPetTime { get; set; }

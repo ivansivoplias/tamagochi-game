@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Windows;
+using Tamagochi.Common.GameExceptions;
 using Tamagochi.UI.Helpers;
 
 namespace Tamagochi.UI.ViewModels
@@ -46,7 +47,7 @@ namespace Tamagochi.UI.ViewModels
                 string msg = "Invalid property name: " + propertyName;
 
                 if (ThrowOnInvalidPropertyName)
-                    throw new Exception(msg);
+                    throw new VerificationException(msg);
                 else
                     Debug.Fail(msg);
             }

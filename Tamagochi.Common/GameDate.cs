@@ -88,5 +88,14 @@ namespace Tamagochi.Common
         {
             return one.CompareTo(two) != 0;
         }
+
+        public static implicit operator GameDate(TimeSpan time)
+        {
+            var totalDays = time.TotalDays;
+            var days = (int)Math.Truncate(totalDays % 30);
+            var years = (int)Math.Truncate(totalDays / 365);
+            var month = (int)Math.Truncate((totalDays - years * 365) / 30);
+            return new GameDate(days, month, years);
+        }
     }
 }

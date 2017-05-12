@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Xml;
-using System.Xml.Schema;
+using System.Xml.Serialization;
 using Tamagochi.Common;
+using Tamagochi.Common.GameExceptions;
 using Tamagochi.Infrastructure.Abstract;
 
 namespace Tamagochi.Core.Models
@@ -42,10 +44,26 @@ namespace Tamagochi.Core.Models
             return context;
         }
 
+        [XmlIgnore]
         public TimeSpan GameTime
         {
             get { return _gameTime; }
             set { _gameTime = value; }
+        }
+
+        [Browsable(false)]
+        [XmlElement(DataType = "duration", ElementName = "GameTime")]
+        public string GameTimeString
+        {
+            get
+            {
+                return XmlConvert.ToString(GameTime);
+            }
+            set
+            {
+                GameTime = string.IsNullOrEmpty(value) ?
+                    TimeSpan.Zero : XmlConvert.ToTimeSpan(value);
+            }
         }
 
         public float Age
@@ -90,10 +108,26 @@ namespace Tamagochi.Core.Models
             set { _cleanessRate = value; }
         }
 
+        [XmlIgnore]
         public TimeSpan InnerPetTime
         {
             get { return _innerPetTime; }
             set { _innerPetTime = value; }
+        }
+
+        [Browsable(false)]
+        [XmlElement(DataType = "duration", ElementName = "InnerPetTime")]
+        public string InnerPetTimeString
+        {
+            get
+            {
+                return XmlConvert.ToString(InnerPetTime);
+            }
+            set
+            {
+                InnerPetTime = string.IsNullOrEmpty(value) ?
+                    TimeSpan.Zero : XmlConvert.ToTimeSpan(value);
+            }
         }
 
         public GameState GameState
@@ -102,6 +136,7 @@ namespace Tamagochi.Core.Models
             set { _lastGameState = value; }
         }
 
+        [XmlIgnore]
         public bool IsDefault => _isDefault;
 
         public void Reset()
@@ -119,34 +154,6 @@ namespace Tamagochi.Core.Models
             CleanessRate = 0;
         }
 
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
-
-        public void ReadXml(XmlReader reader)
-        {
-            reader.MoveToContent();
-            _gameTime = TimeSpan.Parse(reader.GetAttribute("GameTime"));
-            _innerPetTime = TimeSpan.Parse(reader.GetAttribute("InnerPetTime"));
-            _age = float.Parse(reader.GetAttribute("Age"));
-            _mood = float.Parse(reader.GetAttribute("Mood"));
-            _satiety = float.Parse(reader.GetAttribute("Satiety"));
-            _health = float.Parse(reader.GetAttribute("Health"));
-            _cleanessRate = float.Parse(reader.GetAttribute("CleanessRate"));
-
-            Enum.TryParse(reader.GetAttribute("GameState"), out _lastGameState);
-            Enum.TryParse(reader.GetAttribute("PetType"), out _petType);
-            Enum.TryParse(reader.GetAttribute("EvolutionLevel"), out _evolutionLevel);
-
-            bool isEmptyElement = reader.IsEmptyElement;
-            reader.ReadStartElement();
-            if (!isEmptyElement)
-            {
-                reader.ReadEndElement();
-            }
-        }
-
         public void Save()
         {
             if (_serializer != null)
@@ -155,23 +162,11 @@ namespace Tamagochi.Core.Models
             }
             else
             {
-                throw new Exception();
+                var details = new ExceptionDetails();
+                details.CallerMethodName = nameof(Save);
+                details.ClassName = nameof(GameContext);
+                throw new SaveContextFailedException(details, "Context serialization failed, because serializer is not set.");
             }
-        }
-
-        public void WriteXml(XmlWriter writer)
-        {
-            writer.WriteAttributeString("GameTime", _gameTime.ToString());
-            writer.WriteAttributeString("InnerPetTime", _innerPetTime.ToString());
-            writer.WriteAttributeString("Age", _age.ToString());
-            writer.WriteAttributeString("Mood", _mood.ToString());
-            writer.WriteAttributeString("Satiety", _satiety.ToString());
-            writer.WriteAttributeString("Health", _health.ToString());
-            writer.WriteAttributeString("CleanessRate", _cleanessRate.ToString());
-
-            writer.WriteAttributeString("GameState", _lastGameState.ToString());
-            writer.WriteAttributeString("PetType", _petType.ToString());
-            writer.WriteAttributeString("EvolutionLevel", _evolutionLevel.ToString());
         }
     }
 }

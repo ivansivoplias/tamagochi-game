@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 
 namespace Tamagochi.UI.Controls
 {
@@ -35,30 +34,23 @@ namespace Tamagochi.UI.Controls
         public IndicatorBar()
         {
             IsIndeterminate = false;
-            Loaded += (s, e) =>
-            {
-                if (IsIndeterminate) AnimateIndetermined();
-            };
+            Loaded += OnLoadedAnimationHandler;
+        }
+
+        private void OnLoadedAnimationHandler(object sender, RoutedEventArgs e)
+        {
+            if (IsIndeterminate)
+                AnimateIndetermined();
         }
 
         protected virtual void AnimateIndetermined()
         {
-            var storyboard = new Storyboard();
+            var storyboard = GetTemplateChild("indeterminateStoryboard") as Storyboard;
 
             var rootGrid = (Grid)GetTemplateChild("TemplateRoot");
 
-            var thicknessAnimation = new ThicknessAnimation()
-            {
-                AccelerationRatio = 0.1,
-                DecelerationRatio = 0.5,
-                Duration = TimeSpan.FromSeconds(1.5),
-                RepeatBehavior = RepeatBehavior.Forever,
-                From = new Thickness(-200, 0, 0, 0),
-                To = new Thickness(ActualWidth + 100, 0, 0, 0)
-            };
-            Storyboard.SetTargetName(thicknessAnimation, "AnimationBody");
-            Storyboard.SetTargetProperty(thicknessAnimation, new PropertyPath("Margin"));
-            storyboard.Children.Add(thicknessAnimation);
+            var thicknessAnimation = (storyboard.Children[1] as ThicknessAnimation);
+            thicknessAnimation.To = new Thickness(ActualWidth + 100, 0, 0, 0);
             storyboard.Begin(rootGrid);
         }
     }

@@ -55,14 +55,14 @@ namespace Tamagochi.Core.Models
         private void OnRealSecondChanged(object sender, SecondChangedEventArgs e)
         {
             var previosGameTime = _innerTime;
-            var previousDate = _innerTime.GetGameDate();
+            GameDate previousDate = _innerTime;
             var seconds = Pet.EvolutionLevel.GetSecondForEvolutionLevel() * GameConstants.DefaultTimeRate;
 
             GameTime = GameTime.Add(TimeSpan.FromMinutes(1));
 
             _innerTime = _innerTime.Add(TimeSpan.FromMinutes(seconds));
 
-            var currentDate = _innerTime.GetGameDate();
+            GameDate currentDate = _innerTime;
 
             if (currentDate.Year > previousDate.Year)
             {
@@ -81,7 +81,7 @@ namespace Tamagochi.Core.Models
         private void SwitchPetEvolutionLevelIfNeeded()
         {
             var maxYearForCurrentEvolution = Pet.EvolutionLevel.GetMaxAgeForEvolutionLevel();
-            var date = _innerTime.GetGameDate();
+            GameDate date = _innerTime;
             float year = date.GetFloatYear();
 
             if (year >= maxYearForCurrentEvolution)

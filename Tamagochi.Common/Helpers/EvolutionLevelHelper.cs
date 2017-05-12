@@ -21,49 +21,20 @@ namespace Tamagochi.Common
 
         #region Private Structures
 
-        private struct AdultTime : IEvolutionTimePresenter
+        private struct EvolutionTime : IEvolutionTimePresenter
         {
-            public PetEvolutionLevel Level => PetEvolutionLevel.Adult;
+            public float EvolutionLevelMaxAge { get; }
 
-            public float EvolutionLevelMaxAge => 15;
+            public PetEvolutionLevel Level { get; }
 
-            public int SecondInMinutes => 432;
-        }
+            public int SecondInMinutes { get; }
 
-        private struct OlderTeenTime : IEvolutionTimePresenter
-        {
-            public PetEvolutionLevel Level => PetEvolutionLevel.OlderTeen;
-
-            public float EvolutionLevelMaxAge => 9;
-
-            public int SecondInMinutes => 324;
-        }
-
-        private struct TeenTime : IEvolutionTimePresenter
-        {
-            public PetEvolutionLevel Level => PetEvolutionLevel.Teen;
-
-            public float EvolutionLevelMaxAge => 6;
-
-            public int SecondInMinutes => 648;
-        }
-
-        private struct ChildTime : IEvolutionTimePresenter
-        {
-            public PetEvolutionLevel Level => PetEvolutionLevel.Child;
-
-            public float EvolutionLevelMaxAge => 3.0f;
-
-            public int SecondInMinutes => 324;
-        }
-
-        private struct BirthTime : IEvolutionTimePresenter
-        {
-            public PetEvolutionLevel Level => PetEvolutionLevel.Birth;
-
-            public float EvolutionLevelMaxAge => 1.5f;
-
-            public int SecondInMinutes => 648;
+            public EvolutionTime(float maxAge, PetEvolutionLevel level, int realSecondInGameMinutes)
+            {
+                EvolutionLevelMaxAge = maxAge;
+                Level = level;
+                SecondInMinutes = realSecondInGameMinutes;
+            }
         }
 
         #endregion Private Structures
@@ -72,13 +43,12 @@ namespace Tamagochi.Common
 
         static EvolutionLevelHelper()
         {
-            _converters = new List<IEvolutionTimePresenter>()
-            {
-                new BirthTime(),
-                new ChildTime(),
-                new TeenTime(),
-                new OlderTeenTime(),
-                new AdultTime()
+            _converters = new List<IEvolutionTimePresenter>() {
+                new EvolutionTime(1.5f, PetEvolutionLevel.Birth, 648),
+                new EvolutionTime(3, PetEvolutionLevel.Child, 324),
+                new EvolutionTime(6, PetEvolutionLevel.Teen, 648),
+                new EvolutionTime(9, PetEvolutionLevel.OlderTeen, 324),
+                new EvolutionTime(15, PetEvolutionLevel.Adult, 432)
             };
         }
 

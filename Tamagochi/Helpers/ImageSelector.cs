@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media.Imaging;
 using Tamagochi.Common;
+using Tamagochi.Common.GameExceptions;
 
 namespace Tamagochi.UI.Helpers
 {
@@ -34,8 +35,7 @@ namespace Tamagochi.UI.Helpers
         {
             int currentState = (int)evolutionLevel;
 
-            if (petType == PetType.None) throw new Exception();
-            if (currentState < 0 || currentState >= 5) throw new Exception();
+            if (petType == PetType.None) throw new SelectImageException($"Invalid pet type. Pet type is {petType}");
             return _images[petType][currentState];
         }
     }

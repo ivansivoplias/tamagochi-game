@@ -6,8 +6,8 @@ namespace Tamagochi.Infrastructure.Abstract
     {
         void Initialize(string fileName);
 
-        void Serialize<T>(T item) where T : IXmlSerializable;
+        void Serialize<T>(T item);
 
-        T Deserialize<T>() where T : IXmlSerializable;
+        T Deserialize<T>();
     }
 }

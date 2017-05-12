@@ -12,7 +12,7 @@ namespace Tamagochi.Core.Serializer
     {
         private string _filename = string.Empty;
 
-        public T Deserialize<T>() where T : IXmlSerializable
+        public T Deserialize<T>()
         {
             var serializer = new XmlSerializer(typeof(T));
             T item = default(T);
@@ -50,7 +50,7 @@ namespace Tamagochi.Core.Serializer
             }
         }
 
-        public void Serialize<T>(T item) where T : IXmlSerializable
+        public void Serialize<T>(T item)
         {
             var serializer = new XmlSerializer(typeof(T));
             try

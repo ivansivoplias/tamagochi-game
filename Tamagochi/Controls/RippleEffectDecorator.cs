@@ -36,42 +36,46 @@ namespace Tamagochi.UI.Controls
             AnimateRippleEffect();
         }
 
+        private void UpdateContentWidthOnParentSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.WidthChanged)
+            {
+                _content.Width = e.NewSize.Width;
+            }
+        }
+
+        private void OnMouseDownAnimationHandler(object sender, RoutedEventArgs e)
+        {
+            var targetHeight = Math.Max(ActualWidth, ActualHeight);
+
+            var mousePosition = (e as MouseButtonEventArgs).GetPosition(this);
+
+            var startMargin = new Thickness(mousePosition.X, mousePosition.Y, 0, 0);
+
+            //set initial margin to mouse position
+            _ellipse.Margin = startMargin;
+
+            //set the to value of the animation that animates the width to the target width
+            (_animation.Children[0] as DoubleAnimation).To = targetHeight;
+
+            //set the to and from values of the animation that animates the distance relative to the container (grid)
+            (_animation.Children[1] as ThicknessAnimation).From = startMargin;
+            (_animation.Children[1] as ThicknessAnimation).To =
+                    new Thickness(mousePosition.X - targetHeight / 2, mousePosition.Y - targetHeight / 2, 0, 0);
+            _ellipse.BeginStoryboard(_animation);
+        }
+
         private void AnimateRippleEffect()
         {
             _ellipse = GetTemplateChild("PART_ellipse") as Ellipse;
             _content = GetTemplateChild("PART_contentpresenter") as ContentPresenter;
             Panel.SetZIndex(_ellipse, 1000);
             _grid = GetTemplateChild("RippleEffectRoot") as Grid;
-            _grid.SizeChanged += (s, e) =>
-            {
-                if (e.WidthChanged)
-                {
-                    _content.Width = e.NewSize.Width;
-                }
-            };
+            _grid.SizeChanged += UpdateContentWidthOnParentSizeChanged;
 
             _animation = _grid.FindResource("PART_animation") as Storyboard;
 
-            this.AddHandler(MouseDownEvent, new RoutedEventHandler((sender, e) =>
-            {
-                var targetHeight = Math.Max(ActualWidth, ActualHeight);
-
-                var mousePosition = (e as MouseButtonEventArgs).GetPosition(this);
-
-                var startMargin = new Thickness(mousePosition.X, mousePosition.Y, 0, 0);
-
-                //set initial margin to mouse position
-                _ellipse.Margin = startMargin;
-
-                //set the to value of the animation that animates the width to the target width
-                (_animation.Children[0] as DoubleAnimation).To = targetHeight;
-
-                //set the to and from values of the animation that animates the distance relative to the container (grid)
-                (_animation.Children[1] as ThicknessAnimation).From = startMargin;
-                (_animation.Children[1] as ThicknessAnimation).To =
-                        new Thickness(mousePosition.X - targetHeight / 2, mousePosition.Y - targetHeight / 2, 0, 0);
-                _ellipse.BeginStoryboard(_animation);
-            }), true);
+            this.AddHandler(MouseDownEvent, new RoutedEventHandler(OnMouseDownAnimationHandler), true);
         }
     }
 }
