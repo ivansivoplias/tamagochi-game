@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
-using Tamagochi.UI.Commands;
+using System.Windows.Input;
 using Tamagochi.Common.GameEventArgs;
 using Tamagochi.Infrastructure.Abstract;
-using System.Windows.Input;
-using System.Threading.Tasks;
+using Tamagochi.UI.Commands;
 
 namespace Tamagochi.UI.ViewModels
 {

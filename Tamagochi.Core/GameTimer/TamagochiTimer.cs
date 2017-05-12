@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Timers;
-using Tamagochi.Infrastructure.Abstract;
-using Tamagochi.Common.GameEventArgs;
 using Tamagochi.Common;
+using Tamagochi.Common.GameEventArgs;
+using Tamagochi.Infrastructure.Abstract;
 
 namespace Tamagochi.Core.GameTimer
 {

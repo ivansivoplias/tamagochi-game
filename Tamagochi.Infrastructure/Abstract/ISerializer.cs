@@ -1,6 +1,4 @@
-﻿using System.Xml.Serialization;
-
-namespace Tamagochi.Infrastructure.Abstract
+﻿namespace Tamagochi.Infrastructure.Abstract
 {
     public interface ISerializer
     {

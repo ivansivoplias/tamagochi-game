@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Xml.Serialization;
 using Tamagochi.Common;
 
 namespace Tamagochi.Infrastructure.Abstract

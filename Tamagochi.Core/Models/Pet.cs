@@ -1,8 +1,7 @@
 ﻿using System;
-using Tamagochi.Infrastructure.Abstract;
 using Tamagochi.Common;
 using Tamagochi.Common.GameEventArgs;
-using System.Threading;
+using Tamagochi.Infrastructure.Abstract;
 
 namespace Tamagochi.Core.Models
 {
