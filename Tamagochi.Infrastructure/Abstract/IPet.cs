@@ -28,7 +28,7 @@ namespace Tamagochi.Infrastructure.Abstract
 
         event EventHandler<PetEvolutionLevelChangedEventArgs> EvolutionLevelChanged;
 
-        event EventHandler<PetDiedEventArgs> PetDied;
+        event EventHandler<EventArgs> PetDied;
 
         void IncreaseAge(float amount);
 

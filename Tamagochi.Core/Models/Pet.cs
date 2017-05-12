@@ -24,7 +24,7 @@ namespace Tamagochi.Core.Models
 
         public event EventHandler<ValueChangedEventArgs> MoodChanged;
 
-        public event EventHandler<PetDiedEventArgs> PetDied;
+        public event EventHandler<EventArgs> PetDied;
 
         public event EventHandler<PetEvolutionLevelChangedEventArgs> EvolutionLevelChanged;
 
@@ -176,7 +176,7 @@ namespace Tamagochi.Core.Models
 
             if (Age == _lifeDuration)
             {
-                PetDied?.Invoke(this, PetDiedEventArgs.Default);
+                PetDied?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -204,7 +204,7 @@ namespace Tamagochi.Core.Models
 
             if (Health == GameConstants.HelthDeathLimit)
             {
-                PetDied?.Invoke(this, PetDiedEventArgs.Default);
+                PetDied?.Invoke(this, EventArgs.Empty);
             }
         }
 

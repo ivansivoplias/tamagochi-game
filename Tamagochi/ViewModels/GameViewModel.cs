@@ -75,7 +75,7 @@ namespace Tamagochi.UI.ViewModels
 
         public string PetAgeText => "Pet age:";
 
-        public GameViewModel(AbstractGame game, EventHandler<PetDiedEventArgs> petDiedHandler)
+        public GameViewModel(AbstractGame game, EventHandler<EventArgs> petDiedHandler)
         {
             _game = game;
             _petViewModel = new PetViewModel(_game.Pet);
