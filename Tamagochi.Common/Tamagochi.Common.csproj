@@ -58,7 +58,6 @@
     <Compile Include="GameEventArgs\SecondChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\ValueChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\YearChangedEventArgs.cs" />
-    <Compile Include="GameExceptionMessages.cs" />
     <Compile Include="GameExceptions\DeserializationFailedException.cs" />
     <Compile Include="GameExceptions\InvalidFilePathException.cs" />
     <Compile Include="GameExceptions\SaveContextFailedException.cs" />
@@ -75,7 +74,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\EvolutionLevelHelper.cs" />
     <Compile Include="Enums\TimerState.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

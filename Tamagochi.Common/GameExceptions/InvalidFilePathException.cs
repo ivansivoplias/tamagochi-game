@@ -1,4 +1,6 @@
-﻿namespace Tamagochi.Common.GameExceptions
+﻿using Tamagochi.Common.Properties;
+
+namespace Tamagochi.Common.GameExceptions
 {
     public class InvalidFilePathException : TamagochiBaseException
     {
@@ -8,7 +10,7 @@
         {
         }
 
-        public InvalidFilePathException(ExceptionDetails details, string filePath) : this(details, filePath, GameExceptionMessages.InvalidFileMessage)
+        public InvalidFilePathException(ExceptionDetails details, string filePath) : this(details, filePath, Resources.InvalidFileMessage)
         {
         }
 

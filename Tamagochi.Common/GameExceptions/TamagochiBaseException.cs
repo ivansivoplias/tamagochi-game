@@ -1,4 +1,5 @@
 ﻿using System;
+using Tamagochi.Common.Properties;
 
 namespace Tamagochi.Common.GameExceptions
 {
@@ -11,7 +12,7 @@ namespace Tamagochi.Common.GameExceptions
         public string OriginalExceptionMessage => _details.OriginalExceptionMessage;
         public string OriginalExceptionStackTrace => _details.StackTrace;
 
-        public TamagochiBaseException(ExceptionDetails exceptionDetails) : base(GameExceptionMessages.BaseExceptionDefaultMessage)
+        public TamagochiBaseException(ExceptionDetails exceptionDetails) : base(Resources.BaseExceptionMessage)
         {
             _details = exceptionDetails;
         }

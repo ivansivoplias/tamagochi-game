@@ -1,4 +1,6 @@
-﻿namespace Tamagochi.Common.GameExceptions
+﻿using Tamagochi.Common.Properties;
+
+namespace Tamagochi.Common.GameExceptions
 {
     public class SerializationFailedException : TamagochiBaseException
     {
@@ -8,7 +10,7 @@
         {
         }
 
-        public SerializationFailedException(ExceptionDetails exceptionDetails, string typeName) : this(exceptionDetails, typeName, GameExceptionMessages.SerializationFailedDefaultMessage)
+        public SerializationFailedException(ExceptionDetails exceptionDetails, string typeName) : this(exceptionDetails, typeName, Resources.SerializationFailedDefaultMessage)
         {
         }
 
