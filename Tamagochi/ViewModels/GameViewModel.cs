@@ -82,6 +82,9 @@ namespace Tamagochi.UI.ViewModels
             _game.Pet.PetDied += petDiedHandler;
             _game.GameTimeChanged += OnGameTimeChanged;
             _gameTime = game.GameTime;
+            _gameDay = game.GameTime.Days;
+            _gameHour = game.GameTime.Hours;
+            _gameMinutes = game.GameTime.Minutes;
 
             var currentType = GetType();
 

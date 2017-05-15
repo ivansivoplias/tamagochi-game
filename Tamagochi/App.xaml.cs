@@ -22,7 +22,7 @@ namespace Tamagochi.UI
             //this.MainWindow = new SettingsWindow();
 
             var gameContext = Container.Resolve<IGameContext>();
-            if (!gameContext.IsDefault && gameContext.GameState != GameState.Finished)
+            if (!gameContext.IsDefault && gameContext.GameState != GameState.Finished && gameContext.PetType != PetType.None)
             {
                 this.MainWindow = new MainWindow();
                 var game = Container.Resolve<AbstractGameFactory>().MakeGame(gameContext);
