@@ -2,9 +2,12 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using Tamagochi.Common;
 using Tamagochi.Common.GameEventArgs;
 using Tamagochi.Infrastructure.Abstract;
 using Tamagochi.UI.Commands;
+using Tamagochi.UI.Helpers;
 
 namespace Tamagochi.UI.ViewModels
 {
@@ -74,6 +77,14 @@ namespace Tamagochi.UI.ViewModels
         public string GameTimeText => "Game time:";
 
         public string PetAgeText => "Pet age:";
+
+        public ImageSource FeedPetImage { get { return IconsSelector.SelectIconForAction(ActionType.Feed); } }
+
+        public ImageSource PlayWithPetImage { get { return IconsSelector.SelectIconForAction(ActionType.Play); } }
+
+        public ImageSource CleanAviaryImage { get { return IconsSelector.SelectIconForAction(ActionType.Clean); } }
+
+        public ImageSource EuthanizePetImage { get { return IconsSelector.SelectIconForAction(ActionType.Euthanize); } }
 
         public GameViewModel(AbstractGame game, EventHandler<EventArgs> petDiedHandler)
         {

@@ -150,7 +150,7 @@
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
                                     <Image MaxWidth="50"
-                                       Source="/Images/Icons/feed.png"
+                                       Source="{Binding FeedPetImage}"
                                        Grid.Column="1" />
                                 </Grid>
                             </Button>
@@ -174,7 +174,7 @@
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
                                     <Image MaxWidth="50"
-                                       Source="/Images/Icons/play.png"
+                                       Source="{Binding PlayWithPetImage}"
                                        Grid.Column="1" />
                                 </Grid>
                             </Button>
@@ -210,7 +210,7 @@
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
                                     <Image MaxWidth="50"
-                                       Source="/Images/Icons/clean.png"
+                                       Source="{Binding CleanAviaryImage}"
                                        Grid.Column="1" />
                                 </Grid>
                             </Button>
@@ -233,7 +233,7 @@
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
                                     <Image MaxWidth="50"
-                                       Source="/Images/Icons/euthanize.png"
+                                       Source="{Binding EuthanizePetImage}"
                                        Grid.Column="1" />
                                 </Grid>
                             </Button>
