@@ -35,7 +35,8 @@ namespace Tamagochi.UI.Helpers
         {
             int currentState = (int)evolutionLevel;
 
-            if (petType == PetType.None) throw new SelectImageException($"Invalid pet type. Pet type is {petType}");
+            if (petType == PetType.None)
+                throw new SelectImageException($"Invalid pet type. Pet type is {petType}");
             return _images[petType][currentState];
         }
     }

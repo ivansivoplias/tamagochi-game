@@ -17,7 +17,9 @@ namespace Tamagochi.Common
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
+            if (obj == null)
+                return false;
+
             if (obj is GameDate)
             {
                 var date = (GameDate)obj;
@@ -71,12 +73,12 @@ namespace Tamagochi.Common
 
         public static bool operator >(GameDate one, GameDate two)
         {
-            return one.CompareTo(two) == 1;
+            return one.CompareTo(two) > 0;
         }
 
         public static bool operator <(GameDate one, GameDate two)
         {
-            return one.CompareTo(two) == -1;
+            return one.CompareTo(two) < 0;
         }
 
         public static bool operator ==(GameDate one, GameDate two)
@@ -96,6 +98,11 @@ namespace Tamagochi.Common
             var years = (int)Math.Truncate(totalDays / 365);
             var month = (int)Math.Truncate((totalDays - years * 365) / 30);
             return new GameDate(days, month, years);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Year * 365 + Month * 30 + Day).GetHashCode();
         }
     }
 }

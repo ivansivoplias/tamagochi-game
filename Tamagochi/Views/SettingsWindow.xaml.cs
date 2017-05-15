@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Tamagochi.Views
+namespace Tamagochi.UI.Views
 {
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml

@@ -5,18 +5,22 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Tamagochi.Common;
 using Tamagochi.Infrastructure.Abstract;
-using Tamagochi.UI;
 using Tamagochi.UI.ViewModels;
 
-namespace Tamagochi.Views
+namespace Tamagochi.UI.Views
 {
     /// <summary>
     /// Interaction logic for StartupWindow.xaml
     /// </summary>
     public partial class StartupWindow : Window
     {
-        public StartupWindow()
+        private ViewModelBase _viewModel;
+
+        public StartupWindow(StartupWindowViewModel viewModel)
         {
+            _viewModel = viewModel;
+            this.DataContext = _viewModel;
+            _viewModel.RegisterCommandsForWindow(this);
             InitializeComponent();
         }
 
@@ -24,7 +28,6 @@ namespace Tamagochi.Views
         {
             var selectedPet = (sender as ListView).SelectedItem as PetItemViewModel;
             var petType = (PetType)Enum.Parse(typeof(PetType), selectedPet.PetName);
-            var mainWindow = new MainWindow();
 
             var gameContext = App.Container.Resolve<IGameContext>();
             gameContext.Reset();
@@ -32,8 +35,7 @@ namespace Tamagochi.Views
             var game = App.Container.Resolve<AbstractGameFactory>().MakeGame(gameContext);
 
             var viewModel = new GameViewModel(game, (s, arg) => MessageBox.Show("Pet is dead"));
-            mainWindow.DataContext = viewModel;
-            viewModel.RegisterCommandsForWindow(mainWindow);
+            var mainWindow = new MainWindow(viewModel);
             mainWindow.Show();
             this.Close();
         }

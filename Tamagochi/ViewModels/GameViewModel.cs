@@ -23,6 +23,9 @@ namespace Tamagochi.UI.ViewModels
         private Command _playWithPetCommand;
         private Command _euthanizePetCommand;
         private Command _cleanAviaryCommand;
+
+        private Command _exitCommand;
+        private Command _closeCommand;
         private PetViewModel _petViewModel;
 
         private int _gameDay;
@@ -37,6 +40,8 @@ namespace Tamagochi.UI.ViewModels
         public ICommand PlayWithPetCommand => _playWithPetCommand;
         public ICommand CleanAviaryCommand => _cleanAviaryCommand;
         public ICommand EuthanizePetCommand => _euthanizePetCommand;
+        public ICommand ExitCommand => _exitCommand;
+        public ICommand CloseCommand => _closeCommand;
 
         public PetViewModel Pet
         {
@@ -107,6 +112,8 @@ namespace Tamagochi.UI.ViewModels
             _playWithPetCommand = Command.CreateAsyncCommand("Play with pet", "PlayWithPet", currentType, PlayWithPetAsync);
             _cleanAviaryCommand = Command.CreateAsyncCommand("Clean aviary", "CleanAviary", currentType, CleanAviaryAsync);
             _euthanizePetCommand = Command.CreateAsyncCommand("Euthanize pet", "EuthanizePet", currentType, EuthanizePetAsync);
+            _exitCommand = Command.CreateCommand("Exit", "ExitCommand", currentType, Exit);
+            _closeCommand = Command.CreateCommand("Close", "CloseCommand", currentType, _game.StopGame);
         }
 
         public override void RegisterCommandsForWindow(Window window)
@@ -119,6 +126,14 @@ namespace Tamagochi.UI.ViewModels
             Command.RegisterCommandBinding(window, _feedPetCommand);
             Command.RegisterCommandBinding(window, _playWithPetCommand);
             Command.RegisterCommandBinding(window, _euthanizePetCommand);
+            Command.RegisterCommandBinding(window, _exitCommand);
+            Command.RegisterCommandBinding(window, _closeCommand);
+        }
+
+        private void Exit()
+        {
+            _game.StopGame();
+            Application.Current.Shutdown();
         }
 
         private async Task StartGameAsync()
