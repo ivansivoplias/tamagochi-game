@@ -5,6 +5,12 @@
     <Color x:Key="BackgroundLight">#a4efefef</Color>
     <Color x:Key="BackgroundDark">#363636</Color>
 
+    <!--Default button colors-->
+    <Color x:Key="DefaultButtonBackground">#750c0c0c</Color>
+    <Color x:Key="DefaultButtonForeground">#CEF1F36F</Color>
+    <Color x:Key="HoverButtonBackground">#AF292929</Color>
+    <Color x:Key="HoverButtonForeground">#F1F9FAC2</Color>
+
     <!-- Action buttons -->
     <Color x:Key="ButtonBackgroundStart">#053047</Color>
     <Color x:Key="ButtonBackgroundEnd">#60b1f0</Color>

@@ -56,4 +56,66 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Background" Value="{StaticResource DefaultButtonBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource DefaultButtonForegroundBrush}" />
+        <Setter Property="FontFamily" Value="{StaticResource JosefinSansRegular}" />
+        <Setter Property="FontSize" Value="20" />
+
+        <Setter Property="RenderTransformOrigin" Value="0.5 0.5" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <RotateTransform />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontStyle" Value="Normal" />
+        <Setter Property="MinHeight" Value="50" />
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border
+                            Padding="{TemplateBinding Padding}"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="7"
+                            Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="True">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#919191"
+                                              Direction="150"
+                                              BlurRadius="1.5"
+                                              Opacity="0.56"
+                                              ShadowDepth="4" />
+                            </Border.Effect>
+                        </Border>
+                        <Border
+                            Padding="{TemplateBinding Padding}"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="7"
+                            Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="True">
+                            <ContentPresenter
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                RecognizesAccessKey="True" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource HoverDefaultButtonBackgroundBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource HoverDefaultButtonForegroundBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

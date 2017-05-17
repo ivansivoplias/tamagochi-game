@@ -8,6 +8,12 @@
     <SolidColorBrush x:Key="LightBackgroundBrush" Color="{StaticResource BackgroundLight}" />
     <SolidColorBrush x:Key="DarkBackgroundBrush" Color="{StaticResource BackgroundDark}" />
 
+    <!--Default button brushes-->
+    <SolidColorBrush x:Key="DefaultButtonBackgroundBrush" Color="{StaticResource DefaultButtonBackground}" />
+    <SolidColorBrush x:Key="DefaultButtonForegroundBrush" Color="{StaticResource DefaultButtonForeground}" />
+    <SolidColorBrush x:Key="HoverDefaultButtonBackgroundBrush" Color="{StaticResource HoverButtonBackground}" />
+    <SolidColorBrush x:Key="HoverDefaultButtonForegroundBrush" Color="{StaticResource HoverButtonForeground}" />
+
     <!-- Button brushes -->
     <LinearGradientBrush x:Key="ButtonBackgroundBrush" StartPoint="0.3,0.0" EndPoint="0.7,1">
         <GradientStop Color="{StaticResource ButtonBackgroundStart}" Offset="0" />

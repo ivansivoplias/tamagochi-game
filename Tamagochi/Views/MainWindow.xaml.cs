@@ -12,6 +12,7 @@ namespace Tamagochi.UI.Views
         private bool _isInFullScreenMode;
         private Point _windowStartPosition;
         private Size _startSize;
+        private WindowState _startState;
 
         public MainWindow(GameViewModel viewModel)
         {
@@ -32,8 +33,11 @@ namespace Tamagochi.UI.Views
         {
             if (!_isInFullScreenMode && sender == fullScreenMode)
             {
-                _startSize = new Size(Width, Height);
+                _startSize = new Size(ActualWidth, ActualHeight);
                 _windowStartPosition = new Point(Left, Top);
+                _startState = WindowState;
+
+                WindowState = WindowState.Normal;
 
                 WindowStyle = WindowStyle.None;
                 ResizeMode = ResizeMode.NoResize;
@@ -48,6 +52,8 @@ namespace Tamagochi.UI.Views
             {
                 WindowStyle = WindowStyle.SingleBorderWindow;
                 ResizeMode = ResizeMode.CanResize;
+
+                WindowState = _startState;
                 Left = _windowStartPosition.X;
                 Top = _windowStartPosition.Y;
                 Width = _startSize.Width;
@@ -55,6 +61,7 @@ namespace Tamagochi.UI.Views
 
                 _windowStartPosition = new Point(0, 0);
                 _isInFullScreenMode = false;
+                _startState = WindowState.Normal;
             }
         }
 
