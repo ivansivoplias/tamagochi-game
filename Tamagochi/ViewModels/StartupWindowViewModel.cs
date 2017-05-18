@@ -81,7 +81,7 @@ namespace Tamagochi.UI.ViewModels
                 gameContext.PetType = petType;
                 var game = App.Container.Resolve<AbstractGameFactory>().MakeGame(gameContext);
 
-                var viewModel = new GameViewModel(game, (s, arg) => MessageBox.Show("Pet is dead"));
+                var viewModel = new GameViewModel(game);
                 var mainWindow = new MainWindow(viewModel);
                 mainWindow.Show();
 

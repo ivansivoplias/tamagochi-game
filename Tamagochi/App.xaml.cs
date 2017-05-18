@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using System;
 using System.Windows;
 using Tamagochi.Common;
 using Tamagochi.DI;
@@ -27,7 +28,7 @@ namespace Tamagochi.UI
                 && gameContext.PetType != PetType.None)
             {
                 var game = Container.Resolve<AbstractGameFactory>().MakeGame(gameContext);
-                var viewModel = new GameViewModel(game, (s, arg) => MessageBox.Show("Pet is dead"));
+                var viewModel = new GameViewModel(game);
                 this.MainWindow = new MainWindow(viewModel);
             }
             else

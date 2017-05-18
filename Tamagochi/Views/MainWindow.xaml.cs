@@ -16,6 +16,7 @@ namespace Tamagochi.UI.Views
 
         public MainWindow(GameViewModel viewModel)
         {
+            viewModel.SetFinishGameCallback(FinishGameHandler);
             _viewModel = viewModel;
             this.DataContext = _viewModel;
             _viewModel.RegisterCommandsForWindow(this);
@@ -27,6 +28,13 @@ namespace Tamagochi.UI.Views
 
             _isInFullScreenMode = false;
             _windowStartPosition = new Point(0, 0);
+        }
+
+        private void FinishGameHandler(FinishGameViewModel model)
+        {
+            var finishGameWindow = new FinishGameWindow(model);
+            finishGameWindow.Show();
+            this.Close();
         }
 
         public void ToggleFullScreenMode(object sender, RoutedEventArgs e)

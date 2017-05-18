@@ -28,6 +28,8 @@ namespace Tamagochi.UI.ViewModels
         private Command _closeCommand;
         private PetViewModel _petViewModel;
 
+        private Action<FinishGameViewModel> _finishGameCallback;
+
         private int _gameDay;
         private int _gameHour;
         private int _gameMinutes;
@@ -91,12 +93,12 @@ namespace Tamagochi.UI.ViewModels
 
         public ImageSource EuthanizePetImage { get { return IconsSelector.SelectIconForAction(ActionType.Euthanize); } }
 
-        public GameViewModel(AbstractGame game, EventHandler<EventArgs> petDiedHandler)
+        public GameViewModel(AbstractGame game)
         {
             _game = game;
             _petViewModel = new PetViewModel(_game.Pet);
-            _game.Pet.PetDied += petDiedHandler;
             _game.GameTimeChanged += OnGameTimeChanged;
+            _game.Pet.PetDied += PetDiedHandler;
             _gameTime = game.GameTime;
             _gameDay = game.GameTime.Days;
             _gameHour = game.GameTime.Hours;
@@ -130,10 +132,21 @@ namespace Tamagochi.UI.ViewModels
             Command.RegisterCommandBinding(window, _closeCommand);
         }
 
+        public void SetFinishGameCallback(Action<FinishGameViewModel> finishGameCallback)
+        {
+            _finishGameCallback = finishGameCallback;
+        }
+
         private void Exit()
         {
             _game.StopGame();
             Application.Current.Shutdown();
+        }
+
+        private void PetDiedHandler(object sender, EventArgs e)
+        {
+            var finishGameViewModel = new FinishGameViewModel(_game.Pet);
+            _finishGameCallback?.Invoke(finishGameViewModel);
         }
 
         private async Task StartGameAsync()
