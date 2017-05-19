@@ -10,6 +10,8 @@
     <Color x:Key="DefaultButtonForeground">#CEF1F36F</Color>
     <Color x:Key="HoverButtonBackground">#AF292929</Color>
     <Color x:Key="HoverButtonForeground">#F1F9FAC2</Color>
+    <Color x:Key="DisabledButtonForeground">#F1F9FAC2</Color>
+    <Color x:Key="DisabledButtonBackground">#F1F9FAC2</Color>
 
     <!-- Action buttons -->
     <Color x:Key="ButtonBackgroundStart">#053047</Color>
