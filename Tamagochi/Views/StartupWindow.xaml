@@ -38,7 +38,7 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <Image Source="{Binding Path=Image}" />
+                        <Image Source="{Binding Image}" />
                         <TextBlock Grid.Row="1" Text="{Binding PetName}"
                                    VerticalAlignment="Bottom"
                                    FontFamily="{StaticResource JosefinSansRegular}"
