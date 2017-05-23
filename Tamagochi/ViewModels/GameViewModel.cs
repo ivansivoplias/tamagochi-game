@@ -16,6 +16,7 @@ namespace Tamagochi.UI.ViewModels
         private AbstractGame _game;
         private TimeSpan _gameTime;
         private Command _startGameCommand;
+        private Command _restartGameCommand;
         private Command _stopGameCommand;
         private Command _pauseGameCommand;
         private Command _saveGameCommand;
@@ -35,6 +36,7 @@ namespace Tamagochi.UI.ViewModels
         private int _gameMinutes;
 
         public ICommand StartGameCommand => _startGameCommand;
+        public ICommand RestartGameCommand => _restartGameCommand;
         public ICommand StopGameCommand => _stopGameCommand;
         public ICommand PauseGameCommand => _pauseGameCommand;
         public ICommand SaveGameCommand => _saveGameCommand;
@@ -99,6 +101,7 @@ namespace Tamagochi.UI.ViewModels
             _petViewModel = new PetViewModel(_game.Pet);
             _game.GameTimeChanged += OnGameTimeChanged;
             _game.Pet.PetDied += PetDiedHandler;
+            Application.Current.Exit += (s, e) => _game.StopGame();
             _gameTime = game.GameTime;
             _gameDay = game.GameTime.Days;
             _gameHour = game.GameTime.Hours;
@@ -106,14 +109,15 @@ namespace Tamagochi.UI.ViewModels
 
             var currentType = GetType();
 
-            _startGameCommand = Command.CreateAsyncCommand("Start", "StartGame", currentType, StartGameAsync);
-            _stopGameCommand = Command.CreateAsyncCommand("Stop", "StopGame", currentType, StopGameAsync);
-            _pauseGameCommand = Command.CreateAsyncCommand("Pause", "PauseGame", currentType, PauseGameAsync);
+            _startGameCommand = Command.CreateAsyncCommand("Start", "StartGame", currentType, StartGameAsync, () => !_game.IsActive);
+            _restartGameCommand = Command.CreateAsyncCommand("Restart", "RestartGame", currentType, RestartGameAsync);
+            _stopGameCommand = Command.CreateAsyncCommand("Stop", "StopGame", currentType, StopGameAsync, () => !(_game.IsStopped || _game.IsFinished));
+            _pauseGameCommand = Command.CreateAsyncCommand("Pause", "PauseGame", currentType, PauseGameAsync, () => _game.IsActive);
             _saveGameCommand = Command.CreateAsyncCommand("Save", "SaveGame", currentType, SaveGameAsync);
-            _feedPetCommand = Command.CreateAsyncCommand("Feed pet", "FeedPet", currentType, FeedPetAsync);
-            _playWithPetCommand = Command.CreateAsyncCommand("Play with pet", "PlayWithPet", currentType, PlayWithPetAsync);
-            _cleanAviaryCommand = Command.CreateAsyncCommand("Clean aviary", "CleanAviary", currentType, CleanAviaryAsync);
-            _euthanizePetCommand = Command.CreateAsyncCommand("Euthanize pet", "EuthanizePet", currentType, EuthanizePetAsync);
+            _feedPetCommand = Command.CreateAsyncCommand("Feed pet", "FeedPet", currentType, FeedPetAsync, () => _game.IsActive);
+            _playWithPetCommand = Command.CreateAsyncCommand("Play with pet", "PlayWithPet", currentType, PlayWithPetAsync, () => _game.IsActive);
+            _cleanAviaryCommand = Command.CreateAsyncCommand("Clean aviary", "CleanAviary", currentType, CleanAviaryAsync, () => _game.IsActive);
+            _euthanizePetCommand = Command.CreateAsyncCommand("Euthanize pet", "EuthanizePet", currentType, EuthanizePetAsync, () => _game.IsActive);
             _exitCommand = Command.CreateCommand("Exit", "ExitCommand", currentType, Exit);
             _closeCommand = Command.CreateCommand("Close", "CloseCommand", currentType, _game.StopGame);
         }
@@ -121,6 +125,7 @@ namespace Tamagochi.UI.ViewModels
         public override void RegisterCommandsForWindow(Window window)
         {
             Command.RegisterCommandBinding(window, _startGameCommand);
+            Command.RegisterCommandBinding(window, _restartGameCommand);
             Command.RegisterCommandBinding(window, _saveGameCommand);
             Command.RegisterCommandBinding(window, _pauseGameCommand);
             Command.RegisterCommandBinding(window, _stopGameCommand);
@@ -130,6 +135,21 @@ namespace Tamagochi.UI.ViewModels
             Command.RegisterCommandBinding(window, _euthanizePetCommand);
             Command.RegisterCommandBinding(window, _exitCommand);
             Command.RegisterCommandBinding(window, _closeCommand);
+        }
+
+        public override void UnregisterCommandsForWindow(Window window)
+        {
+            Command.UnregisterCommandBinding(window, _startGameCommand);
+            Command.UnregisterCommandBinding(window, _restartGameCommand);
+            Command.UnregisterCommandBinding(window, _saveGameCommand);
+            Command.UnregisterCommandBinding(window, _pauseGameCommand);
+            Command.UnregisterCommandBinding(window, _stopGameCommand);
+            Command.UnregisterCommandBinding(window, _cleanAviaryCommand);
+            Command.UnregisterCommandBinding(window, _feedPetCommand);
+            Command.UnregisterCommandBinding(window, _playWithPetCommand);
+            Command.UnregisterCommandBinding(window, _euthanizePetCommand);
+            Command.UnregisterCommandBinding(window, _exitCommand);
+            Command.UnregisterCommandBinding(window, _closeCommand);
         }
 
         public void SetFinishGameCallback(Action<FinishGameViewModel> finishGameCallback)
@@ -145,6 +165,11 @@ namespace Tamagochi.UI.ViewModels
 
         private void PetDiedHandler(object sender, EventArgs e)
         {
+            Application.Current.Dispatcher.Invoke(InvokeFinishGameCallback);
+        }
+
+        private void InvokeFinishGameCallback()
+        {
             var finishGameViewModel = new FinishGameViewModel(_game.Pet);
             _finishGameCallback?.Invoke(finishGameViewModel);
         }
@@ -152,6 +177,12 @@ namespace Tamagochi.UI.ViewModels
         private async Task StartGameAsync()
         {
             _game.StartGame();
+            await Task.Delay(1);
+        }
+
+        private async Task RestartGameAsync()
+        {
+            _game.RestartGame();
             await Task.Delay(1);
         }
 
@@ -203,6 +234,12 @@ namespace Tamagochi.UI.ViewModels
             GameDay = _gameTime.Days;
             GameHour = _gameTime.Hours;
             GameMinutes = _gameTime.Minutes;
+        }
+
+        ~GameViewModel()
+        {
+            _game.Pet.PetDied -= PetDiedHandler;
+            _game.GameTimeChanged -= OnGameTimeChanged;
         }
     }
 }

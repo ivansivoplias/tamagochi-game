@@ -25,6 +25,7 @@ namespace Tamagochi.UI.Helpers
                 {
                     var uri = new Uri(string.Format(_imageFormat, petTypeName, petTypeLowerName, i));
                     var image = new BitmapImage(uri);
+                    image.Freeze();
                     list.Add(image);
                 }
                 _images.Add(petType, list);

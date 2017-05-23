@@ -11,6 +11,7 @@ namespace Tamagochi.UI.Commands
         private Action _execute;
         private bool _isExecuting;
         private bool _isAsyncCommand;
+        private CommandBinding _commandBinding;
 
         private Command(string text, string name, Type ownerType, Func<bool> canExecute, Action execute) : base(text, name, ownerType)
         {
@@ -51,7 +52,13 @@ namespace Tamagochi.UI.Commands
 
         public static void RegisterCommandBinding(Window window, Command command)
         {
-            window.CommandBindings.Add(new CommandBinding(command, command.Executed, command.CanExecute));
+            command._commandBinding = new CommandBinding(command, command.Executed, command.CanExecute);
+            window.CommandBindings.Add(command._commandBinding);
+        }
+
+        public static void UnregisterCommandBinding(Window window, Command command)
+        {
+            if (command._commandBinding != null) window.CommandBindings.Remove(command._commandBinding);
         }
     }
 }

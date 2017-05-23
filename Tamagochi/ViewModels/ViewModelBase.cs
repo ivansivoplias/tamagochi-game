@@ -36,6 +36,10 @@ namespace Tamagochi.UI.ViewModels
         {
         }
 
+        public virtual void UnregisterCommandsForWindow(Window window)
+        {
+        }
+
         [Conditional("DEBUG")]
         [DebuggerStepThrough]
         public void VerifyPropertyName(string propertyName)

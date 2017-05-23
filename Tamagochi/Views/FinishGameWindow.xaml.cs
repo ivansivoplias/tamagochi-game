@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,8 @@ namespace Tamagochi.UI.Views
             this.DataContext = viewModel;
             _viewModel.RegisterCommandsForWindow(this);
             InitializeComponent();
+
+            Closing += OnClosing;
         }
 
         private void RestartGameHandler(StartupWindowViewModel model)
@@ -36,6 +39,11 @@ namespace Tamagochi.UI.Views
             var startupWindow = new StartupWindow(model);
             startupWindow.Show();
             this.Close();
+        }
+
+        private void OnClosing(object sender, CancelEventArgs e)
+        {
+            _viewModel?.UnregisterCommandsForWindow(this);
         }
     }
 }

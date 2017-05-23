@@ -23,6 +23,14 @@ namespace Tamagochi.Infrastructure.Abstract
 
         public GameState State { get; protected set; }
 
+        public abstract bool IsActive { get; }
+
+        public abstract bool IsStopped { get; }
+
+        public abstract bool IsPaused { get; }
+
+        public abstract bool IsFinished { get; }
+
         public abstract void FeedPet();
 
         public abstract void PlayWithPet();
@@ -38,5 +46,7 @@ namespace Tamagochi.Infrastructure.Abstract
         public abstract void PauseGame();
 
         public abstract void SaveGame();
+
+        public abstract void RestartGame();
     }
 }

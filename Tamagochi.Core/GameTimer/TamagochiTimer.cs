@@ -119,5 +119,10 @@ namespace Tamagochi.Core.GameTimer
             _timer.Stop();
             _timerState = TimerState.Stopped;
         }
+
+        ~TamagochiTimer()
+        {
+            _timer.Elapsed -= RealSecondChangedHandler;
+        }
     }
 }

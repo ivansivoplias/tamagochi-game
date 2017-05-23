@@ -41,5 +41,7 @@ namespace Tamagochi.Infrastructure.Abstract
         void UpdateHealth(float healthDifference);
 
         void UpdatePetFromParams(PetUpdateParams parameter);
+
+        void ResetPetState();
     }
 }

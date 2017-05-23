@@ -53,11 +53,9 @@
     <Compile Include="GameEventArgs\GameTimeChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\HourChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\MinuteChangedEventArgs.cs" />
-    <Compile Include="GameEventArgs\MonthChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\PetEvolutionLevelChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\SecondChangedEventArgs.cs" />
     <Compile Include="GameEventArgs\ValueChangedEventArgs.cs" />
-    <Compile Include="GameEventArgs\YearChangedEventArgs.cs" />
     <Compile Include="GameExceptions\DeserializationFailedException.cs" />
     <Compile Include="GameExceptions\InvalidFilePathException.cs" />
     <Compile Include="GameExceptions\SaveContextFailedException.cs" />

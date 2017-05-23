@@ -127,6 +127,16 @@ namespace Tamagochi.Core.Models
             }
         }
 
+        public void ResetPetState()
+        {
+            var previousAge = Age;
+            _age = 0;
+            AgeChanged?.Invoke(this, new AgeChangedEventArgs(previousAge, Age));
+            Mood = Satiety = Health = CleanessRate = 100;
+            _evolutionLevel = PetEvolutionLevel.Birth;
+            EvolutionLevelChanged?.Invoke(this, new PetEvolutionLevelChangedEventArgs(_evolutionLevel));
+        }
+
         private float NormalizeValue(float value)
         {
             if (value > 100)

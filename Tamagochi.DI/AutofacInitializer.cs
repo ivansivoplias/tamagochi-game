@@ -16,7 +16,7 @@ namespace Tamagochi.DI
             builder.RegisterType<TimerProvider>().As<ITimerProvider>().SingleInstance();
             builder.Register(c => c.Resolve<ITimerProvider>().GetTimer());
             builder.RegisterType<TamagochiSerializer>().As<ISerializer>();
-            builder.RegisterType<GameContextProvider>().As<IGameContextProvider>();
+            builder.RegisterType<GameContextProvider>().As<IGameContextProvider>().SingleInstance();
             builder.Register(c =>
             {
                 var timer = c.Resolve<AbstractTamagochiTimer>();

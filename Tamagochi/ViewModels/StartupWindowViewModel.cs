@@ -18,7 +18,11 @@ namespace Tamagochi.UI.ViewModels
         private ObservableCollection<PetItemViewModel> _petCollection;
         private PetItemViewModel _selected;
         private Command _selectPetCommand;
-        private Action _selectPetCallback;
+        private Action _closeStartupWindowCallback;
+        private static IList<PetType> _petTypes;
+        private const PetEvolutionLevel _evolutionLevel = PetEvolutionLevel.Birth;
+
+        public bool HasSelectedPet => _selected != null;
 
         public ObservableCollection<PetItemViewModel> Pets
         {
@@ -42,27 +46,29 @@ namespace Tamagochi.UI.ViewModels
 
         public ICommand SelectPetCommand => _selectPetCommand;
 
+        static StartupWindowViewModel()
+        {
+            _petTypes = (Enum.GetValues(typeof(PetType)) as PetType[]).Where(x => x != PetType.None).ToList();
+        }
+
         public StartupWindowViewModel()
         {
-            var petTypes = (Enum.GetValues(typeof(PetType)) as PetType[]).Where(x => x != PetType.None).ToList();
-            var evolutionLevel = PetEvolutionLevel.Birth;
-            var list = new List<PetItemViewModel>();
-            foreach (var item in petTypes)
+            _petCollection = new ObservableCollection<PetItemViewModel>();
+            foreach (var item in _petTypes)
             {
-                list.Add(new PetItemViewModel()
+                _petCollection.Add(new PetItemViewModel()
                 {
                     PetName = item.ToString(),
-                    Image = ImageSelector.SelectImage(item, evolutionLevel)
+                    Image = ImageSelector.SelectImage(item, _evolutionLevel)
                 });
-                _petCollection = new ObservableCollection<PetItemViewModel>(list);
             }
 
             _selectPetCommand = Command.CreateCommand("Select pet", "SelectPet", GetType(), SelectPetCommandExecute);
         }
 
-        public void SetSelectPetCallback(Action callback)
+        public void SetCloseStartupWindowCallback(Action callback)
         {
-            _selectPetCallback = callback;
+            _closeStartupWindowCallback = callback;
         }
 
         public override void RegisterCommandsForWindow(Window window)
@@ -70,9 +76,19 @@ namespace Tamagochi.UI.ViewModels
             Command.RegisterCommandBinding(window, _selectPetCommand);
         }
 
+        public override void UnregisterCommandsForWindow(Window window)
+        {
+            Command.UnregisterCommandBinding(window, _selectPetCommand);
+        }
+
         private void SelectPetCommandExecute()
         {
-            if (_selected != null)
+            Application.Current.Dispatcher.Invoke(SelectPetCallback);
+        }
+
+        private void SelectPetCallback()
+        {
+            if (HasSelectedPet)
             {
                 var petType = (PetType)Enum.Parse(typeof(PetType), _selected.PetName);
 
@@ -85,7 +101,7 @@ namespace Tamagochi.UI.ViewModels
                 var mainWindow = new MainWindow(viewModel);
                 mainWindow.Show();
 
-                _selectPetCallback?.Invoke();
+                _closeStartupWindowCallback?.Invoke();
             }
         }
     }

@@ -10,8 +10,12 @@ namespace Tamagochi.Core.Models
         private TimeSpan _gameTime;
         private TimeSpan _innerTime;
         private TimeSpan _realTime;
-        private bool IsActive => State == GameState.Active;
         private bool _isContextCreated;
+
+        public override bool IsActive => State == GameState.Active;
+        public override bool IsPaused => State == GameState.Paused;
+        public override bool IsStopped => State == GameState.Stopped;
+        public override bool IsFinished => State == GameState.Finished;
 
         public override event EventHandler<GameTimeChangedEventArgs> GameTimeChanged;
 
@@ -36,10 +40,7 @@ namespace Tamagochi.Core.Models
             {
                 _isContextCreated = true;
             }
-            Pet.PetDied += (s, e) =>
-            {
-                FinishGame();
-            };
+            Pet.PetDied += OnPetDying;
             State = _context.GameState;
             _gameTime = context.GameTime;
             _innerTime = context.InnerPetTime;
@@ -70,6 +71,11 @@ namespace Tamagochi.Core.Models
             }
             SwitchPetEvolutionLevelIfNeeded();
             UpdatePetParams();
+        }
+
+        private void OnPetDying(object sender, EventArgs e)
+        {
+            FinishGame();
         }
 
         private void UpdatePetParams()
@@ -159,28 +165,49 @@ namespace Tamagochi.Core.Models
 
         public override void StartGame()
         {
-            if (State != GameState.Finished && State != GameState.Active)
+            if (!IsFinished && !IsActive)
             {
-                if (_timer.State != TimerState.Active) _timer.StartTimer();
-                _realTime = _timer.RealTime;
-                if (State == GameState.Default || _isContextCreated)
-                {
-                    _timer.RealMinuteChanged += OnRealMinuteChanged;
-                    _timer.RealSecondChanged += OnRealSecondChanged;
-                    _isContextCreated = false;
-                }
+                SetupTimer();
                 State = GameState.Active;
             }
         }
 
         public override void StopGame()
         {
-            if (IsActive || State == GameState.Paused)
+            if (IsActive || IsPaused)
             {
                 State = GameState.Stopped;
-                StopTimerAndUnsubscribe();
+                _timer.StopTimer();
                 SaveGame();
             }
+        }
+
+        public override void RestartGame()
+        {
+            ResetGameState();
+            Pet.ResetPetState();
+            SetupTimer();
+            State = GameState.Active;
+        }
+
+        private void SetupTimer()
+        {
+            if (_timer.State != TimerState.Active) _timer.StartTimer();
+            _realTime = _timer.RealTime;
+            if (State == GameState.Default || _isContextCreated)
+            {
+                _timer.RealMinuteChanged += OnRealMinuteChanged;
+                _timer.RealSecondChanged += OnRealSecondChanged;
+                _isContextCreated = false;
+            }
+        }
+
+        private void ResetGameState()
+        {
+            State = GameState.Default;
+            StopTimerAndUnsubscribe();
+            _gameTime = new TimeSpan();
+            _innerTime = new TimeSpan();
         }
 
         private void StopTimerAndUnsubscribe()
@@ -198,5 +225,10 @@ namespace Tamagochi.Core.Models
         }
 
         #endregion Game control methods
+
+        ~Game()
+        {
+            Pet.PetDied -= OnPetDying;
+        }
     }
 }

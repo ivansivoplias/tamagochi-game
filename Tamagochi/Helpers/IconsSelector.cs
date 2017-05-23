@@ -19,6 +19,7 @@ namespace Tamagochi.UI.Helpers
                 var lowerActionName = item.ToString().ToLower();
                 var uri = new Uri(string.Format(_uriFormat, lowerActionName));
                 var image = new BitmapImage(uri);
+                image.Freeze();
                 _icons.Add(image);
             }
         }

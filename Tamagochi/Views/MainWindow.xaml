@@ -29,12 +29,16 @@
         <!-- Menu -->
         <StackPanel>
             <Menu>
+                <MenuItem Header="App">
+                    <MenuItem Header="New" />
+                    <MenuItem Command="{Binding SaveGameCommand}" />
+                    <MenuItem Command="{Binding ExitCommand}" />
+                </MenuItem>
                 <MenuItem Header="Game">
                     <MenuItem Command="{Binding StartGameCommand}" />
+                    <MenuItem Command="{Binding RestartGameCommand}" />
                     <MenuItem Command="{Binding PauseGameCommand}" />
-                    <MenuItem Command="{Binding SaveGameCommand}" />
                     <MenuItem Command="{Binding StopGameCommand}" />
-                    <MenuItem Command="{Binding ExitCommand}" />
                 </MenuItem>
                 <MenuItem Header="Game mode">
                     <MenuItem x:Name="fullScreenMode" Header="Full screen mode" />
@@ -92,14 +96,14 @@
                                        TextAlignment="Center"
                                        TextWrapping="Wrap"
                                        FontSize="20">
-                                <Run Foreground="{StaticResource GameTimeTextBrush}" Text="{Binding GameTimeText, Mode=OneWay}" />
+                                <Run Foreground="{StaticResource GameTimeTextBrush}" Text="{Binding GameTimeText, Mode=OneTime}" />
                             </TextBlock>
                             <TextBlock VerticalAlignment="Center"
                                        Grid.Column="0" Grid.Row="1"
                                        TextAlignment="Center"
                                        TextWrapping="Wrap"
                                        FontSize="20">
-                                <Run Foreground="{StaticResource PetAgeTextBrush}" Text="{Binding PetAgeText, Mode=OneWay}" />
+                                <Run Foreground="{StaticResource PetAgeTextBrush}" Text="{Binding PetAgeText, Mode=OneTime}" />
                             </TextBlock>
 
                             <TextBlock VerticalAlignment="Center"
@@ -166,7 +170,7 @@
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
                                     <Image MaxWidth="50"
-                                       Source="{Binding FeedPetImage}"
+                                       Source="{Binding FeedPetImage, Mode=OneTime}"
                                        Grid.Column="1" />
                                 </Grid>
                             </Button>
@@ -190,7 +194,7 @@
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
                                     <Image MaxWidth="50"
-                                       Source="{Binding PlayWithPetImage}"
+                                       Source="{Binding PlayWithPetImage, Mode=OneTime}"
                                        Grid.Column="1" />
                                 </Grid>
                             </Button>
@@ -198,7 +202,7 @@
                     </StackPanel>
 
                     <Grid Grid.Column="1">
-                        <Image Source="{Binding Pet.Image}"
+                        <Image Source="{Binding Pet.Image, Mode=OneTime}"
                            Height="{Binding RelativeSource=
                                     {RelativeSource Mode=Self},
                                     Path=Parent.ActualHeight}"
@@ -226,7 +230,7 @@
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
                                     <Image MaxWidth="50"
-                                       Source="{Binding CleanAviaryImage}"
+                                       Source="{Binding CleanAviaryImage, Mode=OneTime}"
                                        Grid.Column="1" />
                                 </Grid>
                             </Button>
@@ -249,7 +253,7 @@
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
                                     <Image MaxWidth="50"
-                                       Source="{Binding EuthanizePetImage}"
+                                       Source="{Binding EuthanizePetImage, Mode=OneTime}"
                                        Grid.Column="1" />
                                 </Grid>
                             </Button>

@@ -34,6 +34,11 @@ namespace Tamagochi.UI.ViewModels
 
         private void RestartGameCommandExecute()
         {
+            Application.Current.Dispatcher.Invoke(RestartGame);
+        }
+
+        private void RestartGame()
+        {
             _restartCallback?.Invoke(new StartupWindowViewModel());
         }
 
@@ -41,6 +46,12 @@ namespace Tamagochi.UI.ViewModels
         {
             Command.RegisterCommandBinding(window, _closeAppCommand);
             Command.RegisterCommandBinding(window, _restartGameCommand);
+        }
+
+        public override void UnregisterCommandsForWindow(Window window)
+        {
+            Command.UnregisterCommandBinding(window, _closeAppCommand);
+            Command.UnregisterCommandBinding(window, _restartGameCommand);
         }
     }
 }
