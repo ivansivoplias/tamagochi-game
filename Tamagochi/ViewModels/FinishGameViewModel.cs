@@ -10,7 +10,7 @@ namespace Tamagochi.UI.ViewModels
     {
         private IPet _pet;
         private PetStatisticsViewModel _petViewModel;
-        private Action<StartupWindowViewModel> _restartCallback;
+        private Action _restartCallback;
         private Command _closeAppCommand;
         private Command _restartGameCommand;
 
@@ -27,7 +27,7 @@ namespace Tamagochi.UI.ViewModels
             _restartGameCommand = Command.CreateCommand("Restart game", "RestartGame", GetType(), RestartGameCommandExecute);
         }
 
-        public void SetRestartGameCallback(Action<StartupWindowViewModel> restartCallback)
+        public void SetRestartGameCallback(Action restartCallback)
         {
             _restartCallback = restartCallback;
         }
@@ -39,7 +39,7 @@ namespace Tamagochi.UI.ViewModels
 
         private void RestartGame()
         {
-            _restartCallback?.Invoke(new StartupWindowViewModel());
+            _restartCallback?.Invoke();
         }
 
         public override void RegisterCommandsForWindow(Window window)

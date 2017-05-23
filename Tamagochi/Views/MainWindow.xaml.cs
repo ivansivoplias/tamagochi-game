@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Tamagochi.Infrastructure.Abstract;
 using Tamagochi.UI.ViewModels;
 
 namespace Tamagochi.UI.Views
@@ -48,8 +49,9 @@ namespace Tamagochi.UI.Views
             windowMode.Icon = _activeIcon;
         }
 
-        private void FinishGameHandler(FinishGameViewModel model)
+        private void FinishGameHandler(IPet pet)
         {
+            var model = new FinishGameViewModel(pet);
             var finishGameWindow = new FinishGameWindow(model);
             finishGameWindow.Show();
             this.Close();

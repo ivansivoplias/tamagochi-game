@@ -34,9 +34,9 @@ namespace Tamagochi.UI.Views
             Closing += OnClosing;
         }
 
-        private void RestartGameHandler(StartupWindowViewModel model)
+        private void RestartGameHandler()
         {
-            var startupWindow = new StartupWindow(model);
+            var startupWindow = new StartupWindow(new StartupWindowViewModel());
             startupWindow.Show();
             this.Close();
         }

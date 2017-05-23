@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using Tamagochi.Infrastructure.Abstract;
 using Tamagochi.UI.ViewModels;
 
 namespace Tamagochi.UI.Views
@@ -16,7 +17,7 @@ namespace Tamagochi.UI.Views
         {
             _viewModel = viewModel;
             this.DataContext = _viewModel;
-            _viewModel.SetCloseStartupWindowCallback(this.Close);
+            _viewModel.SetStartGameWindowCallback(StartGameWindow);
             _viewModel.RegisterCommandsForWindow(this);
             InitializeComponent();
 
@@ -26,6 +27,14 @@ namespace Tamagochi.UI.Views
         private void PetsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _viewModel.SelectedPet = (sender as ListView).SelectedItem as PetItemViewModel;
+        }
+
+        private void StartGameWindow(AbstractGame game)
+        {
+            var viewModel = new GameViewModel(game);
+            var mainWindow = new MainWindow(viewModel);
+            mainWindow.Show();
+            this.Close();
         }
 
         private void OnClosing(object sender, CancelEventArgs e)

@@ -29,7 +29,7 @@ namespace Tamagochi.UI.ViewModels
         private Command _closeCommand;
         private PetViewModel _petViewModel;
 
-        private Action<FinishGameViewModel> _finishGameCallback;
+        private Action<IPet> _finishGameCallback;
 
         private int _gameDay;
         private int _gameHour;
@@ -152,7 +152,7 @@ namespace Tamagochi.UI.ViewModels
             Command.UnregisterCommandBinding(window, _closeCommand);
         }
 
-        public void SetFinishGameCallback(Action<FinishGameViewModel> finishGameCallback)
+        public void SetFinishGameCallback(Action<IPet> finishGameCallback)
         {
             _finishGameCallback = finishGameCallback;
         }
@@ -170,8 +170,7 @@ namespace Tamagochi.UI.ViewModels
 
         private void InvokeFinishGameCallback()
         {
-            var finishGameViewModel = new FinishGameViewModel(_game.Pet);
-            _finishGameCallback?.Invoke(finishGameViewModel);
+            _finishGameCallback?.Invoke(_game.Pet);
         }
 
         private async Task StartGameAsync()

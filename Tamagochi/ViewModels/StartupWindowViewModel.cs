@@ -9,7 +9,6 @@ using Tamagochi.Common;
 using Tamagochi.Infrastructure.Abstract;
 using Tamagochi.UI.Commands;
 using Tamagochi.UI.Helpers;
-using Tamagochi.UI.Views;
 
 namespace Tamagochi.UI.ViewModels
 {
@@ -18,7 +17,7 @@ namespace Tamagochi.UI.ViewModels
         private ObservableCollection<PetItemViewModel> _petCollection;
         private PetItemViewModel _selected;
         private Command _selectPetCommand;
-        private Action _closeStartupWindowCallback;
+        private Action<AbstractGame> _startGameWindowCallback;
         private static IList<PetType> _petTypes;
         private const PetEvolutionLevel _evolutionLevel = PetEvolutionLevel.Birth;
 
@@ -66,9 +65,9 @@ namespace Tamagochi.UI.ViewModels
             _selectPetCommand = Command.CreateCommand("Select pet", "SelectPet", GetType(), SelectPetCommandExecute);
         }
 
-        public void SetCloseStartupWindowCallback(Action callback)
+        public void SetStartGameWindowCallback(Action<AbstractGame> callback)
         {
-            _closeStartupWindowCallback = callback;
+            _startGameWindowCallback = callback;
         }
 
         public override void RegisterCommandsForWindow(Window window)
@@ -83,11 +82,6 @@ namespace Tamagochi.UI.ViewModels
 
         private void SelectPetCommandExecute()
         {
-            Application.Current.Dispatcher.Invoke(SelectPetCallback);
-        }
-
-        private void SelectPetCallback()
-        {
             if (HasSelectedPet)
             {
                 var petType = (PetType)Enum.Parse(typeof(PetType), _selected.PetName);
@@ -97,11 +91,7 @@ namespace Tamagochi.UI.ViewModels
                 gameContext.PetType = petType;
                 var game = App.Container.Resolve<AbstractGameFactory>().MakeGame(gameContext);
 
-                var viewModel = new GameViewModel(game);
-                var mainWindow = new MainWindow(viewModel);
-                mainWindow.Show();
-
-                _closeStartupWindowCallback?.Invoke();
+                _startGameWindowCallback?.Invoke(game);
             }
         }
     }
