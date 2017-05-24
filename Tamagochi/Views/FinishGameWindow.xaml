@@ -29,7 +29,7 @@
                     <Run Foreground="DarkGreen">Pet age:</Run>
                 </TextBlock>
                 <TextBlock Grid.Column="1" Padding="10" FontSize="21" TextAlignment="Left">
-                    <Run Text="{Binding Pet.Age, Mode=OneTime}" Foreground="BlueViolet" /> years
+                    <Run Text="{Binding Pet.Age, Mode=OneWay}" Foreground="BlueViolet" /> years
                 </TextBlock>
             </Grid>
             <Grid>
@@ -42,7 +42,7 @@
                     <Run Foreground="Olive">Pet health:</Run>
                 </TextBlock>
                 <TextBlock Grid.Column="1" Padding="10" FontSize="21" TextAlignment="Left">
-                    <Run Text="{Binding Pet.Health, Mode=OneTime}" Foreground="BlueViolet" /> %
+                    <Run Text="{Binding Pet.Health, Mode=OneWay}" Foreground="BlueViolet" /> %
                 </TextBlock>
             </Grid>
             <Grid>
@@ -55,7 +55,7 @@
                     <Run Foreground="LightCoral">Pet mood:</Run>
                 </TextBlock>
                 <TextBlock Padding="10" FontSize="21" Grid.Column="1" TextAlignment="Left">
-                    <Run Text="{Binding Pet.Mood, Mode=OneTime}" Foreground="BlueViolet" /> %
+                    <Run Text="{Binding Pet.Mood, Mode=OneWay}" Foreground="BlueViolet" /> %
                 </TextBlock>
             </Grid>
             <Grid>
@@ -68,14 +68,14 @@
                     <Run Foreground="#FFA300FF">Pet satiety:</Run>
                 </TextBlock>
                 <TextBlock Grid.Column="1" Padding="10" FontSize="21" TextAlignment="Left">
-                    <Run Text="{Binding Pet.Satiety, Mode=OneTime}" Foreground="BlueViolet" /> %
+                    <Run Text="{Binding Pet.Satiety, Mode=OneWay}" Foreground="BlueViolet" /> %
                 </TextBlock>
             </Grid>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
-            <Button FontSize="16" Command="{Binding RestartGameCommand}" Content="{Binding RestartGameCommand.Text}" />
-            <Button FontSize="16" Command="{Binding CloseAppCommand}" Content="{Binding CloseAppCommand.Text}" />
+            <Button FontSize="16" Command="{Binding RestartGameCommand, Mode=OneTime}" Content="{Binding RestartGameCommand.Text, Mode=OneTime}" />
+            <Button FontSize="16" Command="{Binding CloseAppCommand, Mode=OneTime}" Content="{Binding CloseAppCommand.Text, Mode=OneTime}" />
         </StackPanel>
     </Grid>
 </Window>

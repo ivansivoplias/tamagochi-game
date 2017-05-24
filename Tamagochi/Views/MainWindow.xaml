@@ -19,10 +19,10 @@
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding CloseCommand}" CommandParameter="{Binding}" />
+            <i:InvokeCommandAction Command="{Binding CloseCommand, Mode=OneTime}" CommandParameter="{Binding}" />
         </i:EventTrigger>
         <i:EventTrigger EventName="ContentRendered">
-            <i:InvokeCommandAction Command="{Binding StartGameCommand}" CommandParameter="{Binding}" />
+            <i:InvokeCommandAction Command="{Binding StartGameCommand, Mode=OneTime}" CommandParameter="{Binding}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid Background="{StaticResource LightBackgroundBrush}">
@@ -31,14 +31,14 @@
             <Menu>
                 <MenuItem Header="App">
                     <MenuItem Header="New" />
-                    <MenuItem Command="{Binding SaveGameCommand}" />
-                    <MenuItem Command="{Binding ExitCommand}" />
+                    <MenuItem Command="{Binding SaveGameCommand, Mode=OneTime}" />
+                    <MenuItem Command="{Binding ExitCommand, Mode=OneTime}" />
                 </MenuItem>
                 <MenuItem Header="Game">
-                    <MenuItem Command="{Binding StartGameCommand}" />
-                    <MenuItem Command="{Binding RestartGameCommand}" />
-                    <MenuItem Command="{Binding PauseGameCommand}" />
-                    <MenuItem Command="{Binding StopGameCommand}" />
+                    <MenuItem Command="{Binding StartGameCommand, Mode=OneTime}" />
+                    <MenuItem Command="{Binding RestartGameCommand, Mode=OneTime}" />
+                    <MenuItem Command="{Binding PauseGameCommand, Mode=OneTime}" />
+                    <MenuItem Command="{Binding StopGameCommand, Mode=OneTime}" />
                 </MenuItem>
                 <MenuItem Header="Game mode">
                     <MenuItem x:Name="fullScreenMode" Header="Full screen mode" />
@@ -65,19 +65,19 @@
 
                     <StackPanel Orientation="Vertical" Margin="5">
                         <custom:IndicatorBar
-                            IndicatorName="{Binding Pet.HealthIndicator.Name}"
+                            IndicatorName="{Binding Pet.HealthIndicator.Name, Mode=OneTime}"
                             Margin="5"
                             Minimum="0"
                             Maximum="100"
-                            Foreground="{Binding Pet.HealthIndicator.ForegroundColor}"
-                            Value="{Binding Pet.HealthIndicator.Value}" />
+                            Foreground="{Binding Pet.HealthIndicator.ForegroundColor, Mode=OneWay}"
+                            Value="{Binding Pet.HealthIndicator.Value, Mode=OneWay}" />
                         <custom:IndicatorBar
-                            IndicatorName="{Binding Pet.SatietyIndicator.Name}"
+                            IndicatorName="{Binding Pet.SatietyIndicator.Name, Mode=OneTime}"
                             Margin="5"
                             Minimum="0"
                             Maximum="100"
-                            Foreground="{Binding Pet.SatietyIndicator.ForegroundColor}"
-                            Value="{Binding Pet.SatietyIndicator.Value}" />
+                            Foreground="{Binding Pet.SatietyIndicator.ForegroundColor, Mode=OneWay}"
+                            Value="{Binding Pet.SatietyIndicator.Value, Mode=OneWay}" />
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" Margin="15">
@@ -112,34 +112,34 @@
                                        TextWrapping="Wrap"
                                        Foreground="{StaticResource GameTimeBrush}"
                                        FontSize="20">
-                                <Run Foreground="{StaticResource GameDayBrush}" Text="{Binding GameDay}" /> days
-                                <Run Foreground="{StaticResource GameHourBrush}" Text="{Binding GameHour}" /> hours
-                                <Run Foreground="{StaticResource GameMinuteBrush}" Text="{Binding GameMinutes}" /> minutes
+                                <Run Foreground="{StaticResource GameDayBrush}" Text="{Binding GameDay, Mode=OneWay}" /> days
+                                <Run Foreground="{StaticResource GameHourBrush}" Text="{Binding GameHour, Mode=OneWay}" /> hours
+                                <Run Foreground="{StaticResource GameMinuteBrush}" Text="{Binding GameMinutes, Mode=OneWay}" /> minutes
                             </TextBlock>
                             <TextBlock VerticalAlignment="Center"
                                        Grid.Column="1" Grid.Row="1"
                                        TextWrapping="Wrap"
                                        TextAlignment="Center" FontSize="20">
-                                <Run Foreground="{StaticResource PetAgeBrush}" Text="{Binding Pet.Age}" />
+                                <Run Foreground="{StaticResource PetAgeBrush}" Text="{Binding Pet.Age, Mode=OneWay}" />
                             </TextBlock>
                         </Grid>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Margin="5" Grid.Column="2">
                         <custom:IndicatorBar
-                            IndicatorName="{Binding Pet.MoodIndicator.Name}"
+                            IndicatorName="{Binding Pet.MoodIndicator.Name, Mode=OneTime}"
                             Margin="5"
                             Minimum="0"
                             Maximum="100"
-                            Foreground="{Binding Pet.MoodIndicator.ForegroundColor}"
-                            Value="{Binding Pet.MoodIndicator.Value}" />
+                            Foreground="{Binding Pet.MoodIndicator.ForegroundColor, Mode=OneWay}"
+                            Value="{Binding Pet.MoodIndicator.Value, Mode=OneWay}" />
                         <custom:IndicatorBar
-                            IndicatorName="{Binding Pet.CleannessIndicator.Name}"
+                            IndicatorName="{Binding Pet.CleannessIndicator.Name, Mode=OneTime}"
                             Margin="5"
                             Minimum="0"
                             Maximum="100"
-                            Foreground="{Binding Pet.CleannessIndicator.ForegroundColor}"
-                            Value="{Binding Pet.CleannessIndicator.Value}" />
+                            Foreground="{Binding Pet.CleannessIndicator.ForegroundColor, Mode=OneWay}"
+                            Value="{Binding Pet.CleannessIndicator.Value, Mode=OneWay}" />
                     </StackPanel>
                 </Grid>
 
@@ -154,23 +154,23 @@
                     <StackPanel Grid.Column="0" VerticalAlignment="Center">
                         <custom:RippleEffectDecorator HighlightBackground="{StaticResource ActionButtonClickColor}">
                             <Button Style="{StaticResource ActionButton}" Margin="10"
-                                    Command="{Binding FeedPetCommand}">
+                                    Command="{Binding FeedPetCommand, Mode=OneTime}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="5*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Command.Text}"
+                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Command.Text, Mode=OneTime}"
                                            Padding="5"
                                            Grid.Column="0"
-                                           FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontSize}"
-                                           FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontFamily}"
+                                           FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontSize, Mode=OneTime}"
+                                           FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontFamily, Mode=OneTime}"
                                            TextAlignment="Left"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
                                     <Image MaxWidth="50"
-                                       Source="{Binding FeedPetImage, Mode=OneTime}"
+                                       Source="{Binding FeedPetImage, Mode=OneWay}"
                                        Grid.Column="1" />
                                 </Grid>
                             </Button>
@@ -178,23 +178,23 @@
 
                         <custom:RippleEffectDecorator HighlightBackground="{StaticResource ActionButtonClickColor}">
                             <Button Style="{StaticResource ActionButton}" Margin="10"
-                                    Command="{Binding PlayWithPetCommand}">
+                                    Command="{Binding PlayWithPetCommand, Mode=OneTime}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="5*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Command.Text}"
+                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Command.Text, Mode=OneTime}"
                                            Padding="5"
                                            Grid.Column="0"
                                            TextAlignment="Left"
-                                           FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontSize}"
-                                           FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontFamily}"
+                                           FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontSize, Mode=OneTime}"
+                                           FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontFamily, Mode=OneTime}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
                                     <Image MaxWidth="50"
-                                       Source="{Binding PlayWithPetImage, Mode=OneTime}"
+                                       Source="{Binding PlayWithPetImage, Mode=OneWay}"
                                        Grid.Column="1" />
                                 </Grid>
                             </Button>
@@ -202,58 +202,58 @@
                     </StackPanel>
 
                     <Grid Grid.Column="1">
-                        <Image Source="{Binding Pet.Image, Mode=OneTime}"
+                        <Image Source="{Binding Pet.Image, Mode=OneWay}"
                            Height="{Binding RelativeSource=
                                     {RelativeSource Mode=Self},
-                                    Path=Parent.ActualHeight}"
+                                    Path=Parent.ActualHeight, Mode=OneWay}"
                            Width="{Binding RelativeSource=
                                     {RelativeSource Mode=Self},
-                                    Path=Parent.ActualWidth}" />
+                                    Path=Parent.ActualWidth, Mode=OneWay}" />
                     </Grid>
 
                     <StackPanel Grid.Column="2" VerticalAlignment="Center">
                         <custom:RippleEffectDecorator HighlightBackground="{StaticResource ActionButtonClickColor}">
                             <Button Style="{StaticResource ActionButton}" Margin="10"
-                                    Command="{Binding CleanAviaryCommand}">
+                                    Command="{Binding CleanAviaryCommand, Mode=OneTime}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="5*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Command.Text}"
+                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Command.Text, Mode=OneTime}"
                                            Padding="5"
                                            Grid.Column="0"
                                            TextAlignment="Left"
-                                           FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontSize}"
-                                           FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontFamily}"
+                                           FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontSize, Mode=OneTime}"
+                                           FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontFamily, Mode=OneTime}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
                                     <Image MaxWidth="50"
-                                       Source="{Binding CleanAviaryImage, Mode=OneTime}"
+                                       Source="{Binding CleanAviaryImage, Mode=OneWay}"
                                        Grid.Column="1" />
                                 </Grid>
                             </Button>
                         </custom:RippleEffectDecorator>
                         <custom:RippleEffectDecorator HighlightBackground="{StaticResource ActionButtonClickColor}">
                             <Button Style="{StaticResource ActionButton}" Margin="10"
-                                    Command="{Binding EuthanizePetCommand}">
+                                    Command="{Binding EuthanizePetCommand, Mode=OneTime}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="5*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Command.Text}"
+                                    <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=Command.Text, Mode=OneTime}"
                                            Padding="5"
                                            Grid.Column="0"
                                            TextAlignment="Left"
-                                           FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontSize}"
-                                           FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontFamily}"
+                                           FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontSize, Mode=OneTime}"
+                                           FontFamily="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}, Path=FontFamily, Mode=OneTime}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
                                            Margin="0 0 40 0" />
                                     <Image MaxWidth="50"
-                                       Source="{Binding EuthanizePetImage, Mode=OneTime}"
+                                       Source="{Binding EuthanizePetImage, Mode=OneWay}"
                                        Grid.Column="1" />
                                 </Grid>
                             </Button>

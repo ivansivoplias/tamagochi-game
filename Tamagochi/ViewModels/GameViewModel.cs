@@ -29,11 +29,11 @@ namespace Tamagochi.UI.ViewModels
         private Command _closeCommand;
         private PetViewModel _petViewModel;
 
-        private Action<IPet> _finishGameCallback;
-
         private int _gameDay;
         private int _gameHour;
         private int _gameMinutes;
+
+        public event EventHandler GameFinishedMessage = delegate { };
 
         public ICommand StartGameCommand => _startGameCommand;
         public ICommand RestartGameCommand => _restartGameCommand;
@@ -152,9 +152,9 @@ namespace Tamagochi.UI.ViewModels
             Command.UnregisterCommandBinding(window, _closeCommand);
         }
 
-        public void SetFinishGameCallback(Action<IPet> finishGameCallback)
+        public IPet GetPet()
         {
-            _finishGameCallback = finishGameCallback;
+            return _game.Pet;
         }
 
         private void Exit()
@@ -165,12 +165,7 @@ namespace Tamagochi.UI.ViewModels
 
         private void PetDiedHandler(object sender, EventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(InvokeFinishGameCallback);
-        }
-
-        private void InvokeFinishGameCallback()
-        {
-            _finishGameCallback?.Invoke(_game.Pet);
+            GameFinishedMessage(null, EventArgs.Empty);
         }
 
         private async Task StartGameAsync()

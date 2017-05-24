@@ -17,9 +17,10 @@ namespace Tamagochi.UI.ViewModels
         private ObservableCollection<PetItemViewModel> _petCollection;
         private PetItemViewModel _selected;
         private Command _selectPetCommand;
-        private Action<AbstractGame> _startGameWindowCallback;
         private static IList<PetType> _petTypes;
         private const PetEvolutionLevel _evolutionLevel = PetEvolutionLevel.Birth;
+
+        public event EventHandler PetSelectedMessage = delegate { };
 
         public bool HasSelectedPet => _selected != null;
 
@@ -65,11 +66,6 @@ namespace Tamagochi.UI.ViewModels
             _selectPetCommand = Command.CreateCommand("Select pet", "SelectPet", GetType(), SelectPetCommandExecute);
         }
 
-        public void SetStartGameWindowCallback(Action<AbstractGame> callback)
-        {
-            _startGameWindowCallback = callback;
-        }
-
         public override void RegisterCommandsForWindow(Window window)
         {
             Command.RegisterCommandBinding(window, _selectPetCommand);
@@ -82,17 +78,7 @@ namespace Tamagochi.UI.ViewModels
 
         private void SelectPetCommandExecute()
         {
-            if (HasSelectedPet)
-            {
-                var petType = (PetType)Enum.Parse(typeof(PetType), _selected.PetName);
-
-                var gameContext = App.Container.Resolve<IGameContext>();
-                gameContext.Reset();
-                gameContext.PetType = petType;
-                var game = App.Container.Resolve<AbstractGameFactory>().MakeGame(gameContext);
-
-                _startGameWindowCallback?.Invoke(game);
-            }
+            PetSelectedMessage.Invoke(null, EventArgs.Empty);
         }
     }
 }

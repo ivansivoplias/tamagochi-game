@@ -14,7 +14,8 @@ namespace Tamagochi.UI.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ViewModelBase _viewModel;
+        private GameViewModel _viewModel;
+        private IPet _pet;
         private bool _isInFullScreenMode;
         private Point _windowStartPosition;
         private Size _startSize;
@@ -23,7 +24,8 @@ namespace Tamagochi.UI.Views
 
         public MainWindow(GameViewModel viewModel)
         {
-            viewModel.SetFinishGameCallback(FinishGameHandler);
+            _pet = viewModel.GetPet();
+            viewModel.GameFinishedMessage += FinishGameMessageHandler;
             _viewModel = viewModel;
             this.DataContext = _viewModel;
             _viewModel.RegisterCommandsForWindow(this);
@@ -49,9 +51,9 @@ namespace Tamagochi.UI.Views
             windowMode.Icon = _activeIcon;
         }
 
-        private void FinishGameHandler(IPet pet)
+        private void FinishGameMessageHandler(object sender, EventArgs e)
         {
-            var model = new FinishGameViewModel(pet);
+            var model = new FinishGameViewModel(_pet);
             var finishGameWindow = new FinishGameWindow(model);
             finishGameWindow.Show();
             this.Close();
@@ -106,6 +108,7 @@ namespace Tamagochi.UI.Views
 
         ~MainWindow()
         {
+            _viewModel.GameFinishedMessage -= FinishGameMessageHandler;
             fullScreenMode.Click -= ToggleFullScreenMode;
             windowMode.Click -= ToggleFullScreenMode;
         }

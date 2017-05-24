@@ -58,7 +58,10 @@ namespace Tamagochi.UI.Commands
 
         public static void UnregisterCommandBinding(Window window, Command command)
         {
-            if (command._commandBinding != null) window.CommandBindings.Remove(command._commandBinding);
+            if (command._commandBinding != null)
+            {
+                window.CommandBindings.Remove(command._commandBinding);
+            }
         }
     }
 }

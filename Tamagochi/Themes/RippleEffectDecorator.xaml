@@ -13,12 +13,12 @@
                         <Grid x:Name="PART_grid"
                               ClipToBounds="True"
                               Background="{TemplateBinding Background}"
-                              Width="{Binding ElementName=PART_contentpresenter, Path=ActualWidth}"
-                              Height="{Binding ElementName=PART_contentpresenter, Path=ActualHeight}">
+                              Width="{Binding ElementName=PART_contentpresenter, Path=ActualWidth, Mode=OneWay}"
+                              Height="{Binding ElementName=PART_contentpresenter, Path=ActualHeight, Mode=OneWay}">
 
                             <Ellipse x:Name="PART_ellipse"
-                            Fill="{Binding Path=HighlightBackground, RelativeSource={RelativeSource TemplatedParent}}"
-                            Width="0" Height="{Binding RelativeSource={RelativeSource Self}, Path=Width}"
+                            Fill="{Binding Path=HighlightBackground, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                            Width="0" Height="{Binding RelativeSource={RelativeSource Self}, Path=Width, Mode=OneWay}"
                             HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <Ellipse.OpacityMask>
                                     <RadialGradientBrush>

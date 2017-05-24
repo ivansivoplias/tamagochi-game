@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <ListView x:Name="PetsList"
-                  ItemsSource="{Binding Pets}"
+                  ItemsSource="{Binding Pets, Mode=OneTime}"
                   Margin="30 25"
                   BorderThickness="1"
                   BorderBrush="{StaticResource LightBackgroundBrush}"
@@ -38,8 +38,8 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <Image Source="{Binding Image}" />
-                        <TextBlock Grid.Row="1" Text="{Binding PetName}"
+                        <Image Source="{Binding Image, Mode=OneTime}" />
+                        <TextBlock Grid.Row="1" Text="{Binding PetName, Mode=OneTime}"
                                    VerticalAlignment="Bottom"
                                    FontFamily="{StaticResource JosefinSansRegular}"
                                    FontSize="19"
@@ -51,8 +51,8 @@
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="3"
-                                 MaxWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}, Path=ActualWidth}"
-                                 MaxHeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}, Path=ActualHeight}" />
+                                 MaxWidth="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}, Path=ActualWidth, Mode=OneWay}"
+                                 MaxHeight="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}, Path=ActualHeight, Mode=OneWay}" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
@@ -61,8 +61,8 @@
                 FontFamily="{StaticResource JosefinSansRegular}"
                 FontSize="20"
                 Padding="12"
-                Content="{Binding SelectPetCommand.Text}"
-                HorizontalAlignment="Center" Command="{Binding SelectPetCommand}">
+                Content="{Binding SelectPetCommand.Text, Mode=OneTime}"
+                HorizontalAlignment="Center" Command="{Binding SelectPetCommand, Mode=OneTime}">
         </Button>
     </Grid>
 </Window>

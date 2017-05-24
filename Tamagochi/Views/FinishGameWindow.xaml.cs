@@ -21,11 +21,11 @@ namespace Tamagochi.UI.Views
     /// </summary>
     public partial class FinishGameWindow : Window
     {
-        private ViewModelBase _viewModel;
+        private FinishGameViewModel _viewModel;
 
         public FinishGameWindow(FinishGameViewModel viewModel)
         {
-            viewModel.SetRestartGameCallback(RestartGameHandler);
+            viewModel.RestartGameMessage += RestartGameHandler;
             _viewModel = viewModel;
             this.DataContext = viewModel;
             _viewModel.RegisterCommandsForWindow(this);
@@ -34,7 +34,7 @@ namespace Tamagochi.UI.Views
             Closing += OnClosing;
         }
 
-        private void RestartGameHandler()
+        private void RestartGameHandler(object sender, EventArgs e)
         {
             var startupWindow = new StartupWindow(new StartupWindowViewModel());
             startupWindow.Show();
@@ -43,6 +43,7 @@ namespace Tamagochi.UI.Views
 
         private void OnClosing(object sender, CancelEventArgs e)
         {
+            _viewModel.RestartGameMessage -= RestartGameHandler;
             _viewModel?.UnregisterCommandsForWindow(this);
         }
     }

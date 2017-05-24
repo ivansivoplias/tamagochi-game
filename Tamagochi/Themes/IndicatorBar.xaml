@@ -71,7 +71,7 @@
                         <!-- Indicator name -->
                         <Label Grid.Row="0"
                                Margin="3 0"
-                               Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IndicatorName}" />
+                               Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IndicatorName, Mode=OneWay}" />
 
                         <!-- Indicator background part -->
                         <Border Grid.Row="1" x:Name="PART_Track"
@@ -89,14 +89,14 @@
                         <!-- Indicator percent label -->
                         <Label Grid.Row="1" Content="{Binding
                                RelativeSource={RelativeSource TemplatedParent},
-                               Path=Value}"
+                               Path=Value, Mode=OneWay}"
                                FontSize="14"
                                FontFamily="{StaticResource JosefinSansBold}"
                                Padding="4"
                                ContentStringFormat="{}{0} %"
                                HorizontalAlignment="Center"
-                               Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PercentColor}"
-                               Margin="{Binding ElementName=PART_Track, Path=Margin}"
+                               Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PercentColor, Mode=OneWay}"
+                               Margin="{Binding ElementName=PART_Track, Path=Margin, Mode=OneWay}"
                                Panel.ZIndex="2" />
 
                         <!-- Indicator part -->
@@ -104,7 +104,7 @@
                                 CornerRadius="2"
                                 BorderThickness="1"
                                 HorizontalAlignment="Left"
-                                Margin="{Binding ElementName=PART_Track, Path=Margin}"
+                                Margin="{Binding ElementName=PART_Track, Path=Margin, Mode=OneWay}"
                                 Background="{TemplateBinding Foreground}">
 
                             <Grid ClipToBounds="True"
