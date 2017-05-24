@@ -30,7 +30,7 @@
         <StackPanel>
             <Menu>
                 <MenuItem Header="App">
-                    <MenuItem Header="New" />
+                    <MenuItem Command="{Binding NewGameCommand, Mode=OneTime}" />
                     <MenuItem Command="{Binding SaveGameCommand, Mode=OneTime}" />
                     <MenuItem Command="{Binding ExitCommand, Mode=OneTime}" />
                 </MenuItem>

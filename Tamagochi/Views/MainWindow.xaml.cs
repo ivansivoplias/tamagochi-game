@@ -26,6 +26,7 @@ namespace Tamagochi.UI.Views
         {
             _pet = viewModel.GetPet();
             viewModel.GameFinishedMessage += FinishGameMessageHandler;
+            viewModel.NewGameMessage += NewGameMessageHandler;
             _viewModel = viewModel;
             this.DataContext = _viewModel;
             _viewModel.RegisterCommandsForWindow(this);
@@ -53,10 +54,23 @@ namespace Tamagochi.UI.Views
 
         private void FinishGameMessageHandler(object sender, EventArgs e)
         {
-            var model = new FinishGameViewModel(_pet);
-            var finishGameWindow = new FinishGameWindow(model);
-            finishGameWindow.Show();
-            this.Close();
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var model = new FinishGameViewModel(_pet);
+                var finishGameWindow = new FinishGameWindow(model);
+                finishGameWindow.Show();
+                this.Close();
+            });
+        }
+
+        private void NewGameMessageHandler(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var startupWindow = new StartupWindow(new StartupWindowViewModel());
+                startupWindow.Show();
+                this.Close();
+            });
         }
 
         public void ToggleFullScreenMode(object sender, RoutedEventArgs e)
@@ -103,11 +117,13 @@ namespace Tamagochi.UI.Views
 
         private void OnClosing(object sender, CancelEventArgs e)
         {
+            Closing -= OnClosing;
             _viewModel?.UnregisterCommandsForWindow(this);
         }
 
         ~MainWindow()
         {
+            _viewModel.NewGameMessage -= NewGameMessageHandler;
             _viewModel.GameFinishedMessage -= FinishGameMessageHandler;
             fullScreenMode.Click -= ToggleFullScreenMode;
             windowMode.Click -= ToggleFullScreenMode;

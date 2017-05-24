@@ -15,6 +15,7 @@ namespace Tamagochi.UI.ViewModels
     {
         private AbstractGame _game;
         private TimeSpan _gameTime;
+        private Command _newGameCommand;
         private Command _startGameCommand;
         private Command _restartGameCommand;
         private Command _stopGameCommand;
@@ -35,6 +36,9 @@ namespace Tamagochi.UI.ViewModels
 
         public event EventHandler GameFinishedMessage = delegate { };
 
+        public event EventHandler NewGameMessage = delegate { };
+
+        public ICommand NewGameCommand => _newGameCommand;
         public ICommand StartGameCommand => _startGameCommand;
         public ICommand RestartGameCommand => _restartGameCommand;
         public ICommand StopGameCommand => _stopGameCommand;
@@ -109,6 +113,7 @@ namespace Tamagochi.UI.ViewModels
 
             var currentType = GetType();
 
+            _newGameCommand = Command.CreateCommand("New", "NewGame", currentType, () => NewGameMessage(null, EventArgs.Empty));
             _startGameCommand = Command.CreateAsyncCommand("Start", "StartGame", currentType, StartGameAsync, () => !_game.IsActive);
             _restartGameCommand = Command.CreateAsyncCommand("Restart", "RestartGame", currentType, RestartGameAsync);
             _stopGameCommand = Command.CreateAsyncCommand("Stop", "StopGame", currentType, StopGameAsync, () => !(_game.IsStopped || _game.IsFinished));
@@ -124,6 +129,7 @@ namespace Tamagochi.UI.ViewModels
 
         public override void RegisterCommandsForWindow(Window window)
         {
+            Command.RegisterCommandBinding(window, _newGameCommand);
             Command.RegisterCommandBinding(window, _startGameCommand);
             Command.RegisterCommandBinding(window, _restartGameCommand);
             Command.RegisterCommandBinding(window, _saveGameCommand);
@@ -139,6 +145,7 @@ namespace Tamagochi.UI.ViewModels
 
         public override void UnregisterCommandsForWindow(Window window)
         {
+            Command.UnregisterCommandBinding(window, _newGameCommand);
             Command.UnregisterCommandBinding(window, _startGameCommand);
             Command.UnregisterCommandBinding(window, _restartGameCommand);
             Command.UnregisterCommandBinding(window, _saveGameCommand);

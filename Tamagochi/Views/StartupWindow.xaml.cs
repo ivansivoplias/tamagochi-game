@@ -43,15 +43,19 @@ namespace Tamagochi.UI.Views
                 gameContext.PetType = petType;
                 var game = App.Container.Resolve<AbstractGameFactory>().MakeGame(gameContext);
 
-                var viewModel = new GameViewModel(game);
-                var mainWindow = new MainWindow(viewModel);
-                mainWindow.Show();
-                this.Close();
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var viewModel = new GameViewModel(game);
+                    var mainWindow = new MainWindow(viewModel);
+                    mainWindow.Show();
+                    this.Close();
+                });
             }
         }
 
         private void OnClosing(object sender, CancelEventArgs e)
         {
+            Closing -= OnClosing;
             _viewModel.Pets.Clear();
             PetsList.SelectionChanged -= PetsList_SelectionChanged;
             _viewModel.PetSelectedMessage -= SelectPetMessageHandler;

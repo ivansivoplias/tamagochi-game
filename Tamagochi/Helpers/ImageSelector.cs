@@ -15,7 +15,7 @@ namespace Tamagochi.UI.Helpers
         static ImageSelector()
         {
             _images = new Dictionary<PetType, List<BitmapImage>>();
-            var petTypes = ((PetType[])Enum.GetValues(typeof(PetType))).Where(x => x != PetType.None);
+            var petTypes = ((PetType[])Enum.GetValues(typeof(PetType))).Where(x => x != PetType.None).ToList();
             foreach (var petType in petTypes)
             {
                 var petTypeName = petType.ToString();
