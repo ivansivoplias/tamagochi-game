@@ -55,7 +55,7 @@ namespace Tamagochi.Core.Models
         public float Health
         {
             get { return _healthLevel; }
-            set { SetHealth(value); }
+            private set { SetHealth(value); }
         }
 
         public float CleanessRate
@@ -103,12 +103,9 @@ namespace Tamagochi.Core.Models
             }
         }
 
-        public void UpdateHealth(float healthDifference)
+        public void UpdateHealth()
         {
-            if (CheckIfDifferenceIsValid(healthDifference))
-            {
-                Health = NormalizeValue(Health + healthDifference);
-            }
+            Health = (Mood + Satiety + CleanessRate) / 3;
         }
 
         public void UpdateMood(float moodDifference)
@@ -135,6 +132,14 @@ namespace Tamagochi.Core.Models
             Mood = Satiety = Health = CleanessRate = 100;
             _evolutionLevel = PetEvolutionLevel.Birth;
             EvolutionLevelChanged?.Invoke(this, new PetEvolutionLevelChangedEventArgs(_evolutionLevel));
+        }
+
+        private void UpdateHealth(float healthDifference)
+        {
+            if (CheckIfDifferenceIsValid(healthDifference))
+            {
+                Health = NormalizeValue(Health + healthDifference);
+            }
         }
 
         private float NormalizeValue(float value)
@@ -195,6 +200,7 @@ namespace Tamagochi.Core.Models
             {
                 _satietyLevel = newSatiety;
                 SatietyChanged?.Invoke(this, new ValueChangedEventArgs(newSatiety));
+                UpdateHealth();
             }
         }
 
@@ -223,6 +229,7 @@ namespace Tamagochi.Core.Models
             {
                 _moodLevel = newMood;
                 MoodChanged?.Invoke(this, new ValueChangedEventArgs(newMood));
+                UpdateHealth();
             }
         }
 
@@ -232,6 +239,7 @@ namespace Tamagochi.Core.Models
             {
                 _cleanessLevel = newCleaness;
                 CleannessChanged?.Invoke(this, new ValueChangedEventArgs(newCleaness));
+                UpdateHealth();
             }
         }
 

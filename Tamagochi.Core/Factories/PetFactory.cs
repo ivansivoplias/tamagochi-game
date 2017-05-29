@@ -27,7 +27,6 @@ namespace Tamagochi.Core.Factories
             _pet.EvolutionLevel = context.EvolutionLevel;
 
             _pet.Age = context.Age;
-            _pet.Health = context.Health;
             _pet.Mood = context.Mood;
             _pet.PetType = context.PetType;
             _pet.Satiety = context.Satiety;

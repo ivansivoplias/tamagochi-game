@@ -10,7 +10,7 @@ namespace Tamagochi.Infrastructure.Abstract
         int LifeDuration { get; }
         float Mood { get; set; }
         float Satiety { get; set; }
-        float Health { get; set; }
+        float Health { get; }
         PetType PetType { get; set; }
         PetEvolutionLevel EvolutionLevel { get; set; }
         float CleanessRate { get; set; }
@@ -38,7 +38,7 @@ namespace Tamagochi.Infrastructure.Abstract
 
         void ChangeCleaness(float cleanessDifference);
 
-        void UpdateHealth(float healthDifference);
+        void UpdateHealth();
 
         void UpdatePetFromParams(PetUpdateParams parameter);
 

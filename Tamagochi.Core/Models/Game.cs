@@ -111,7 +111,6 @@ namespace Tamagochi.Core.Models
             if (IsActive)
             {
                 //kills pet
-                Pet.Health = 0;
                 Pet.Mood = 0;
                 Pet.Satiety = 0;
                 Pet.CleanessRate = 0;
@@ -122,7 +121,7 @@ namespace Tamagochi.Core.Models
         {
             if (IsActive)
             {
-                Pet.UpdateHealth(GameConstants.PetHealthIncreaseRate);
+                //Pet.UpdateHealth(GameConstants.PetHealthIncreaseRate);
                 Pet.ChangeSatiety(GameConstants.PetSatietyIncreaseRate);
             }
         }
